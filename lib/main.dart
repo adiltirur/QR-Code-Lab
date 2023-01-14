@@ -64,7 +64,6 @@ class WorkerBaseScannerApp extends StatelessWidget {
 }
 
 Future<void> _appEntry() async {
-  WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

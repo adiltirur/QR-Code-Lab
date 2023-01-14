@@ -75,4 +75,4 @@ flavorizr:
       android:
         applicationId: "com.workerbase.scannerDev"
       ios:
-        bundleId: "com.gradsprint.scannerDev"
+        bundleId: "com.workerbase.scannerDev"
