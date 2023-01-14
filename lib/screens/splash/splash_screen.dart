@@ -51,7 +51,6 @@ class SplashScreen extends StatelessWidget {
         builder: _blocBuilder,
         listener: _blocListener,
         useScreenLoader: false,
-        listenToAppInfo: false,
       ),
     );
   }
