@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 
 import '../../screens/splash/splash_screen.dart';
 import 'navigation_path.dart';

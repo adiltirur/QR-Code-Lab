@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../const/colors.dart';
 import '../../../models/notification.dart';
 import '../animations/animated_appearance.dart';
+import '../text_buttons.dart';
 import 'dialog.dart';
 
 class DialogDisplayer extends StatefulWidget {
@@ -108,7 +109,7 @@ Future<T?> showActionDialog<T>({
     enableDrag: false,
     isScrollControlled: true,
     isDismissible: isDismissible,
-    backgroundColor: GSColors.transparent,
+    backgroundColor: WBColors.transparent,
     builder: (context) => WBActionDialogContent<T>(
       title: title,
       actions: actions,
@@ -160,7 +161,7 @@ Future<void> showSingleActionBottomSheet({
       context: context,
       builder: (context) => Container(
             decoration: const BoxDecoration(
-              color: GSColors.white,
+              color: WBColors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
             ),
             child: SafeArea(
@@ -185,7 +186,7 @@ Future<void> showSingleActionBottomSheet({
                       ),
                     ],
                   ),
-                  GSTextButton(
+                  WBTextButton(
                     text: buttonText ?? tr('general.close'),
                     onPressed: () {
                       if (buttonAction != null) {

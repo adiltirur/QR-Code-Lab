@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../const/borders.dart';
+import '../../../const/colors.dart';
+import '../../../extensions/list.dart';
 import '../../../models/notification.dart';
+import '../separated_unscrollable_list.dart';
 
 class WBAlertDialogContent extends StatelessWidget {
   static const _textStyle = TextStyle(fontSize: 16);
@@ -113,7 +116,7 @@ class WBActionDialogContent<T> extends StatelessWidget {
   Widget _buildActions() {
     return SeparatedUnScrollableList(
       children: actions.mapToList(
-        (e) => GSListButton(
+        (e) => WBListButton(
           title: e.text,
           onTap: () => onTapAction(e.value),
           leadingIcon: e.iconData,
@@ -127,7 +130,7 @@ class WBActionDialogContent<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: GSColors.white,
+        color: WBColors.white,
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(16),
         ),

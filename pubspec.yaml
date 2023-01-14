@@ -41,6 +41,18 @@ flutter:
     - assets/app_icons/
     - assets/l10n/
     - assets/animations/
+  fonts:
+    - family: Titillium Web
+      fonts:
+        - asset: assets/fonts/titillium_web/TitilliumWeb-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/titillium_web/TitilliumWeb-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/titillium_web/TitilliumWeb-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/titillium_web/TitilliumWeb-Black.ttf
+          weight: 900
+
 
 flavorizr:
   flavors:
