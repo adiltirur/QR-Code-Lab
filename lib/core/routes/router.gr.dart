@@ -26,7 +26,17 @@ class _$AppRouter extends RootStackRouter {
     HomeScreenRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
         routeData: routeData,
-        child: HomeScreen(),
+        child: const HomeScreen(),
+      );
+    },
+    ScanDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<ScanDetailsRouteArgs>();
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: ScanDetails(
+          key: args.key,
+          scannedInfo: args.scannedInfo,
+        ),
       );
     },
   };
@@ -40,6 +50,10 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           HomeScreenRoute.name,
           path: 'home',
+        ),
+        RouteConfig(
+          ScanDetailsRoute.name,
+          path: 'scanDetails',
         ),
       ];
 }
@@ -66,4 +80,38 @@ class HomeScreenRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeScreenRoute';
+}
+
+/// generated route for
+/// [ScanDetails]
+class ScanDetailsRoute extends PageRouteInfo<ScanDetailsRouteArgs> {
+  ScanDetailsRoute({
+    Key? key,
+    required ScannedInfo scannedInfo,
+  }) : super(
+          ScanDetailsRoute.name,
+          path: 'scanDetails',
+          args: ScanDetailsRouteArgs(
+            key: key,
+            scannedInfo: scannedInfo,
+          ),
+        );
+
+  static const String name = 'ScanDetailsRoute';
+}
+
+class ScanDetailsRouteArgs {
+  const ScanDetailsRouteArgs({
+    this.key,
+    required this.scannedInfo,
+  });
+
+  final Key? key;
+
+  final ScannedInfo scannedInfo;
+
+  @override
+  String toString() {
+    return 'ScanDetailsRouteArgs{key: $key, scannedInfo: $scannedInfo}';
+  }
 }

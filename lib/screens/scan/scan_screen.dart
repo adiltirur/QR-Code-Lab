@@ -6,25 +6,34 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../core/const/colors.dart';
 import '../../core/const/flavors.dart';
 import '../../core/extensions/build_context.dart';
-import '../../core/extensions/list.dart';
 import '../../core/hooks/camera_controller_hook.dart';
+import '../../core/models/scanned_info.dart';
 import '../../core/routes/router.dart';
 import '../../core/services/bloc.dart';
 import '../../core/ui/components/bar_code_overlay.dart';
 import '../../core/ui/components/bloc_master.dart';
-import 'error.dart';
 import 'scan_bloc.dart';
 import 'scan_state.dart';
 
 typedef _BlocOutput = WBBlocOutput<ScanState, ScanEvent>;
 
 enum CameraControls {
-  flash(icon: Icons.flash_on),
-  camera(icon: Icons.switch_camera);
+  flash(
+    enableIcon: Icons.flash_on,
+    disableIcon: Icons.flash_off,
+  ),
+  camera(enableIcon: Icons.camera),
+  switchCamera(
+    enableIcon: Icons.cameraswitch,
+  );
 
-  final IconData icon;
+  final IconData enableIcon;
+  final IconData? disableIcon;
 
-  const CameraControls({required this.icon});
+  const CameraControls({
+    required this.enableIcon,
+    this.disableIcon,
+  });
 }
 
 class ScanScreen extends HookWidget {
@@ -45,17 +54,20 @@ class ScanScreen extends HookWidget {
             case CameraControls.camera:
               scannerController.switchCamera();
               break;
+            case CameraControls.switchCamera:
+              scannerController.start();
+              break;
           }
         },
         icon: Icon(
-          cameraControlItem.icon,
+          cameraControlItem.enableIcon,
           color: WBColors.white,
         ),
       ),
     );
   }
 
-  void _buildDebugPrint(String error) {
+  void _buildDebugPrint(String? error) {
     if (F.appFlavor == Flavor.dev) debugPrint(error);
   }
 
@@ -72,32 +84,28 @@ class ScanScreen extends HookWidget {
     _BlocOutput output,
     MobileScannerController mobileScannerController,
   ) {
+    final barcode = output.state.barcode;
+    final arguments = output.state.arguments;
+    final capture = output.state.capture;
+    final scanWindow = _scanWindow(context);
     return Builder(
       builder: (context) {
-        final barcode = output.state.barcode;
-        final arguments = output.state.arguments;
-        final capture = output.state.capture;
         return Stack(
           fit: StackFit.expand,
           children: [
             MobileScanner(
-              scanWindow: _scanWindow(context),
+              scanWindow: scanWindow,
               controller: mobileScannerController,
               onScannerStarted: (arguments) {
                 if (arguments != null)
                   context.bloc<ScanBloc>().onScanStart(arguments);
               },
-              onDetect: (barcode) {
-                final extractedBarcode = barcode.barcodes.tryFirst;
-                if (extractedBarcode != null) {
-                  context.bloc<ScanBloc>().onBarCodeDetect(barcode);
-                }
-              },
+              onDetect: (barcode) =>
+                  context.bloc<ScanBloc>().onBarCodeDetect(barcode),
               errorBuilder: (_, error, __) {
-                final errorDetails = error.errorDetails;
-                if (errorDetails != null)
-                  _buildDebugPrint(errorDetails.message);
-                return ScannerErrorWidget(error: error);
+                context.bloc<ScanBloc>().onErrorDetected(error);
+
+                return const SizedBox.shrink();
               },
             ),
             if (barcode != null && barcode.corners != null && arguments != null)
@@ -109,9 +117,9 @@ class ScanScreen extends HookWidget {
                   capture: capture!,
                 ),
               ),
-/*             CustomPaint(
+            CustomPaint(
               painter: ScannerOverlay(scanWindow),
-            ), */
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
@@ -129,6 +137,11 @@ class ScanScreen extends HookWidget {
                       CameraControls.camera,
                       mobileScannerController,
                     ),
+                    _buildCameraControl(
+                      context,
+                      CameraControls.switchCamera,
+                      mobileScannerController,
+                    ),
                   ],
                 ),
               ),
@@ -140,12 +153,12 @@ class ScanScreen extends HookWidget {
   }
 
   Future<void> _handleDetected(
-    BuildContext context,
-    MobileScannerController scannerController,
-  ) async {
+      BuildContext context,
+      MobileScannerController scannerController,
+      ScannedInfo scannedInfo) async {
     scannerController.stop();
     final shouldResumeCamera =
-        await context.router.push(const ScanDetailsRoute());
+        await context.router.push(ScanDetailsRoute(scannedInfo: scannedInfo));
     if (shouldResumeCamera is bool) if (shouldResumeCamera)
       scannerController.start();
   }
@@ -157,10 +170,11 @@ class ScanScreen extends HookWidget {
   ) {
     for (final event in output.events) {
       event.when<void>(
-        detected: () => _handleDetected(
-          context,
-          scannerController,
-        ),
+        detected: (scannedInfo) =>
+            _handleDetected(context, scannerController, scannedInfo),
+        toggleCamera: () {
+          scannerController.switchCamera();
+        },
       );
     }
   }

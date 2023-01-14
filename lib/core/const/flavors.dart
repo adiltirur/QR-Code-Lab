@@ -8,6 +8,8 @@ class F {
 
   static String get name => appFlavor?.name ?? '';
 
+  static bool get canDebugPrint => appFlavor == Flavor.dev;
+
   static String get title {
     switch (appFlavor) {
       case Flavor.prod:

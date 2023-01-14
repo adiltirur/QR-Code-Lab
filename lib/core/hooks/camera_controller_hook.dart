@@ -37,6 +37,7 @@ class _MobileScannerControllerHookState
       facing: hook.cameraFacing,
       torchEnabled: hook.torchEnabled,
       detectionSpeed: DetectionSpeed.noDuplicates,
+      returnImage: true,
     );
   }
 
