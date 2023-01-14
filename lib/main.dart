@@ -1,115 +1,184 @@
+import 'dart:async';
+
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'core/const/borders.dart';
+import 'core/const/colors.dart';
+import 'core/const/fonts.dart';
+import 'core/extensions/list.dart';
+import 'core/extensions/material_state.dart';
+import 'core/globals/platform.dart';
+import 'core/models/language.dart';
+import 'core/routes/router.dart';
+import 'core/services/cryptor.dart';
+import 'core/services/error_logger.dart';
+import 'core/services/system_info.dart';
+import 'core/ui/components/dialogs/dialog_displayer.dart';
+import 'flavors.dart';
+
+const _textStyle = TextStyle(
+  fontFamily: WBFonts.titilliumWeb,
+  color: WBColors.black,
+  height: 1.521,
+  letterSpacing: 0.12,
+);
+
+Future<SystemInfo> _createSystemInfo() async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  final String deviceModel;
+  final String deviceOSName;
+  final String deviceOSVersion;
+  final String deviceId;
+  final bool isRealDevice;
+  final deviceInfo = DeviceInfoPlugin();
+  switch (platform) {
+    case GSPlatform.android:
+      final androidInfo = await deviceInfo.androidInfo;
+      deviceModel = androidInfo.model;
+      deviceOSName = 'android';
+      deviceOSVersion = androidInfo.version.release;
+      deviceId = androidInfo.id;
+      isRealDevice = androidInfo.isPhysicalDevice;
+      break;
+    case GSPlatform.ios:
+      final iosInfo = await deviceInfo.iosInfo;
+      deviceModel = iosInfo.utsname.machine ?? '';
+      deviceOSName = iosInfo.systemName ?? '';
+      deviceOSVersion = iosInfo.systemVersion ?? '';
+      deviceId = iosInfo.identifierForVendor ?? '';
+      isRealDevice = iosInfo.isPhysicalDevice;
+      break;
+  }
+  return SystemInfo(
+    packageInfo.version,
+    packageInfo.buildNumber,
+    deviceModel,
+    deviceOSName,
+    deviceOSVersion,
+    deviceId,
+    isRealDevice,
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class HabitsApp extends StatelessWidget {
+  static final _appRouter = AppRouter();
 
-  // This widget is the root of your application.
+  const HabitsApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return MaterialApp.router(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      showSemanticsDebugger: false,
+      debugShowMaterialGrid: false,
+      debugShowCheckedModeBanner: false,
+      title: 'Habits',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+        backgroundColor: GSColors.white,
+        scaffoldBackgroundColor: GSColors.white,
+        fontFamily: GSFonts.inter,
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          labelStyle: _textStyle.copyWith(
+            backgroundColor: GSColors.white,
+          ),
+          fillColor: GSColors.white,
+          enabledBorder: GSInputBorders.main,
+          disabledBorder: GSInputBorders.main,
+          focusedBorder: GSInputBorders.focused,
+          focusedErrorBorder: GSInputBorders.error,
+          errorBorder: GSInputBorders.error,
+          prefixIconColor: GSColors.black,
+          suffixIconColor: GSColors.black,
+          hintStyle: _textStyle.copyWith(
+            fontSize: 16,
+            color: GSColors.grey,
+          ),
+          floatingLabelStyle: GSMaterialStateTextStyle.resolveFocused(
+            (focused) => TextStyle(
+              color: focused ? GSColors.primary : GSColors.black,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+          ),
+          errorStyle: _textStyle.copyWith(color: GSColors.red),
+        ),
+        tabBarTheme: TabBarTheme(
+          labelStyle: _textStyle.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+          unselectedLabelStyle: _textStyle.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+          labelColor: GSColors.black,
+          unselectedLabelColor: GSColors.grey,
+          splashFactory: NoSplash.splashFactory,
+          overlayColor: MaterialStateProperty.all(GSColors.transparent),
+        ),
+        textTheme: TextTheme(
+          bodyText1: _textStyle,
+          bodyText2: _textStyle,
+          button: _textStyle,
+          subtitle1: _textStyle.copyWith(fontSize: 16),
+        ),
+        radioTheme: RadioThemeData(
+          fillColor:
+              MaterialStateColor.resolveWith((states) => GSColors.primary),
+        ),
+        dialogTheme: const DialogTheme(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      routerDelegate: _appRouter.delegate(),
+      routeInformationParser: _appRouter.defaultRouteParser(),
+      builder: (context, child) => Material(
+        child: DialogDisplayer(child: child!),
+      ),
     );
   }
+}
+
+Future<void> _appEntry() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  SystemInfo.shared = await _createSystemInfo();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await Cryptor.shared.init();
+  await Firebase.initializeApp(
+    name: 'habits',
+    options: F.firebaseOption,
+  );
+  runApp(
+    EasyLocalization(
+      supportedLocales: Language.values.mapToList(
+        (e) => e.locale,
+      ),
+      fallbackLocale: Language.english.locale,
+      path: 'assets/l10n',
+      child: const HabitsApp(),
+    ),
+  );
+}
+
+void appEntry() {
+  runZonedGuarded(
+    () {
+      WidgetsFlutterBinding.ensureInitialized();
+      FlutterError.onError = (error) =>
+          ErrorLogger.shared.log(error, error.stack ?? StackTrace.current);
+      _appEntry();
+    },
+    ErrorLogger.shared.log,
+  );
 }
