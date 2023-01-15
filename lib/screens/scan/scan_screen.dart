@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../core/const/colors.dart';
-import '../../core/const/flavors.dart';
 import '../../core/extensions/build_context.dart';
 import '../../core/hooks/camera_controller_hook.dart';
 import '../../core/models/scanned_info.dart';
@@ -17,65 +16,171 @@ import 'scan_state.dart';
 
 typedef _BlocOutput = WBBlocOutput<ScanState, ScanEvent>;
 
-enum CameraControls {
-  flash(
-    enableIcon: Icons.flash_on,
-    disableIcon: Icons.flash_off,
-  ),
-  camera(enableIcon: Icons.camera),
-  switchCamera(
-    enableIcon: Icons.cameraswitch,
-  );
+enum _CameraControls {
+  torch(icon: Icons.flash_on),
+  switchCamera(icon: Icons.cameraswitch);
 
-  final IconData enableIcon;
-  final IconData? disableIcon;
+  final IconData icon;
 
-  const CameraControls({
-    required this.enableIcon,
-    this.disableIcon,
+  const _CameraControls({
+    required this.icon,
   });
 }
 
+extension on _CameraControls {
+  Future<void> onTap(MobileScannerController controller) {
+    switch (this) {
+      case _CameraControls.torch:
+        return controller.toggleTorch();
+      case _CameraControls.switchCamera:
+        return controller.switchCamera();
+    }
+  }
+}
+
+extension on TorchState {
+  IconData get displayIcon {
+    switch (this) {
+      case TorchState.off:
+        return _CameraControls.torch.icon;
+      case TorchState.on:
+        return Icons.flash_off;
+    }
+  }
+}
+
+Widget _buildCameraIcon(
+  _CameraControls cameraControlItem,
+) {
+  return Icon(
+    cameraControlItem.icon,
+    color: WBColors.white,
+  );
+}
+
+Widget _buildTorchIcon(
+  MobileScannerController scannerController,
+) {
+  return ValueListenableBuilder(
+    valueListenable: scannerController.torchState,
+    builder: (_, state, __) => Icon(
+      state.displayIcon,
+      color: WBColors.white,
+    ),
+  );
+}
+
+extension on _CameraControls {
+  Widget displayIcon(
+    MobileScannerController controller,
+  ) {
+    switch (this) {
+      case _CameraControls.torch:
+        return _buildTorchIcon(controller);
+      case _CameraControls.switchCamera:
+        return _buildCameraIcon(this);
+    }
+  }
+}
+
 class ScanScreen extends HookWidget {
+  final double scanWindowWidth = 240.0;
+  final double scanWindowHeight = 240.0;
   Widget _buildCameraControl(
     BuildContext context,
-    CameraControls cameraControlItem,
+    _CameraControls cameraControlItem,
     MobileScannerController scannerController,
   ) {
     return Container(
-      decoration:
-          const BoxDecoration(color: WBColors.black, shape: BoxShape.circle),
+      decoration: const BoxDecoration(
+        color: WBColors.black,
+        shape: BoxShape.circle,
+      ),
       child: IconButton(
-        onPressed: () {
-          switch (cameraControlItem) {
-            case CameraControls.flash:
-              scannerController.toggleTorch();
-              break;
-            case CameraControls.camera:
-              scannerController.switchCamera();
-              break;
-            case CameraControls.switchCamera:
-              scannerController.start();
-              break;
-          }
-        },
-        icon: Icon(
-          cameraControlItem.enableIcon,
-          color: WBColors.white,
+        onPressed: () => cameraControlItem.onTap(scannerController),
+        icon: cameraControlItem.displayIcon(scannerController),
+      ),
+    );
+  }
+
+  Widget _buildControls(
+    BuildContext context,
+    MobileScannerController mobileScannerController,
+  ) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildCameraControl(
+              context,
+              _CameraControls.torch,
+              mobileScannerController,
+            ),
+            _buildCameraControl(
+              context,
+              _CameraControls.switchCamera,
+              mobileScannerController,
+            ),
+          ],
         ),
       ),
     );
   }
 
-  void _buildDebugPrint(String? error) {
-    if (F.appFlavor == Flavor.dev) debugPrint(error);
+  Widget _buildOverlay(Rect scanWindow) {
+    return CustomPaint(
+      painter: ScannerOverlay(scanWindow),
+    );
+  }
+
+  Widget _buildDetectedArea(
+    Barcode barcode,
+    MobileScannerArguments arguments,
+    BarcodeCapture capture,
+  ) {
+    return CustomPaint(
+      painter: BarcodeOverlay(
+        barcode: barcode,
+        arguments: arguments,
+        boxFit: BoxFit.contain,
+        capture: capture,
+      ),
+    );
+  }
+
+  Widget _buildQRCodeScanner(
+    BuildContext context,
+    MobileScannerController mobileScannerController,
+    Rect scanWindow,
+  ) {
+    final bloc = context.bloc<ScanBloc>();
+    return MobileScanner(
+      scanWindow: scanWindow,
+      controller: mobileScannerController,
+      onScannerStarted: (arguments) {
+        if (arguments != null) bloc.onScanStart(arguments);
+      },
+      onDetect: (barcode) {
+        bloc.onBarCodeDetect(barcode);
+      },
+      errorBuilder: (_, error, __) {
+        bloc.onErrorDetected(error);
+
+        return const SizedBox.shrink();
+      },
+    );
   }
 
   Rect _scanWindow(BuildContext context) {
     return Rect.fromCenter(
-      center: MediaQuery.of(context).size.center(Offset.zero),
-      width: 200,
-      height: 200,
+      center: MediaQuery.of(context).size.center(
+            const Offset(0, -50),
+          ),
+      width: scanWindowWidth,
+      height: scanWindowHeight,
     );
   }
 
@@ -83,69 +188,28 @@ class ScanScreen extends HookWidget {
     BuildContext context,
     _BlocOutput output,
     MobileScannerController mobileScannerController,
+    AnimationController animationController,
   ) {
-    final barcode = output.state.barcode;
-    final arguments = output.state.arguments;
-    final capture = output.state.capture;
+    final state = output.state;
+    final barcode = state.barcode;
+    final arguments = state.arguments;
+    final capture = state.capture;
     final scanWindow = _scanWindow(context);
+    final shouldBuildDetectedArea = barcode != null &&
+        barcode.corners != null &&
+        arguments != null &&
+        capture != null;
+
     return Builder(
       builder: (context) {
         return Stack(
           fit: StackFit.expand,
           children: [
-            MobileScanner(
-              scanWindow: scanWindow,
-              controller: mobileScannerController,
-              onScannerStarted: (arguments) {
-                if (arguments != null)
-                  context.bloc<ScanBloc>().onScanStart(arguments);
-              },
-              onDetect: (barcode) =>
-                  context.bloc<ScanBloc>().onBarCodeDetect(barcode),
-              errorBuilder: (_, error, __) {
-                context.bloc<ScanBloc>().onErrorDetected(error);
-
-                return const SizedBox.shrink();
-              },
-            ),
-            if (barcode != null && barcode.corners != null && arguments != null)
-              CustomPaint(
-                painter: BarcodeOverlay(
-                  barcode: barcode,
-                  arguments: arguments,
-                  boxFit: BoxFit.contain,
-                  capture: capture!,
-                ),
-              ),
-            CustomPaint(
-              painter: ScannerOverlay(scanWindow),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _buildCameraControl(
-                      context,
-                      CameraControls.flash,
-                      mobileScannerController,
-                    ),
-                    _buildCameraControl(
-                      context,
-                      CameraControls.camera,
-                      mobileScannerController,
-                    ),
-                    _buildCameraControl(
-                      context,
-                      CameraControls.switchCamera,
-                      mobileScannerController,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            _buildQRCodeScanner(context, mobileScannerController, scanWindow),
+            if (shouldBuildDetectedArea)
+              _buildDetectedArea(barcode, arguments, capture),
+            _buildOverlay(scanWindow),
+            _buildControls(context, mobileScannerController),
           ],
         );
       },
@@ -153,13 +217,20 @@ class ScanScreen extends HookWidget {
   }
 
   Future<void> _handleDetected(
-      BuildContext context,
-      MobileScannerController scannerController,
-      ScannedInfo scannedInfo) async {
+    BuildContext context,
+    MobileScannerController scannerController,
+    ScannedInfo scannedInfo,
+  ) async {
     scannerController.stop();
+    final bloc = context.bloc<ScanBloc>();
     final shouldResumeCamera = await context.router.push(
-        ScanDetailsRoute(scannedInfo: scannedInfo, onDelete: (String) {}));
-    if (shouldResumeCamera is bool) if (shouldResumeCamera)
+      ScanDetailsRoute(
+        scannedInfo: scannedInfo,
+        onDelete: bloc.onDeleteItem,
+      ),
+    );
+    bloc.clearBarCodeData();
+    if (shouldResumeCamera is bool && shouldResumeCamera)
       scannerController.start();
   }
 
@@ -170,11 +241,12 @@ class ScanScreen extends HookWidget {
   ) {
     for (final event in output.events) {
       event.when<void>(
-        detected: (scannedInfo) =>
-            _handleDetected(context, scannerController, scannedInfo),
-        toggleCamera: () {
-          scannerController.switchCamera();
-        },
+        detected: (scannedInfo) => _handleDetected(
+          context,
+          scannerController,
+          scannedInfo,
+        ),
+        toggleCamera: () => scannerController.switchCamera(),
       );
     }
   }
@@ -185,13 +257,21 @@ class ScanScreen extends HookWidget {
       torchEnabled: false,
       cameraFacing: CameraFacing.back,
     );
+    final animationController = useAnimationController();
     return Scaffold(
       body: BlocMaster<ScanBloc, _BlocOutput>(
         create: (_) => ScanBloc(),
-        builder: (context, output) =>
-            _blocBuilder(context, output, mobileScannerController),
-        listener: (context, output) =>
-            _blocListener(context, output, mobileScannerController),
+        builder: (context, output) => _blocBuilder(
+          context,
+          output,
+          mobileScannerController,
+          animationController,
+        ),
+        listener: (context, output) => _blocListener(
+          context,
+          output,
+          mobileScannerController,
+        ),
         useScreenLoader: true,
       ),
     );

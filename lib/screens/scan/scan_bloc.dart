@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:image/image.dart' as img;
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../core/error/scanner_error.dart';
@@ -11,20 +10,18 @@ import 'scan_state.dart';
 
 class ScanBloc extends WBBloc<ScanState, ScanEvent> {
   final _scannerRepository = ScannerRepository();
-  static const _maxFileSizeInBytes = 1 * 1024 * 1024;
-  Future<List<int>?> _compress(List args) async {
-    final srcImageData = args[0] as List<int>;
-    final quality = args[1] as int;
-    final src = img.decodeImage(srcImageData);
-    if (src == null) return null;
-    final destImageData = img.encodeJpg(src, quality: quality);
-    return destImageData;
+
+  void clearBarCodeData() {
+    emitS(
+      state: currentState.copyWith(
+        barcode: null,
+        capture: null,
+        arguments: null,
+      ),
+    );
   }
 
-  void onBarCodeDetect(
-    BarcodeCapture barcode,
-  ) {
-    var quality = 100;
+  void onBarCodeDetect(BarcodeCapture barcode) {
     emitS(isLoading: true);
     final extractedBarCode = barcode.barcodes.tryFirst;
     if (extractedBarCode != null) {
@@ -50,6 +47,15 @@ class ScanBloc extends WBBloc<ScanState, ScanEvent> {
     }
   }
 
+  Future<void> onDeleteItem(String uuid) async {
+    emitS(isLoading: true);
+    final box = await Hive.openBox<HiveScannedItem>('scanHistory');
+    box.delete(uuid);
+    emitS(
+      isLoading: false,
+    );
+  }
+
   void onScanStart(MobileScannerArguments arguments) {
     emitS(
       state: currentState.copyWith(
@@ -58,12 +64,11 @@ class ScanBloc extends WBBloc<ScanState, ScanEvent> {
     );
   }
 
-  Future<void> onDeleteItem(String uuid) async {
-    emitS(isLoading: true);
-    final box = await Hive.openBox<HiveScannedItem>('scanHistory');
-    box.delete(uuid);
+  void _tryToggleCamera() {
     emitS(
-      isLoading: false,
+      events: [
+        const ScanEvent.toggleCamera(),
+      ],
     );
   }
 
@@ -85,14 +90,6 @@ class ScanBloc extends WBBloc<ScanState, ScanEvent> {
         );
       }
     }
-  }
-
-  void _tryToggleCamera() {
-    emitS(
-      events: [
-        const ScanEvent.toggleCamera(),
-      ],
-    );
   }
 
   ScanBloc()

@@ -25,77 +25,74 @@ class ScanDetails extends StatelessWidget {
     required this.onDelete,
   });
 
+  Future<bool> _goBack(BuildContext context) async {
+    context.router.pop(true);
+    return false;
+  }
+
   Widget _blocBuilder(
     BuildContext context,
     _BlocOutput output,
   ) {
     var qrCode = scannedInfo.qrCode;
     var bool = scannedInfo.barCode.rawValue == scannedInfo.barCode.displayValue;
-    return WillPopScope(
-      onWillPop: () async {
-        if (!Navigator.of(context).userGestureInProgress) {
-          context.router.pop(true);
-        }
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: WBColors.white,
-          leading: BackButton(
-            color: WBColors.black,
-            onPressed: () => context.router.pop(true),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () => context.bloc<ScanDetailsBloc>().onDelete(),
-              icon: const Icon(
-                Icons.delete,
-                color: WBColors.black,
-              ),
-            )
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: WBColors.white,
+        leading: BackButton(
+          color: WBColors.black,
+          onPressed: () => _goBack(context),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (qrCode != null) ...[
-                const SizedBox(
-                  height: 32,
-                ),
-                RotatedBox(
-                  quarterTurns: 1,
-                  child: Image.memory(
-                    qrCode,
-                    width: 150,
-                    height: 150,
-                  ),
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-              ],
-              if (bool) ...[
-                Text(scannedInfo.barCode.rawValue ?? ''),
-                WBTextButton(
-                    text: 'Open QR Code',
-                    onPressed: () =>
-                        tryLaunchUrlString(scannedInfo.barCode.rawValue)),
-              ] else ...[
-                WBTextButton(
-                    text: 'Open QR Code',
-                    onPressed: () =>
-                        tryLaunchUrlString(scannedInfo.barCode.rawValue)),
-                Text(scannedInfo.barCode.rawValue ?? ''),
-                Text(scannedInfo.barCode.displayValue ?? ''),
-              ],
+        actions: [
+          IconButton(
+            onPressed: () => context.bloc<ScanDetailsBloc>().onDelete(),
+            icon: const Icon(
+              Icons.delete,
+              color: WBColors.black,
+            ),
+          )
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (qrCode != null) ...[
               const SizedBox(
                 height: 32,
               ),
-              const Text('Add more details here:'),
+              RotatedBox(
+                quarterTurns: 1,
+                child: Image.memory(
+                  qrCode,
+                  width: 150,
+                  height: 150,
+                ),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
             ],
-          ),
+            if (bool) ...[
+              Text(scannedInfo.barCode.rawValue ?? ''),
+              WBTextButton(
+                  text: 'Open QR Code',
+                  onPressed: () =>
+                      tryLaunchUrlString(scannedInfo.barCode.rawValue)),
+            ] else ...[
+              WBTextButton(
+                  text: 'Open QR Code',
+                  onPressed: () =>
+                      tryLaunchUrlString(scannedInfo.barCode.rawValue)),
+              Text(scannedInfo.barCode.rawValue ?? ''),
+              Text(scannedInfo.barCode.displayValue ?? ''),
+            ],
+            const SizedBox(
+              height: 32,
+            ),
+            const Text('Add more details here:'),
+          ],
         ),
       ),
     );
