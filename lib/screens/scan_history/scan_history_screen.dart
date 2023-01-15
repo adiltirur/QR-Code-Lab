@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../core/const/colors.dart';
-import '../../core/const/flavors.dart';
 import '../../core/extensions/build_context.dart';
 import '../../core/routes/router.dart';
 import '../../core/services/bloc.dart';
@@ -42,48 +42,72 @@ class ScanHistoryScreen extends StatelessWidget {
     var scannedItems = output.state.scannedItems;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: WBColors.white,
+        backgroundColor: WBColors.primary,
         centerTitle: false,
         title: const Text(
           'Scan History',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: WBColors.black,
+            color: WBColors.white,
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () =>
-                context.bloc<ScanHistoryBloc>().onToggleReverseList(),
-            icon: const Icon(
-              Icons.sort,
-              color: WBColors.black,
-            ),
-          )
+          if (scannedItems.isNotEmpty && scannedItems.length > 1)
+            IconButton(
+              onPressed: () =>
+                  context.bloc<ScanHistoryBloc>().onToggleReverseList(),
+              icon: const Icon(
+                Icons.sort,
+                color: WBColors.black,
+              ),
+            )
         ],
       ),
-      body: ListView.builder(
-        itemCount: scannedItems.length,
-        reverse: output.state.reverseList,
-        padding: EdgeInsets.zero,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          var scannedItem = scannedItems[index];
-          final createdDate = scannedItem.createdAt;
-          final displayValue = scannedItem.displayValue;
-          final image = scannedItem.qrCode;
-
-          var uuid = scannedItem.uuid;
-          return ListTile(
-            leading: circularImage(image),
-            title: Text(displayValue ?? ''),
-            subtitle: Text(createdDate.toIso8601String()),
-            onTap: () =>
-                context.bloc<ScanHistoryBloc>().onTapScannedItem(scannedItem),
-          );
-        },
-      ),
+      body: scannedItems.isEmpty
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      'assets/animations/splash.json',
+                      width: 84,
+                      height: 84,
+                    ),
+                    const Text(
+                      'You Have No Scanned Item, Please Scan to See Data here',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : ListView.builder(
+              itemCount: scannedItems.length,
+              reverse: output.state.reverseList,
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                var scannedItem = scannedItems[index];
+                final createdDate = scannedItem.createdAt;
+                final displayValue = scannedItem.displayValue;
+                final image = scannedItem.qrCode;
+                return ListTile(
+                  leading: circularImage(image),
+                  title: Text(displayValue ?? ''),
+                  subtitle: Text(createdDate.toIso8601String()),
+                  onTap: () => context
+                      .bloc<ScanHistoryBloc>()
+                      .onTapScannedItem(scannedItem),
+                );
+              },
+            ),
     );
   }
 
