@@ -11,5 +11,8 @@ class ScannedInfo with _$ScannedInfo {
     @JsonKey(name: 'qr_code') required Uint8List? qrCode,
     @JsonKey(name: 'bar_code') required Barcode barCode,
     @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'modified_at') required DateTime modifiedAt,
+    @JsonKey(name: 'custom_name') required String? customName,
+    required String? note,
   }) = _ScannedInfo;
 }

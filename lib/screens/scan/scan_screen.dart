@@ -157,8 +157,8 @@ class ScanScreen extends HookWidget {
       MobileScannerController scannerController,
       ScannedInfo scannedInfo) async {
     scannerController.stop();
-    final shouldResumeCamera =
-        await context.router.push(ScanDetailsRoute(scannedInfo: scannedInfo));
+    final shouldResumeCamera = await context.router.push(
+        ScanDetailsRoute(scannedInfo: scannedInfo, onDelete: (String) {}));
     if (shouldResumeCamera is bool) if (shouldResumeCamera)
       scannerController.start();
   }

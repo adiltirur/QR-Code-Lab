@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
 import 'package:image/image.dart' as img;
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/models/scanned_info.dart';
 import '../../core/services/error_logger.dart';
+import 'models/hive_scanned_item.dart';
 
 class ScannerRepository {
   static const _maxFileSizeInBytes = 1 * 1024 * 1024;
@@ -42,12 +44,53 @@ class ScannerRepository {
     final uuid = const Uuid().v1();
     final compressedImage = await _compressImage(qrCode);
 
+    var dateTime = DateTime.now();
     final scannedInfo = ScannedInfo(
-      uuid: uuid,
-      qrCode: compressedImage,
-      barCode: barCode,
-      createdAt: DateTime.now(),
-    );
+        uuid: uuid,
+        qrCode: compressedImage,
+        barCode: barCode,
+        createdAt: dateTime,
+        modifiedAt: dateTime,
+        customName: '',
+        note: '');
+    _saveScannedInfo(scannedInfo);
     return scannedInfo;
+  }
+
+  ScannedInfo getScannedInfoFromHive(
+    HiveScannedItem hiveScannedItem,
+  ) {
+    final scannedInfo = ScannedInfo(
+        uuid: hiveScannedItem.uuid,
+        qrCode: hiveScannedItem.qrCode,
+        barCode: Barcode(
+          rawValue: hiveScannedItem.rawValue,
+          displayValue: hiveScannedItem.displayValue,
+        ),
+        createdAt: hiveScannedItem.createdAt,
+        modifiedAt: hiveScannedItem.modifiedAt,
+        customName: hiveScannedItem.customName,
+        note: hiveScannedItem.note);
+    return scannedInfo;
+  }
+
+  Future<void> _saveScannedInfo(ScannedInfo scannedInfo) async {
+    final box = await Hive.openBox<HiveScannedItem>('scanHistory');
+    var barCode = scannedInfo.barCode;
+    final scannedItem = HiveScannedItem()
+      ..uuid = scannedInfo.uuid
+      ..qrCode = scannedInfo.qrCode
+      ..rawValue = barCode.rawValue
+      ..displayValue = barCode.displayValue
+/*       ..barCodeType = barCode.type
+      ..barCodeFormat = barCode.format */
+      ..createdAt = scannedInfo.createdAt
+      ..modifiedAt = scannedInfo.createdAt
+      ..customName = ''
+      ..note = '';
+    await box.put(
+      scannedInfo.uuid,
+      scannedItem,
+    );
   }
 }

@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/const/colors.dart';
 import 'core/const/fonts.dart';
@@ -15,6 +16,7 @@ import 'core/routes/router.dart';
 import 'core/services/error_logger.dart';
 
 import 'core/ui/components/dialogs/dialog_displayer.dart';
+import 'repository/scanner/models/hive_scanned_item.dart';
 
 const _textStyle = TextStyle(
   fontFamily: WBFonts.titilliumWeb,
@@ -65,6 +67,8 @@ class WorkerBaseScannerApp extends StatelessWidget {
 
 Future<void> _appEntry() async {
   await EasyLocalization.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(HiveScannedItemAdapter());
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(

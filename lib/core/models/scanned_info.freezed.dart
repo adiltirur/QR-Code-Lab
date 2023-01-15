@@ -23,6 +23,11 @@ mixin _$ScannedInfo {
   Barcode get barCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'modified_at')
+  DateTime get modifiedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'custom_name')
+  String? get customName => throw _privateConstructorUsedError;
+  String? get note => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScannedInfoCopyWith<ScannedInfo> get copyWith =>
@@ -39,7 +44,10 @@ abstract class $ScannedInfoCopyWith<$Res> {
       {String uuid,
       @JsonKey(name: 'qr_code') Uint8List? qrCode,
       @JsonKey(name: 'bar_code') Barcode barCode,
-      @JsonKey(name: 'created_at') DateTime createdAt});
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'modified_at') DateTime modifiedAt,
+      @JsonKey(name: 'custom_name') String? customName,
+      String? note});
 }
 
 /// @nodoc
@@ -59,6 +67,9 @@ class _$ScannedInfoCopyWithImpl<$Res, $Val extends ScannedInfo>
     Object? qrCode = freezed,
     Object? barCode = null,
     Object? createdAt = null,
+    Object? modifiedAt = null,
+    Object? customName = freezed,
+    Object? note = freezed,
   }) {
     return _then(_value.copyWith(
       uuid: null == uuid
@@ -77,6 +88,18 @@ class _$ScannedInfoCopyWithImpl<$Res, $Val extends ScannedInfo>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      modifiedAt: null == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      customName: freezed == customName
+          ? _value.customName
+          : customName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -93,7 +116,10 @@ abstract class _$$_ScannedInfoCopyWith<$Res>
       {String uuid,
       @JsonKey(name: 'qr_code') Uint8List? qrCode,
       @JsonKey(name: 'bar_code') Barcode barCode,
-      @JsonKey(name: 'created_at') DateTime createdAt});
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'modified_at') DateTime modifiedAt,
+      @JsonKey(name: 'custom_name') String? customName,
+      String? note});
 }
 
 /// @nodoc
@@ -111,6 +137,9 @@ class __$$_ScannedInfoCopyWithImpl<$Res>
     Object? qrCode = freezed,
     Object? barCode = null,
     Object? createdAt = null,
+    Object? modifiedAt = null,
+    Object? customName = freezed,
+    Object? note = freezed,
   }) {
     return _then(_$_ScannedInfo(
       uuid: null == uuid
@@ -129,6 +158,18 @@ class __$$_ScannedInfoCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      modifiedAt: null == modifiedAt
+          ? _value.modifiedAt
+          : modifiedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      customName: freezed == customName
+          ? _value.customName
+          : customName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      note: freezed == note
+          ? _value.note
+          : note // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -140,7 +181,10 @@ class _$_ScannedInfo implements _ScannedInfo {
       {required this.uuid,
       @JsonKey(name: 'qr_code') required this.qrCode,
       @JsonKey(name: 'bar_code') required this.barCode,
-      @JsonKey(name: 'created_at') required this.createdAt});
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'modified_at') required this.modifiedAt,
+      @JsonKey(name: 'custom_name') required this.customName,
+      required this.note});
 
   @override
   final String uuid;
@@ -153,10 +197,18 @@ class _$_ScannedInfo implements _ScannedInfo {
   @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
+  @override
+  @JsonKey(name: 'modified_at')
+  final DateTime modifiedAt;
+  @override
+  @JsonKey(name: 'custom_name')
+  final String? customName;
+  @override
+  final String? note;
 
   @override
   String toString() {
-    return 'ScannedInfo(uuid: $uuid, qrCode: $qrCode, barCode: $barCode, createdAt: $createdAt)';
+    return 'ScannedInfo(uuid: $uuid, qrCode: $qrCode, barCode: $barCode, createdAt: $createdAt, modifiedAt: $modifiedAt, customName: $customName, note: $note)';
   }
 
   @override
@@ -168,12 +220,24 @@ class _$_ScannedInfo implements _ScannedInfo {
             const DeepCollectionEquality().equals(other.qrCode, qrCode) &&
             (identical(other.barCode, barCode) || other.barCode == barCode) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.modifiedAt, modifiedAt) ||
+                other.modifiedAt == modifiedAt) &&
+            (identical(other.customName, customName) ||
+                other.customName == customName) &&
+            (identical(other.note, note) || other.note == note));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, uuid,
-      const DeepCollectionEquality().hash(qrCode), barCode, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      uuid,
+      const DeepCollectionEquality().hash(qrCode),
+      barCode,
+      createdAt,
+      modifiedAt,
+      customName,
+      note);
 
   @JsonKey(ignore: true)
   @override
@@ -184,11 +248,13 @@ class _$_ScannedInfo implements _ScannedInfo {
 
 abstract class _ScannedInfo implements ScannedInfo {
   const factory _ScannedInfo(
-          {required final String uuid,
-          @JsonKey(name: 'qr_code') required final Uint8List? qrCode,
-          @JsonKey(name: 'bar_code') required final Barcode barCode,
-          @JsonKey(name: 'created_at') required final DateTime createdAt}) =
-      _$_ScannedInfo;
+      {required final String uuid,
+      @JsonKey(name: 'qr_code') required final Uint8List? qrCode,
+      @JsonKey(name: 'bar_code') required final Barcode barCode,
+      @JsonKey(name: 'created_at') required final DateTime createdAt,
+      @JsonKey(name: 'modified_at') required final DateTime modifiedAt,
+      @JsonKey(name: 'custom_name') required final String? customName,
+      required final String? note}) = _$_ScannedInfo;
 
   @override
   String get uuid;
@@ -201,6 +267,14 @@ abstract class _ScannedInfo implements ScannedInfo {
   @override
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
+  @override
+  @JsonKey(name: 'modified_at')
+  DateTime get modifiedAt;
+  @override
+  @JsonKey(name: 'custom_name')
+  String? get customName;
+  @override
+  String? get note;
   @override
   @JsonKey(ignore: true)
   _$$_ScannedInfoCopyWith<_$_ScannedInfo> get copyWith =>

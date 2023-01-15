@@ -36,6 +36,7 @@ class _$AppRouter extends RootStackRouter {
         child: ScanDetails(
           key: args.key,
           scannedInfo: args.scannedInfo,
+          onDelete: args.onDelete,
         ),
       );
     },
@@ -88,12 +89,14 @@ class ScanDetailsRoute extends PageRouteInfo<ScanDetailsRouteArgs> {
   ScanDetailsRoute({
     Key? key,
     required ScannedInfo scannedInfo,
+    required void Function(String) onDelete,
   }) : super(
           ScanDetailsRoute.name,
           path: 'scanDetails',
           args: ScanDetailsRouteArgs(
             key: key,
             scannedInfo: scannedInfo,
+            onDelete: onDelete,
           ),
         );
 
@@ -104,14 +107,17 @@ class ScanDetailsRouteArgs {
   const ScanDetailsRouteArgs({
     this.key,
     required this.scannedInfo,
+    required this.onDelete,
   });
 
   final Key? key;
 
   final ScannedInfo scannedInfo;
 
+  final void Function(String) onDelete;
+
   @override
   String toString() {
-    return 'ScanDetailsRouteArgs{key: $key, scannedInfo: $scannedInfo}';
+    return 'ScanDetailsRouteArgs{key: $key, scannedInfo: $scannedInfo, onDelete: $onDelete}';
   }
 }

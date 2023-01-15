@@ -18,13 +18,15 @@ dependencies:
   flutter_bloc: 8.1.1
   flutter_hooks: 0.18.5+1
   freezed_annotation: 2.2.0
+  hive: 2.2.3
+  hive_flutter: 1.1.0
   logger: 1.1.0
   lottie: 2.1.0
+  mobile_scanner: 3.0.0-beta.4
   path_provider: 2.0.11
   shared_preferences: 2.0.15
   url_launcher: 6.1.7
   uuid: 3.0.7
-  mobile_scanner: 3.0.0-beta.4
 
 dev_dependencies:
   auto_route_generator: 5.0.3
@@ -34,6 +36,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: 2.3.2
+  hive_generator: 2.0.0
   json_serializable: 6.5.4
 
 flutter:
@@ -53,7 +56,6 @@ flutter:
           weight: 700
         - asset: assets/fonts/titillium_web/TitilliumWeb-Black.ttf
           weight: 900
-
 
 flavorizr:
   flavors:
