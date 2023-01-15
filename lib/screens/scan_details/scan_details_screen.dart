@@ -25,11 +25,6 @@ class ScanDetails extends StatelessWidget {
     required this.onDelete,
   });
 
-  Future<bool> _goBack(BuildContext context) async {
-    context.router.pop(true);
-    return false;
-  }
-
   Widget _blocBuilder(
     BuildContext context,
     _BlocOutput output,
@@ -41,7 +36,7 @@ class ScanDetails extends StatelessWidget {
         backgroundColor: WBColors.white,
         leading: BackButton(
           color: WBColors.black,
-          onPressed: () => _goBack(context),
+          onPressed: () => context.router.pop(true),
         ),
         actions: [
           IconButton(
