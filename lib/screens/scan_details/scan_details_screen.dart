@@ -77,17 +77,15 @@ class ScanDetails extends HookWidget {
         backgroundColor: Colors.transparent,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(40),
-          child: qrCode != null
-              ? RotatedBox(
-                  quarterTurns: 1,
-                  child: Image.memory(
-                    qrCode,
-                    height: 150.0,
-                    width: 150.0,
-                    fit: BoxFit.cover,
-                  ),
-                )
-              : const Icon(Icons.qr_code),
+          child: RotatedBox(
+            quarterTurns: 1,
+            child: Image.memory(
+              qrCode,
+              height: 150.0,
+              width: 150.0,
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
       ),
       const SizedBox(height: 32),
@@ -129,10 +127,11 @@ class ScanDetails extends HookWidget {
     return WillPopScope(
       onWillPop: () async {
         //A double verification to make sure the scanner is not stopped on swipe
-        if (Navigator.of(context).userGestureInProgress)
-          return false;
-        else
-          return true;
+        if (Navigator.of(context).userGestureInProgress) return false;
+        return showTextYesNoDialog(
+          context,
+          tr('scan_details.delete_confirmation_msg'),
+        );
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,

@@ -65,6 +65,9 @@ class ScanBloc extends WBBloc<ScanState, ScanEvent> {
     await _scannerRepository.deleteItem(uuid);
     emitS(
       isLoading: false,
+      events: [
+        const ScanEvent.onBack(),
+      ],
     );
   }
 

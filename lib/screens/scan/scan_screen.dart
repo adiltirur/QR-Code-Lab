@@ -166,6 +166,7 @@ class ScanScreen extends HookWidget {
         if (arguments != null) bloc.onScanStart(arguments);
       },
       onDetect: (barcode) {
+        mobileScannerController.stop();
         bloc.onBarCodeDetect(barcode, systemSettings.shouldSaveImage);
       },
       errorBuilder: (_, error, __) {
@@ -231,7 +232,6 @@ class ScanScreen extends HookWidget {
     MobileScannerController scannerController,
     ScannedInfo scannedInfo,
   ) async {
-    scannerController.stop();
     final bloc = context.bloc<ScanBloc>();
     context.router.push(
       ScanDetailsRoute(
