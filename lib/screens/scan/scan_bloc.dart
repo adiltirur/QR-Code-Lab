@@ -9,7 +9,16 @@ import 'scan_state.dart';
 class ScanBloc extends WBBloc<ScanState, ScanEvent> {
   final _scannerRepository = ScannerRepository();
 
-  void emptyPreviousBarCodeDetails() {
+  void onBackFromDetailsPage() {
+    _emptyPreviousBarCodeDetails();
+    emitS(
+      events: [
+        const ScanEvent.onBack(),
+      ],
+    );
+  }
+
+  void _emptyPreviousBarCodeDetails() {
     emitS(
       state: currentState.copyWith(
         barcode: null,

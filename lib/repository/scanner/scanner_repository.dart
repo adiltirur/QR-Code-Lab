@@ -97,8 +97,9 @@ class ScannerRepository {
     box.deleteFromDisk();
   }
 
-  Future<void> deleteItem(String uuid) async {
+  Future<List<HiveScannedItem>> deleteItem(String uuid) async {
     final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
     box.delete(uuid);
+    return box.values.toList();
   }
 }

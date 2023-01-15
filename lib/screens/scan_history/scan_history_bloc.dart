@@ -8,32 +8,33 @@ import 'scan_history_state.dart';
 
 class ScanHistoryBloc extends WBBloc<ScanHistoryState, ScanHistoryEvent> {
   final _scannerRepository = ScannerRepository();
-  Future<void> _init() async {
-    final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
+
+  void onBackFromDetailsPage() {
     emitS(
-      state: currentState.copyWith(
-        scannedItems: box.values.toList()
-          ..sort(
-            (a, b) => b.createdAt.compareTo(a.createdAt),
-          ),
-      ),
+      events: [
+        const ScanHistoryEvent.onBack(),
+      ],
     );
   }
 
   void onTapScannedItem(HiveScannedItem hiveScannedItem) {
-    final scannedInfo =
-        _scannerRepository.getScannedInfoFromHive(hiveScannedItem);
-    emitS(events: [ScanHistoryEvent.open(scannedInfo: scannedInfo)]);
+    final scannedInfo = _scannerRepository.getScannedInfoFromHive(
+      hiveScannedItem,
+    );
+    emitS(
+      events: [
+        ScanHistoryEvent.open(scannedInfo: scannedInfo),
+      ],
+    );
   }
 
   Future<void> onDeleteItem(String uuid) async {
     emitS(isLoading: true);
-    final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
-    box.delete(uuid);
+    final scannedItemsAfterDelete = await _scannerRepository.deleteItem(uuid);
     emitS(
       isLoading: false,
       state: currentState.copyWith(
-        scannedItems: box.values.toList(),
+        scannedItems: scannedItemsAfterDelete,
       ),
     );
   }
@@ -47,9 +48,26 @@ class ScanHistoryBloc extends WBBloc<ScanHistoryState, ScanHistoryEvent> {
     );
   }
 
+  Future<void> _init() async {
+    emitS(isLoading: true);
+    final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
+    emitS(
+      state: currentState.copyWith(
+        scannedItems: box.values.toList()
+          ..sort(
+            (a, b) => b.createdAt.compareTo(a.createdAt),
+          ),
+      ),
+      isLoading: false,
+    );
+  }
+
   ScanHistoryBloc()
       : super(
-          const ScanHistoryState(scannedItems: [], reverseList: false),
+          const ScanHistoryState(
+            scannedItems: [],
+            reverseList: false,
+          ),
         ) {
     _init();
   }

@@ -20,18 +20,21 @@ mixin _$ScanEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(ScannedInfo scannedInfo) detected,
     required TResult Function() toggleCamera,
+    required TResult Function() onBack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ScannedInfo scannedInfo)? detected,
     TResult? Function()? toggleCamera,
+    TResult? Function()? onBack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ScannedInfo scannedInfo)? detected,
     TResult Function()? toggleCamera,
+    TResult Function()? onBack,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ScanEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(ScanDetectedEvent value) detected,
     required TResult Function(ScanToggleCameraEvent value) toggleCamera,
+    required TResult Function(ScanOnBackEvent value) onBack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ScanDetectedEvent value)? detected,
     TResult? Function(ScanToggleCameraEvent value)? toggleCamera,
+    TResult? Function(ScanOnBackEvent value)? onBack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ScanDetectedEvent value)? detected,
     TResult Function(ScanToggleCameraEvent value)? toggleCamera,
+    TResult Function(ScanOnBackEvent value)? onBack,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -150,6 +156,7 @@ class _$ScanDetectedEvent implements ScanDetectedEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(ScannedInfo scannedInfo) detected,
     required TResult Function() toggleCamera,
+    required TResult Function() onBack,
   }) {
     return detected(scannedInfo);
   }
@@ -159,6 +166,7 @@ class _$ScanDetectedEvent implements ScanDetectedEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ScannedInfo scannedInfo)? detected,
     TResult? Function()? toggleCamera,
+    TResult? Function()? onBack,
   }) {
     return detected?.call(scannedInfo);
   }
@@ -168,6 +176,7 @@ class _$ScanDetectedEvent implements ScanDetectedEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ScannedInfo scannedInfo)? detected,
     TResult Function()? toggleCamera,
+    TResult Function()? onBack,
     required TResult orElse(),
   }) {
     if (detected != null) {
@@ -181,6 +190,7 @@ class _$ScanDetectedEvent implements ScanDetectedEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(ScanDetectedEvent value) detected,
     required TResult Function(ScanToggleCameraEvent value) toggleCamera,
+    required TResult Function(ScanOnBackEvent value) onBack,
   }) {
     return detected(this);
   }
@@ -190,6 +200,7 @@ class _$ScanDetectedEvent implements ScanDetectedEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ScanDetectedEvent value)? detected,
     TResult? Function(ScanToggleCameraEvent value)? toggleCamera,
+    TResult? Function(ScanOnBackEvent value)? onBack,
   }) {
     return detected?.call(this);
   }
@@ -199,6 +210,7 @@ class _$ScanDetectedEvent implements ScanDetectedEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ScanDetectedEvent value)? detected,
     TResult Function(ScanToggleCameraEvent value)? toggleCamera,
+    TResult Function(ScanOnBackEvent value)? onBack,
     required TResult orElse(),
   }) {
     if (detected != null) {
@@ -258,6 +270,7 @@ class _$ScanToggleCameraEvent implements ScanToggleCameraEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(ScannedInfo scannedInfo) detected,
     required TResult Function() toggleCamera,
+    required TResult Function() onBack,
   }) {
     return toggleCamera();
   }
@@ -267,6 +280,7 @@ class _$ScanToggleCameraEvent implements ScanToggleCameraEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ScannedInfo scannedInfo)? detected,
     TResult? Function()? toggleCamera,
+    TResult? Function()? onBack,
   }) {
     return toggleCamera?.call();
   }
@@ -276,6 +290,7 @@ class _$ScanToggleCameraEvent implements ScanToggleCameraEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ScannedInfo scannedInfo)? detected,
     TResult Function()? toggleCamera,
+    TResult Function()? onBack,
     required TResult orElse(),
   }) {
     if (toggleCamera != null) {
@@ -289,6 +304,7 @@ class _$ScanToggleCameraEvent implements ScanToggleCameraEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(ScanDetectedEvent value) detected,
     required TResult Function(ScanToggleCameraEvent value) toggleCamera,
+    required TResult Function(ScanOnBackEvent value) onBack,
   }) {
     return toggleCamera(this);
   }
@@ -298,6 +314,7 @@ class _$ScanToggleCameraEvent implements ScanToggleCameraEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ScanDetectedEvent value)? detected,
     TResult? Function(ScanToggleCameraEvent value)? toggleCamera,
+    TResult? Function(ScanOnBackEvent value)? onBack,
   }) {
     return toggleCamera?.call(this);
   }
@@ -307,6 +324,7 @@ class _$ScanToggleCameraEvent implements ScanToggleCameraEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ScanDetectedEvent value)? detected,
     TResult Function(ScanToggleCameraEvent value)? toggleCamera,
+    TResult Function(ScanOnBackEvent value)? onBack,
     required TResult orElse(),
   }) {
     if (toggleCamera != null) {
@@ -318,6 +336,114 @@ class _$ScanToggleCameraEvent implements ScanToggleCameraEvent {
 
 abstract class ScanToggleCameraEvent implements ScanEvent {
   const factory ScanToggleCameraEvent() = _$ScanToggleCameraEvent;
+}
+
+/// @nodoc
+abstract class _$$ScanOnBackEventCopyWith<$Res> {
+  factory _$$ScanOnBackEventCopyWith(
+          _$ScanOnBackEvent value, $Res Function(_$ScanOnBackEvent) then) =
+      __$$ScanOnBackEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ScanOnBackEventCopyWithImpl<$Res>
+    extends _$ScanEventCopyWithImpl<$Res, _$ScanOnBackEvent>
+    implements _$$ScanOnBackEventCopyWith<$Res> {
+  __$$ScanOnBackEventCopyWithImpl(
+      _$ScanOnBackEvent _value, $Res Function(_$ScanOnBackEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ScanOnBackEvent implements ScanOnBackEvent {
+  const _$ScanOnBackEvent();
+
+  @override
+  String toString() {
+    return 'ScanEvent.onBack()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ScanOnBackEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ScannedInfo scannedInfo) detected,
+    required TResult Function() toggleCamera,
+    required TResult Function() onBack,
+  }) {
+    return onBack();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ScannedInfo scannedInfo)? detected,
+    TResult? Function()? toggleCamera,
+    TResult? Function()? onBack,
+  }) {
+    return onBack?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ScannedInfo scannedInfo)? detected,
+    TResult Function()? toggleCamera,
+    TResult Function()? onBack,
+    required TResult orElse(),
+  }) {
+    if (onBack != null) {
+      return onBack();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ScanDetectedEvent value) detected,
+    required TResult Function(ScanToggleCameraEvent value) toggleCamera,
+    required TResult Function(ScanOnBackEvent value) onBack,
+  }) {
+    return onBack(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ScanDetectedEvent value)? detected,
+    TResult? Function(ScanToggleCameraEvent value)? toggleCamera,
+    TResult? Function(ScanOnBackEvent value)? onBack,
+  }) {
+    return onBack?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ScanDetectedEvent value)? detected,
+    TResult Function(ScanToggleCameraEvent value)? toggleCamera,
+    TResult Function(ScanOnBackEvent value)? onBack,
+    required TResult orElse(),
+  }) {
+    if (onBack != null) {
+      return onBack(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ScanOnBackEvent implements ScanEvent {
+  const factory ScanOnBackEvent() = _$ScanOnBackEvent;
 }
 
 /// @nodoc

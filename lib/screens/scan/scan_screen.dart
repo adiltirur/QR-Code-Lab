@@ -218,6 +218,14 @@ class ScanScreen extends HookWidget {
     );
   }
 
+  void _handleOnBack(
+    BuildContext context,
+    MobileScannerController scannerController,
+  ) {
+    context.router.pop();
+    scannerController.start();
+  }
+
   Future<void> _handleDetected(
     BuildContext context,
     MobileScannerController scannerController,
@@ -225,15 +233,13 @@ class ScanScreen extends HookWidget {
   ) async {
     scannerController.stop();
     var bloc = context.bloc<ScanBloc>();
-    final shouldResumeCamera = await context.router.push(
+    context.router.push(
       ScanDetailsRoute(
         scannedInfo: scannedInfo,
         onDelete: bloc.onDeleteItem,
+        onBack: bloc.onBackFromDetailsPage,
       ),
     );
-    bloc.emptyPreviousBarCodeDetails();
-    if (shouldResumeCamera is bool && shouldResumeCamera)
-      scannerController.start();
   }
 
   void _blocListener(
@@ -249,6 +255,7 @@ class ScanScreen extends HookWidget {
           scannedInfo,
         ),
         toggleCamera: () => scannerController.switchCamera(),
+        onBack: () => _handleOnBack(context, scannerController),
       );
     }
   }

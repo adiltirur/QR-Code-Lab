@@ -12,23 +12,31 @@ import 'splash_state.dart';
 typedef _BlocOutput = WBBlocOutput<SplashState, SplashEvent>;
 
 class SplashScreen extends StatelessWidget {
+  Widget _buildAppName() {
+    return Text(
+      F.title,
+      style: const TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+
+  Widget _buildAnimation() {
+    return Lottie.asset(
+      'assets/animations/loader.json',
+      width: 84,
+      height: 84,
+    );
+  }
+
   Widget _blocBuilder(BuildContext context, _BlocOutput output) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Lottie.asset(
-          'assets/animations/splash.json',
-          width: 84,
-          height: 84,
-        ),
-        Text(
-          F.title,
-          style: const TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        _buildAnimation(),
+        _buildAppName(),
       ],
     );
   }
@@ -38,7 +46,9 @@ class SplashScreen extends StatelessWidget {
       event.when<void>(
         done: (systemSettings) {
           context.router.replace(
-            HomeScreenRoute(systemSettings: systemSettings),
+            HomeScreenRoute(
+              systemSettings: systemSettings,
+            ),
           );
         },
       );

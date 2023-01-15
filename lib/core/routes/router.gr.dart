@@ -38,6 +38,7 @@ class _$AppRouter extends RootStackRouter {
         child: ScanDetails(
           scannedInfo: args.scannedInfo,
           onDelete: args.onDelete,
+          onBack: args.onBack,
         ),
       );
     },
@@ -45,10 +46,7 @@ class _$AppRouter extends RootStackRouter {
       final args = routeData.argsAs<LanguageScreenRouteArgs>();
       return MaterialPageX<dynamic>(
         routeData: routeData,
-        child: LanguageScreen(
-          key: args.key,
-          onChangeLanguage: args.onChangeLanguage,
-        ),
+        child: LanguageScreen(onChangeLanguage: args.onChangeLanguage),
       );
     },
   };
@@ -116,12 +114,14 @@ class ScanDetailsRoute extends PageRouteInfo<ScanDetailsRouteArgs> {
   ScanDetailsRoute({
     required ScannedInfo scannedInfo,
     required void Function(String) onDelete,
+    required void Function() onBack,
   }) : super(
           ScanDetailsRoute.name,
           path: 'scanDetails',
           args: ScanDetailsRouteArgs(
             scannedInfo: scannedInfo,
             onDelete: onDelete,
+            onBack: onBack,
           ),
         );
 
@@ -132,48 +132,41 @@ class ScanDetailsRouteArgs {
   const ScanDetailsRouteArgs({
     required this.scannedInfo,
     required this.onDelete,
+    required this.onBack,
   });
 
   final ScannedInfo scannedInfo;
 
   final void Function(String) onDelete;
 
+  final void Function() onBack;
+
   @override
   String toString() {
-    return 'ScanDetailsRouteArgs{scannedInfo: $scannedInfo, onDelete: $onDelete}';
+    return 'ScanDetailsRouteArgs{scannedInfo: $scannedInfo, onDelete: $onDelete, onBack: $onBack}';
   }
 }
 
 /// generated route for
 /// [LanguageScreen]
 class LanguageScreenRoute extends PageRouteInfo<LanguageScreenRouteArgs> {
-  LanguageScreenRoute({
-    Key? key,
-    required void Function(Language) onChangeLanguage,
-  }) : super(
+  LanguageScreenRoute({required void Function(Language) onChangeLanguage})
+      : super(
           LanguageScreenRoute.name,
           path: 'language',
-          args: LanguageScreenRouteArgs(
-            key: key,
-            onChangeLanguage: onChangeLanguage,
-          ),
+          args: LanguageScreenRouteArgs(onChangeLanguage: onChangeLanguage),
         );
 
   static const String name = 'LanguageScreenRoute';
 }
 
 class LanguageScreenRouteArgs {
-  const LanguageScreenRouteArgs({
-    this.key,
-    required this.onChangeLanguage,
-  });
-
-  final Key? key;
+  const LanguageScreenRouteArgs({required this.onChangeLanguage});
 
   final void Function(Language) onChangeLanguage;
 
   @override
   String toString() {
-    return 'LanguageScreenRouteArgs{key: $key, onChangeLanguage: $onChangeLanguage}';
+    return 'LanguageScreenRouteArgs{onChangeLanguage: $onChangeLanguage}';
   }
 }

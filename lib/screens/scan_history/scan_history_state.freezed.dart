@@ -16,42 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ScanHistoryEvent {
-  ScannedInfo get scannedInfo => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ScannedInfo scannedInfo) open,
+    required TResult Function() onBack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ScannedInfo scannedInfo)? open,
+    TResult? Function()? onBack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ScannedInfo scannedInfo)? open,
+    TResult Function()? onBack,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ScanHistoryOpenEvent value) open,
+    required TResult Function(ScanHistoryOnBackEvent value) onBack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ScanHistoryOpenEvent value)? open,
+    TResult? Function(ScanHistoryOnBackEvent value)? onBack,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ScanHistoryOpenEvent value)? open,
+    TResult Function(ScanHistoryOnBackEvent value)? onBack,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ScanHistoryEventCopyWith<ScanHistoryEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,10 +61,6 @@ abstract class $ScanHistoryEventCopyWith<$Res> {
   factory $ScanHistoryEventCopyWith(
           ScanHistoryEvent value, $Res Function(ScanHistoryEvent) then) =
       _$ScanHistoryEventCopyWithImpl<$Res, ScanHistoryEvent>;
-  @useResult
-  $Res call({ScannedInfo scannedInfo});
-
-  $ScannedInfoCopyWith<$Res> get scannedInfo;
 }
 
 /// @nodoc
@@ -75,40 +72,16 @@ class _$ScanHistoryEventCopyWithImpl<$Res, $Val extends ScanHistoryEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? scannedInfo = null,
-  }) {
-    return _then(_value.copyWith(
-      scannedInfo: null == scannedInfo
-          ? _value.scannedInfo
-          : scannedInfo // ignore: cast_nullable_to_non_nullable
-              as ScannedInfo,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ScannedInfoCopyWith<$Res> get scannedInfo {
-    return $ScannedInfoCopyWith<$Res>(_value.scannedInfo, (value) {
-      return _then(_value.copyWith(scannedInfo: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$ScanHistoryOpenEventCopyWith<$Res>
-    implements $ScanHistoryEventCopyWith<$Res> {
+abstract class _$$ScanHistoryOpenEventCopyWith<$Res> {
   factory _$$ScanHistoryOpenEventCopyWith(_$ScanHistoryOpenEvent value,
           $Res Function(_$ScanHistoryOpenEvent) then) =
       __$$ScanHistoryOpenEventCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({ScannedInfo scannedInfo});
 
-  @override
   $ScannedInfoCopyWith<$Res> get scannedInfo;
 }
 
@@ -131,6 +104,14 @@ class __$$ScanHistoryOpenEventCopyWithImpl<$Res>
           : scannedInfo // ignore: cast_nullable_to_non_nullable
               as ScannedInfo,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ScannedInfoCopyWith<$Res> get scannedInfo {
+    return $ScannedInfoCopyWith<$Res>(_value.scannedInfo, (value) {
+      return _then(_value.copyWith(scannedInfo: value));
+    });
   }
 }
 
@@ -170,6 +151,7 @@ class _$ScanHistoryOpenEvent implements ScanHistoryOpenEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(ScannedInfo scannedInfo) open,
+    required TResult Function() onBack,
   }) {
     return open(scannedInfo);
   }
@@ -178,6 +160,7 @@ class _$ScanHistoryOpenEvent implements ScanHistoryOpenEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(ScannedInfo scannedInfo)? open,
+    TResult? Function()? onBack,
   }) {
     return open?.call(scannedInfo);
   }
@@ -186,6 +169,7 @@ class _$ScanHistoryOpenEvent implements ScanHistoryOpenEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(ScannedInfo scannedInfo)? open,
+    TResult Function()? onBack,
     required TResult orElse(),
   }) {
     if (open != null) {
@@ -198,6 +182,7 @@ class _$ScanHistoryOpenEvent implements ScanHistoryOpenEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ScanHistoryOpenEvent value) open,
+    required TResult Function(ScanHistoryOnBackEvent value) onBack,
   }) {
     return open(this);
   }
@@ -206,6 +191,7 @@ class _$ScanHistoryOpenEvent implements ScanHistoryOpenEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ScanHistoryOpenEvent value)? open,
+    TResult? Function(ScanHistoryOnBackEvent value)? onBack,
   }) {
     return open?.call(this);
   }
@@ -214,6 +200,7 @@ class _$ScanHistoryOpenEvent implements ScanHistoryOpenEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ScanHistoryOpenEvent value)? open,
+    TResult Function(ScanHistoryOnBackEvent value)? onBack,
     required TResult orElse(),
   }) {
     if (open != null) {
@@ -227,12 +214,112 @@ abstract class ScanHistoryOpenEvent implements ScanHistoryEvent {
   const factory ScanHistoryOpenEvent({required final ScannedInfo scannedInfo}) =
       _$ScanHistoryOpenEvent;
 
-  @override
   ScannedInfo get scannedInfo;
-  @override
   @JsonKey(ignore: true)
   _$$ScanHistoryOpenEventCopyWith<_$ScanHistoryOpenEvent> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ScanHistoryOnBackEventCopyWith<$Res> {
+  factory _$$ScanHistoryOnBackEventCopyWith(_$ScanHistoryOnBackEvent value,
+          $Res Function(_$ScanHistoryOnBackEvent) then) =
+      __$$ScanHistoryOnBackEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ScanHistoryOnBackEventCopyWithImpl<$Res>
+    extends _$ScanHistoryEventCopyWithImpl<$Res, _$ScanHistoryOnBackEvent>
+    implements _$$ScanHistoryOnBackEventCopyWith<$Res> {
+  __$$ScanHistoryOnBackEventCopyWithImpl(_$ScanHistoryOnBackEvent _value,
+      $Res Function(_$ScanHistoryOnBackEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ScanHistoryOnBackEvent implements ScanHistoryOnBackEvent {
+  const _$ScanHistoryOnBackEvent();
+
+  @override
+  String toString() {
+    return 'ScanHistoryEvent.onBack()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ScanHistoryOnBackEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(ScannedInfo scannedInfo) open,
+    required TResult Function() onBack,
+  }) {
+    return onBack();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(ScannedInfo scannedInfo)? open,
+    TResult? Function()? onBack,
+  }) {
+    return onBack?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(ScannedInfo scannedInfo)? open,
+    TResult Function()? onBack,
+    required TResult orElse(),
+  }) {
+    if (onBack != null) {
+      return onBack();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ScanHistoryOpenEvent value) open,
+    required TResult Function(ScanHistoryOnBackEvent value) onBack,
+  }) {
+    return onBack(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ScanHistoryOpenEvent value)? open,
+    TResult? Function(ScanHistoryOnBackEvent value)? onBack,
+  }) {
+    return onBack?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ScanHistoryOpenEvent value)? open,
+    TResult Function(ScanHistoryOnBackEvent value)? onBack,
+    required TResult orElse(),
+  }) {
+    if (onBack != null) {
+      return onBack(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ScanHistoryOnBackEvent implements ScanHistoryEvent {
+  const factory ScanHistoryOnBackEvent() = _$ScanHistoryOnBackEvent;
 }
 
 /// @nodoc

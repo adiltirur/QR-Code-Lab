@@ -1,9 +1,11 @@
-import 'package:auto_route/auto_route.dart';
+import 'dart:typed_data';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../core/const/colors.dart';
 import '../../core/extensions/build_context.dart';
+import '../../core/extensions/date_time.dart';
 import '../../core/globals/url_launcher.dart';
 import '../../core/models/notification.dart';
 import '../../core/models/scanned_info.dart';
@@ -19,12 +21,65 @@ typedef _BlocOutput = WBBlocOutput<ScanDetailsState, ScanDetailsEvent>;
 class ScanDetails extends HookWidget {
   final ScannedInfo scannedInfo;
   final void Function(String uuid) onDelete;
+  final void Function() onBack;
 
-  ScanDetails({
+  const ScanDetails({
     required this.scannedInfo,
     required this.onDelete,
+    required this.onBack,
   });
-  final _formKey = GlobalKey<FormState>();
+  Widget _buildUrlLaunchButton(BuildContext context) {
+    return WBTextButton(
+        text: tr('scan_details.launch_url'),
+        onPressed: () async {
+          final isSuccess =
+              await tryLaunchUrlString(scannedInfo.barCode.rawValue);
+          if (!isSuccess) context.bloc<ScanDetailsBloc>().hasError();
+        });
+  }
+
+  List<Widget> _buildRawAndDisplayValue(BuildContext context) {
+    return [
+      Text(scannedInfo.barCode.rawValue ?? ''),
+      const SizedBox(height: 32),
+      Text(scannedInfo.barCode.displayValue ?? ''),
+      const SizedBox(height: 32),
+      _buildUrlLaunchButton(context),
+    ];
+  }
+
+  List<Widget> _buildRawValue(BuildContext context) {
+    return [
+      Text(scannedInfo.barCode.rawValue ?? ''),
+      const SizedBox(height: 32),
+      _buildUrlLaunchButton(context)
+    ];
+  }
+
+  List<Widget> _buildImage(Uint8List qrCode) {
+    return [
+      const SizedBox(height: 32),
+      RotatedBox(
+        quarterTurns: 1,
+        child: Image.memory(
+          qrCode,
+          width: 150,
+          height: 150,
+        ),
+      ),
+      const SizedBox(height: 32),
+    ];
+  }
+
+  Widget _buildDeleteRecord(BuildContext context) {
+    return IconButton(
+      onPressed: () => context.bloc<ScanDetailsBloc>().onDelete(),
+      icon: const Icon(
+        Icons.delete,
+        color: WBColors.black,
+      ),
+    );
+  }
 
   BottomAppBar _buildBottomAppBar(BuildContext context) {
     return BottomAppBar(
@@ -32,7 +87,11 @@ class ScanDetails extends HookWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Created on: ${scannedInfo.createdAt.toIso8601String()}'),
+          const Text('scan_details.created_on').tr(
+            namedArgs: {
+              'date': scannedInfo.createdAt.formattedDate,
+            },
+          ),
         ],
       ),
     );
@@ -46,79 +105,40 @@ class ScanDetails extends HookWidget {
     var isRawAndDisplayHaveSameValue =
         scannedInfo.barCode.rawValue == scannedInfo.barCode.displayValue;
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      bottomNavigationBar: _buildBottomAppBar(context),
-      appBar: AppBar(
-        backgroundColor: WBColors.white,
-        leading: BackButton(
-          color: WBColors.black,
-          onPressed: () => context.router.pop(true),
+    return WillPopScope(
+      onWillPop: () async {
+        if (Navigator.of(context).userGestureInProgress)
+          return false;
+        else
+          return true;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        bottomNavigationBar: _buildBottomAppBar(context),
+        appBar: AppBar(
+          backgroundColor: WBColors.white,
+          leading: BackButton(
+            color: WBColors.black,
+            onPressed: () => onBack(),
+          ),
+          actions: [_buildDeleteRecord(context)],
         ),
-        actions: [
-          IconButton(
-            onPressed: () => context.bloc<ScanDetailsBloc>().onDelete(),
-            icon: const Icon(
-              Icons.delete,
-              color: WBColors.black,
-            ),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            if (qrCode != null) ...[
-              const SizedBox(
-                height: 32,
-              ),
-              RotatedBox(
-                quarterTurns: 1,
-                child: Image.memory(
-                  qrCode,
-                  width: 150,
-                  height: 150,
-                ),
-              ),
-              const SizedBox(
-                height: 32,
-              ),
+        body: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              if (qrCode != null) ..._buildImage(qrCode),
+              const Text('scan_details.code_info').tr(),
+              if (isRawAndDisplayHaveSameValue)
+                ..._buildRawValue(context)
+              else
+                ..._buildRawAndDisplayValue(context),
+              const SizedBox(height: 32),
             ],
-            const Text('QR Code Info:-'),
-            if (isRawAndDisplayHaveSameValue) ...[
-              Text(scannedInfo.barCode.rawValue ?? ''),
-              const SizedBox(
-                height: 32,
-              ),
-              WBTextButton(
-                  text: 'Open QR Code',
-                  onPressed: () =>
-                      tryLaunchUrlString(scannedInfo.barCode.rawValue)),
-            ] else ...[
-              Text(scannedInfo.barCode.rawValue ?? ''),
-              const SizedBox(
-                height: 32,
-              ),
-              Text(scannedInfo.barCode.displayValue ?? ''),
-              const SizedBox(
-                height: 32,
-              ),
-              WBTextButton(
-                  text: 'Open QR Code',
-                  onPressed: () async {
-                    final isSuccess =
-                        await tryLaunchUrlString(scannedInfo.barCode.rawValue);
-                    if (!isSuccess) context.bloc<ScanDetailsBloc>().hasError();
-                  }),
-            ],
-            const SizedBox(
-              height: 32,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -127,15 +147,15 @@ class ScanDetails extends HookWidget {
   Future<void> _handleDelete(BuildContext context) async {
     final answer = await showTextYesNoDialog(
       context,
-      'Are you sure?',
+      tr('scan_details.delete_confirmation_msg'),
     );
     if (answer) {
       onDelete(scannedInfo.uuid);
       context.dialogDisplayer.showAlert(
         type: WBNotificationType.confirmation,
-        body: 'Deleted!',
+        body: tr('general.deleted'),
       );
-      context.router.pop();
+      onBack();
     }
   }
 

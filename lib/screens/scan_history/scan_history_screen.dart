@@ -1,13 +1,17 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../core/const/colors.dart';
 import '../../core/extensions/build_context.dart';
+import '../../core/extensions/date_time.dart';
+import '../../core/models/scanned_info.dart';
 import '../../core/routes/router.dart';
 import '../../core/services/bloc.dart';
 import '../../core/ui/components/bloc_master.dart';
+import '../../repository/scanner/models/hive_scanned_item.dart';
+import 'empty_list_screen.dart';
 import 'scan_history_bloc.dart';
 import 'scan_history_state.dart';
 
@@ -35,6 +39,55 @@ class ScanHistoryScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildListTile(
+    Uint8List? image,
+    HiveScannedItem scannedItem,
+    String? displayValue,
+    DateTime createdDate,
+    BuildContext context,
+  ) {
+    return ListTile(
+      leading: circularImage(image),
+      title: Text(
+        scannedItem.customName.isNotEmpty
+            ? scannedItem.customName
+            : displayValue ?? '',
+      ),
+      subtitle: Text(createdDate.formattedDate),
+      onTap: () {
+        context.bloc<ScanHistoryBloc>().onTapScannedItem(scannedItem);
+      },
+    );
+  }
+
+  List<Widget> _buildSortButton(
+    List<HiveScannedItem> scannedItems,
+    BuildContext context,
+  ) {
+    return [
+      if (scannedItems.isNotEmpty && scannedItems.length > 1)
+        IconButton(
+          onPressed: () =>
+              context.bloc<ScanHistoryBloc>().onToggleReverseList(),
+          icon: const Icon(
+            Icons.sort,
+            color: WBColors.black,
+          ),
+        )
+    ];
+  }
+
+  Text _buildTitle() {
+    return const Text(
+      'scan_history.title',
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: WBColors.white,
+      ),
+    );
+  }
+
   Widget _blocBuilder(
     BuildContext context,
     _BlocOutput output,
@@ -44,50 +97,11 @@ class ScanHistoryScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: WBColors.primary,
         centerTitle: false,
-        title: const Text(
-          'Scan History',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: WBColors.white,
-          ),
-        ),
-        actions: [
-          if (scannedItems.isNotEmpty && scannedItems.length > 1)
-            IconButton(
-              onPressed: () =>
-                  context.bloc<ScanHistoryBloc>().onToggleReverseList(),
-              icon: const Icon(
-                Icons.sort,
-                color: WBColors.black,
-              ),
-            )
-        ],
+        title: _buildTitle().tr(),
+        actions: _buildSortButton(scannedItems, context),
       ),
       body: scannedItems.isEmpty
-          ? Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Lottie.asset(
-                      'assets/animations/splash.json',
-                      width: 84,
-                      height: 84,
-                    ),
-                    const Text(
-                      'You Have No Scanned Item, Please Scan to See Data here',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            )
+          ? EmptyListScreen()
           : ListView.builder(
               itemCount: scannedItems.length,
               reverse: output.state.reverseList,
@@ -98,20 +112,29 @@ class ScanHistoryScreen extends StatelessWidget {
                 final createdDate = scannedItem.createdAt;
                 final displayValue = scannedItem.displayValue;
                 final image = scannedItem.qrCode;
-                return ListTile(
-                  leading: circularImage(image),
-                  title: Text(
-                    scannedItem.customName.isNotEmpty
-                        ? scannedItem.customName
-                        : displayValue ?? '',
-                  ),
-                  subtitle: Text(createdDate.toIso8601String()),
-                  onTap: () => context
-                      .bloc<ScanHistoryBloc>()
-                      .onTapScannedItem(scannedItem),
+                return _buildListTile(
+                  image,
+                  scannedItem,
+                  displayValue,
+                  createdDate,
+                  context,
                 );
               },
             ),
+    );
+  }
+
+  void _handleQRCodeDetected(
+    BuildContext context,
+    ScannedInfo scannedInfo,
+  ) {
+    final bloc = context.bloc<ScanHistoryBloc>();
+    context.router.push(
+      ScanDetailsRoute(
+        scannedInfo: scannedInfo,
+        onDelete: bloc.onDeleteItem,
+        onBack: bloc.onBackFromDetailsPage,
+      ),
     );
   }
 
@@ -121,12 +144,11 @@ class ScanHistoryScreen extends StatelessWidget {
   ) {
     for (final event in output.events) {
       event.when<void>(
-        open: (scannedInfo) => context.router.push(
-          ScanDetailsRoute(
-            scannedInfo: scannedInfo,
-            onDelete: context.bloc<ScanHistoryBloc>().onDeleteItem,
-          ),
+        open: (scannedInfo) => _handleQRCodeDetected(
+          context,
+          scannedInfo,
         ),
+        onBack: () => context.router.pop(),
       );
     }
   }

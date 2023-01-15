@@ -10,6 +10,7 @@ class ScanHistoryEvent with _$ScanHistoryEvent {
   const factory ScanHistoryEvent.open({
     required ScannedInfo scannedInfo,
   }) = ScanHistoryOpenEvent;
+  const factory ScanHistoryEvent.onBack() = ScanHistoryOnBackEvent;
 }
 
 @freezed

@@ -11,6 +11,7 @@ class ScanEvent with _$ScanEvent {
     required ScannedInfo scannedInfo,
   }) = ScanDetectedEvent;
   const factory ScanEvent.toggleCamera() = ScanToggleCameraEvent;
+  const factory ScanEvent.onBack() = ScanOnBackEvent;
 }
 
 @freezed

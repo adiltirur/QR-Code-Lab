@@ -16,7 +16,6 @@ class RadioList<T> extends StatelessWidget {
   final void Function(T value) onChanged;
 
   const RadioList({
-    super.key,
     this.title,
     required this.items,
     required this.value,

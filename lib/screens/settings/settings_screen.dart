@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -18,10 +19,10 @@ extension on CameraFacing {
   String get titleText {
     switch (this) {
       case CameraFacing.front:
-        return 'Front';
+        return 'settings.camera_front';
 
       case CameraFacing.back:
-        return 'Back';
+        return 'settings.camera_back';
     }
   }
 }
@@ -29,11 +30,11 @@ extension on CameraFacing {
 class SettingsScreen extends StatelessWidget {
   Widget _buildDeleteButton(BuildContext context) {
     return WBTextButton(
-      text: 'Delete Scan History',
+      text: 'settings.delete_history_button'.tr(),
       onPressed: () async {
         final answer = await showTextYesNoDialog(
           context,
-          'This will delete All Scan History, are you sure?',
+          tr('settings.delete_history_confirmation_msg'),
         );
         if (answer) context.bloc<HomeBloc>().deleteScanHistory();
       },
@@ -43,7 +44,7 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _buildLanguageButton(BuildContext context) {
     return WBListButton(
-      title: 'Change Language',
+      title: 'settings.change_language_title'.tr(),
       onTap: () => context.router.push(
         LanguageScreenRoute(
           onChangeLanguage: context.bloc<HomeBloc>().updateLanguage,
@@ -55,7 +56,7 @@ class SettingsScreen extends StatelessWidget {
   RadioListItem<CameraFacing> _buildCameraItem(CameraFacing cameraFacing) {
     return RadioListItem<CameraFacing>(
       value: cameraFacing,
-      text: cameraFacing.titleText,
+      text: cameraFacing.titleText.tr(),
     );
   }
 
@@ -63,17 +64,18 @@ class SettingsScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
-          padding: EdgeInsets.all(24.0),
-          child: Text('Select Default Camera'),
+        Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: const Text('settings.select_camera_title').tr(),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: RadioList<CameraFacing>(
             items: CameraFacing.values.mapToList(_buildCameraItem),
             value: cameraFacing,
-            onChanged: (cameraFacing) =>
-                context.bloc<HomeBloc>().updateDefaultCamera(cameraFacing),
+            onChanged: (cameraFacing) {
+              context.bloc<HomeBloc>().updateDefaultCamera(cameraFacing);
+            },
           ),
         ),
       ],
@@ -85,10 +87,22 @@ class SettingsScreen extends StatelessWidget {
     bool value,
   ) {
     return WBListSwitch(
-      title: 'Save Image on Scan',
+      title: tr('settings.save_image'),
       value: value,
-      onChanged: (switchValue) =>
-          context.bloc<HomeBloc>().updateSaveImage(switchValue),
+      onChanged: (switchValue) {
+        context.bloc<HomeBloc>().updateSaveImage(switchValue);
+      },
+    );
+  }
+
+  Text _buildTitle() {
+    return const Text(
+      'bottom_navigation.settings',
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: WBColors.white,
+      ),
     );
   }
 
@@ -100,14 +114,7 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: WBColors.primary,
         centerTitle: false,
-        title: const Text(
-          'Settings',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: WBColors.white,
-          ),
-        ),
+        title: _buildTitle().tr(),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

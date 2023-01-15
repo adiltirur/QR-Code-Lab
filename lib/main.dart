@@ -25,8 +25,6 @@ const _textStyle = TextStyle(
 class WorkerBaseScannerApp extends StatelessWidget {
   static final _appRouter = AppRouter();
 
-  const WorkerBaseScannerApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
@@ -83,7 +81,7 @@ Future<void> _appEntry() async {
       ),
       fallbackLocale: Language.english.locale,
       path: 'assets/l10n',
-      child: const WorkerBaseScannerApp(),
+      child: WorkerBaseScannerApp(),
     ),
   );
 }

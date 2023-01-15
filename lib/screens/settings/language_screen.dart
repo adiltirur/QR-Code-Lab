@@ -10,10 +10,10 @@ extension on Language {
   String get titleText {
     switch (this) {
       case Language.english:
-        return 'English';
+        return 'general.english';
 
       case Language.german:
-        return 'German';
+        return 'general.german';
     }
   }
 }
@@ -22,13 +22,23 @@ class LanguageScreen extends StatelessWidget {
   final void Function(Language) onChangeLanguage;
 
   const LanguageScreen({
-    super.key,
     required this.onChangeLanguage,
   });
   RadioListItem<Language> _buildLanguageItem(Language language) {
     return RadioListItem<Language>(
       value: language,
-      text: language.titleText,
+      text: language.titleText.tr(),
+    );
+  }
+
+  Text _buildTitle() {
+    return const Text(
+      'language.title',
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: WBColors.white,
+      ),
     );
   }
 
@@ -36,17 +46,9 @@ class LanguageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: WBColors.primary,
-        centerTitle: false,
-        title: const Text(
-          'Language',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: WBColors.white,
-          ),
-        ),
-      ),
+          backgroundColor: WBColors.primary,
+          centerTitle: false,
+          title: _buildTitle().tr()),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

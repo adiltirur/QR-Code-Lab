@@ -19,7 +19,7 @@ class LottieLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Lottie.asset('assets/animations/splash.json');
+    return Lottie.asset('assets/animations/loader.json');
   }
 }
 
@@ -32,7 +32,6 @@ class BlockingLoader extends StatelessWidget {
     required this.isLoading,
     this.message = '',
     required this.child,
-    super.key,
   });
 
   Widget _buildLoadingBlocker() {
