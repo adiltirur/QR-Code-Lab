@@ -18,6 +18,7 @@
     "scan_details.created_on":"Created on {date}",
     "scan_details.launch_url":"Open QR Code",
     "scan_details.code_info":"QR Code Info:-",
+    "scan_details.open_image":"Open Image",
     "scan_history.title":"Scan History",
     "scan_history.no_item":"You Have No Scanned Item, Please Scan to See Data here",
     "language.title":"Language",

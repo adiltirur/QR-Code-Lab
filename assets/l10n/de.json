@@ -18,6 +18,7 @@
     "scan_details.created_on":"Erstellt am {date}",
     "scan_details.launch_url":"QR-Code öffnen",
     "scan_details.code_info":"QR-Code Informationen:-",
+    "scan_details.open_image":"Bild öffnen",
     "scan_history.title":"Verlauf scannen",
     "scan_history.no_item":"Sie haben kein gescanntes Element, bitte scannen Sie, um die Daten hier zu sehen",
     "language.title":"Sprache",

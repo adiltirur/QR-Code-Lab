@@ -18,7 +18,7 @@ import 'scan_history_state.dart';
 typedef _BlocOutput = WBBlocOutput<ScanHistoryState, ScanHistoryEvent>;
 
 class ScanHistoryScreen extends StatelessWidget {
-  Widget circularImage(Uint8List? image) {
+  Widget _circularImage(Uint8List? image) {
     return CircleAvatar(
       radius: 40,
       backgroundColor: Colors.grey.withOpacity(0.2),
@@ -47,7 +47,7 @@ class ScanHistoryScreen extends StatelessWidget {
     BuildContext context,
   ) {
     return ListTile(
-      leading: circularImage(image),
+      leading: _circularImage(image),
       title: Text(
         scannedItem.customName.isNotEmpty
             ? scannedItem.customName

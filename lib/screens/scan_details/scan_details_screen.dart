@@ -12,6 +12,7 @@ import '../../core/models/scanned_info.dart';
 import '../../core/services/bloc.dart';
 import '../../core/ui/components/bloc_master.dart';
 import '../../core/ui/components/dialogs/dialog_displayer.dart';
+import '../../core/ui/components/image_dialog.dart';
 import '../../core/ui/components/text_buttons.dart';
 import 'scan_details.bloc.dart';
 import 'scan_details_state.dart';
@@ -28,6 +29,21 @@ class ScanDetails extends HookWidget {
     required this.onDelete,
     required this.onBack,
   });
+
+  Widget _openImage(BuildContext context, Uint8List qrCode) {
+    return WBTextButton(
+      text: tr('scan_details.open_image'),
+      onPressed: () async {
+        await showDialog(
+            context: context,
+            builder: (_) => ImageDialog(
+                  image: qrCode,
+                ));
+      },
+      color: WBColors.black,
+    );
+  }
+
   Widget _buildUrlLaunchButton(BuildContext context) {
     return WBTextButton(
       text: tr('scan_details.launch_url'),
@@ -36,7 +52,7 @@ class ScanDetails extends HookWidget {
             await tryLaunchUrlString(scannedInfo.barCode.rawValue);
         if (!isSuccess) context.bloc<ScanDetailsBloc>().hasError();
       },
-      color: WBColors.black,
+      color: WBColors.primary,
     );
   }
 
@@ -53,15 +69,25 @@ class ScanDetails extends HookWidget {
     ];
   }
 
-  List<Widget> _buildImage(Uint8List qrCode) {
+  List<Widget> _buildImage(Uint8List qrCode, BuildContext context) {
     return [
       const SizedBox(height: 32),
-      RotatedBox(
-        quarterTurns: 1,
-        child: Image.memory(
-          qrCode,
-          width: 150,
-          height: 150,
+      CircleAvatar(
+        radius: 80,
+        backgroundColor: Colors.transparent,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(40),
+          child: qrCode != null
+              ? RotatedBox(
+                  quarterTurns: 1,
+                  child: Image.memory(
+                    qrCode,
+                    height: 150.0,
+                    width: 150.0,
+                    fit: BoxFit.cover,
+                  ),
+                )
+              : const Icon(Icons.qr_code),
         ),
       ),
       const SizedBox(height: 32),
@@ -120,24 +146,22 @@ class ScanDetails extends HookWidget {
           actions: [_buildDeleteRecord(context)],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              if (qrCode != null) ..._buildImage(qrCode),
-              const Text(
-                'scan_details.code_info',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),
-              ).tr(),
-              ..._buildRawValue(context),
-              const SizedBox(height: 32),
-            ],
-          ),
-        ),
+            padding: const EdgeInsets.all(24.0),
+            child: ListView(
+              children: [
+                if (qrCode != null) ..._buildImage(qrCode, context),
+                const Text(
+                  'scan_details.code_info',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ).tr(),
+                ..._buildRawValue(context),
+                const SizedBox(height: 32),
+                if (qrCode != null) _openImage(context, qrCode)
+              ],
+            )),
       ),
     );
   }
