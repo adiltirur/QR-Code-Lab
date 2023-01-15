@@ -11,7 +11,7 @@ import 'scan_state.dart';
 class ScanBloc extends WBBloc<ScanState, ScanEvent> {
   final _scannerRepository = ScannerRepository();
 
-  void clearBarCodeData() {
+  void resumeScanning() {
     emitS(
       state: currentState.copyWith(
         barcode: null,
@@ -21,29 +21,35 @@ class ScanBloc extends WBBloc<ScanState, ScanEvent> {
     );
   }
 
-  void onBarCodeDetect(BarcodeCapture barcode) {
+  void onBarCodeDetect(BarcodeCapture barcode, bool saveImage) {
     emitS(isLoading: true);
     final extractedBarCode = barcode.barcodes.tryFirst;
     if (extractedBarCode != null) {
-      executeSafely(() async {
-        final scannedInfo = await _scannerRepository.getScannedInfo(
-          extractedBarCode,
-          barcode.image,
-        );
-        return scannedInfo;
-      }).then((value) {
-        if (value != null)
-          emitS(
-            isLoading: false,
-            state: currentState.copyWith(
-              barcode: extractedBarCode,
-              capture: barcode,
-            ),
-            events: [
-              ScanEvent.detected(scannedInfo: value),
-            ],
+      executeSafely(
+        () async {
+          final scannedInfo = await _scannerRepository.getScannedInfo(
+            extractedBarCode,
+            saveImage ? barcode.image : null,
           );
-      });
+          return scannedInfo;
+        },
+      ).then(
+        (value) {
+          if (value != null)
+            emitS(
+              isLoading: false,
+              state: currentState.copyWith(
+                barcode: extractedBarCode,
+                capture: barcode,
+              ),
+              events: [
+                ScanEvent.detected(
+                  scannedInfo: value,
+                ),
+              ],
+            );
+        },
+      );
     }
   }
 
