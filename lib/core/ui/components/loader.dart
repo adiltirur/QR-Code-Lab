@@ -34,7 +34,7 @@ class CircularLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Lottie.asset('assets/animations/loader2.json');
+    return Lottie.asset('assets/animations/splash.json');
   }
 }
 
