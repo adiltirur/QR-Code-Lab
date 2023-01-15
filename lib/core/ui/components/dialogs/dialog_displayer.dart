@@ -39,8 +39,6 @@ class DialogDisplayerState extends State<DialogDisplayer> {
   Future<void> showAlert({
     required WBNotificationType type,
     required String body,
-    String? linkText,
-    void Function()? onTapLink,
   }) async {
     final completer = Completer<void>();
     final dialog = WBDialog(

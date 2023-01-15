@@ -92,7 +92,7 @@ class ScanBloc extends WBBloc<ScanState, ScanEvent> {
     //Also this will happen only when hot reloading,
     //so in production the chances of this happening is less
     const errorMessage = 'Called start() while already started!';
-    var errorDetails = exception.errorDetails;
+    final errorDetails = exception.errorDetails;
     if (currentOutput.error == null) {
       if (errorDetails != null) if (errorDetails.message == errorMessage) {
         _tryToggleCamera();

@@ -71,7 +71,7 @@ class ScanHistoryScreen extends StatelessWidget {
               context.bloc<ScanHistoryBloc>().onToggleReverseList(),
           icon: const Icon(
             Icons.sort,
-            color: WBColors.black,
+            color: WBColors.white,
           ),
         )
     ];
@@ -92,7 +92,7 @@ class ScanHistoryScreen extends StatelessWidget {
     BuildContext context,
     _BlocOutput output,
   ) {
-    var scannedItems = output.state.scannedItems;
+    final scannedItems = output.state.scannedItems;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: WBColors.primary,
@@ -108,7 +108,7 @@ class ScanHistoryScreen extends StatelessWidget {
               padding: EdgeInsets.zero,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                var scannedItem = scannedItems[index];
+                final scannedItem = scannedItems[index];
                 final createdDate = scannedItem.createdAt;
                 final displayValue = scannedItem.displayValue;
                 final image = scannedItem.qrCode;

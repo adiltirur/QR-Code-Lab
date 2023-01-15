@@ -35,6 +35,7 @@ class WBAlertDialogContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildBody(),
         if (onClose != null) _buildCloseButton(),
@@ -94,6 +95,7 @@ class WBActionDialogContent<T> extends StatelessWidget {
 
   Widget _buildActions() {
     return SeparatedUnScrollableList(
+      showLastSeparator: false,
       children: actions.mapToList(
         (e) => WBListButton(
           title: e.text,
@@ -144,15 +146,8 @@ class WBDialog extends StatelessWidget {
         color: type.backgroundColor,
         borderRadius: const BorderRadius.all(WBRadius.circular),
       ),
-      padding: const EdgeInsets.fromLTRB(18, 20, 0, 20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(type.icon),
-          const SizedBox(width: 14),
-          Expanded(child: content),
-        ],
-      ),
+      padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
+      child: content,
     );
   }
 }

@@ -232,7 +232,7 @@ class ScanScreen extends HookWidget {
     ScannedInfo scannedInfo,
   ) async {
     scannerController.stop();
-    var bloc = context.bloc<ScanBloc>();
+    final bloc = context.bloc<ScanBloc>();
     context.router.push(
       ScanDetailsRoute(
         scannedInfo: scannedInfo,

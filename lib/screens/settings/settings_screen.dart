@@ -66,7 +66,12 @@ class SettingsScreen extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(24.0),
-          child: const Text('settings.select_camera_title').tr(),
+          child: const Text(
+            'settings.select_camera_title',
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ).tr(),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -121,15 +126,15 @@ class SettingsScreen extends StatelessWidget {
         children: [
           SeparatedUnScrollableList(
             children: [
-              _buildCameraButton(
-                context,
-                output.state.systemSettings.defaultCamera,
-              ),
+              _buildLanguageButton(context),
               _buildSaveImageSwitch(
                 context,
                 output.state.systemSettings.shouldSaveImage,
               ),
-              _buildLanguageButton(context),
+              _buildCameraButton(
+                context,
+                output.state.systemSettings.defaultCamera,
+              ),
             ],
           ),
           Padding(

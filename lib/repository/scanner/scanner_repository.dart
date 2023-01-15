@@ -43,7 +43,7 @@ class ScannerRepository {
 
   Future<void> _saveScannedInfo(ScannedInfo scannedInfo) async {
     final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
-    var barCode = scannedInfo.barCode;
+    final barCode = scannedInfo.barCode;
     final scannedItem = HiveScannedItem()
       ..uuid = scannedInfo.uuid
       ..qrCode = scannedInfo.qrCode
@@ -62,7 +62,7 @@ class ScannerRepository {
     final uuid = const Uuid().v1();
     final compressedImage = await _compressImage(qrCode);
 
-    var dateTime = DateTime.now();
+    final dateTime = DateTime.now();
     final scannedInfo = ScannedInfo(
       uuid: uuid,
       qrCode: compressedImage,

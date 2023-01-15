@@ -30,27 +30,24 @@ class ScanDetails extends HookWidget {
   });
   Widget _buildUrlLaunchButton(BuildContext context) {
     return WBTextButton(
-        text: tr('scan_details.launch_url'),
-        onPressed: () async {
-          final isSuccess =
-              await tryLaunchUrlString(scannedInfo.barCode.rawValue);
-          if (!isSuccess) context.bloc<ScanDetailsBloc>().hasError();
-        });
-  }
-
-  List<Widget> _buildRawAndDisplayValue(BuildContext context) {
-    return [
-      Text(scannedInfo.barCode.rawValue ?? ''),
-      const SizedBox(height: 32),
-      Text(scannedInfo.barCode.displayValue ?? ''),
-      const SizedBox(height: 32),
-      _buildUrlLaunchButton(context),
-    ];
+      text: tr('scan_details.launch_url'),
+      onPressed: () async {
+        final isSuccess =
+            await tryLaunchUrlString(scannedInfo.barCode.rawValue);
+        if (!isSuccess) context.bloc<ScanDetailsBloc>().hasError();
+      },
+      color: WBColors.black,
+    );
   }
 
   List<Widget> _buildRawValue(BuildContext context) {
     return [
-      Text(scannedInfo.barCode.rawValue ?? ''),
+      Text(
+        scannedInfo.barCode.rawValue ?? '',
+        style: const TextStyle(
+          fontSize: 18,
+        ),
+      ),
       const SizedBox(height: 32),
       _buildUrlLaunchButton(context)
     ];
@@ -76,7 +73,7 @@ class ScanDetails extends HookWidget {
       onPressed: () => context.bloc<ScanDetailsBloc>().onDelete(),
       icon: const Icon(
         Icons.delete,
-        color: WBColors.black,
+        color: WBColors.white,
       ),
     );
   }
@@ -101,9 +98,7 @@ class ScanDetails extends HookWidget {
     BuildContext context,
     _BlocOutput output,
   ) {
-    var qrCode = scannedInfo.qrCode;
-    var isRawAndDisplayHaveSameValue =
-        scannedInfo.barCode.rawValue == scannedInfo.barCode.displayValue;
+    final qrCode = scannedInfo.qrCode;
 
     return WillPopScope(
       onWillPop: () async {
@@ -116,9 +111,9 @@ class ScanDetails extends HookWidget {
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: _buildBottomAppBar(context),
         appBar: AppBar(
-          backgroundColor: WBColors.white,
+          backgroundColor: WBColors.primary,
           leading: BackButton(
-            color: WBColors.black,
+            color: WBColors.white,
             onPressed: () => onBack(),
           ),
           actions: [_buildDeleteRecord(context)],
@@ -131,11 +126,14 @@ class ScanDetails extends HookWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               if (qrCode != null) ..._buildImage(qrCode),
-              const Text('scan_details.code_info').tr(),
-              if (isRawAndDisplayHaveSameValue)
-                ..._buildRawValue(context)
-              else
-                ..._buildRawAndDisplayValue(context),
+              const Text(
+                'scan_details.code_info',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+              ).tr(),
+              ..._buildRawValue(context),
               const SizedBox(height: 32),
             ],
           ),
