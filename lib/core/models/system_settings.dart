@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-import 'language.dart';
 part 'system_settings.freezed.dart';
 
 @freezed

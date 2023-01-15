@@ -60,47 +60,9 @@ class WBListSwitch extends StatelessWidget {
       ),
       tileColor: WBColors.white,
       title: Text(title, style: const TextStyle(fontSize: 16)),
-      //TODO black to primary
-      activeColor: WBColors.black,
+      activeColor: WBColors.primary,
       value: value,
       onChanged: enabled ? onChanged : null,
-    );
-  }
-}
-
-class GSListExpansion extends StatelessWidget {
-  final String title;
-  final Widget child;
-
-  const GSListExpansion({
-    required this.title,
-    required this.child,
-  });
-
-  GSListExpansion.text({
-    required this.title,
-    required String text,
-  }) : child = Text(
-          text,
-          style: const TextStyle(fontSize: 16, color: WBColors.grey),
-        );
-
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        dividerColor: WBColors.transparent,
-        unselectedWidgetColor: WBColors.black,
-      ),
-      child: ExpansionTile(
-        iconColor: WBColors.black,
-        textColor: WBColors.black,
-        title: Text(title),
-        childrenPadding: const EdgeInsets.fromLTRB(24, 0, 24, 20),
-        tilePadding: const EdgeInsets.symmetric(horizontal: 24),
-        expandedAlignment: Alignment.centerLeft,
-        children: [child],
-      ),
     );
   }
 }

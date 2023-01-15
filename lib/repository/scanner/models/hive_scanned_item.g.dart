@@ -23,14 +23,13 @@ class HiveScannedItemAdapter extends TypeAdapter<HiveScannedItem> {
       ..displayValue = fields[3] as String?
       ..createdAt = fields[6] as DateTime
       ..modifiedAt = fields[7] as DateTime
-      ..customName = fields[8] as String?
-      ..note = fields[9] as String?;
+      ..customName = fields[8] as String;
   }
 
   @override
   void write(BinaryWriter writer, HiveScannedItem obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.uuid)
       ..writeByte(1)
@@ -44,9 +43,7 @@ class HiveScannedItemAdapter extends TypeAdapter<HiveScannedItem> {
       ..writeByte(7)
       ..write(obj.modifiedAt)
       ..writeByte(8)
-      ..write(obj.customName)
-      ..writeByte(9)
-      ..write(obj.note);
+      ..write(obj.customName);
   }
 
   @override

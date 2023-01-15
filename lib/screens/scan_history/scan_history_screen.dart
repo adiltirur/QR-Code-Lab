@@ -100,7 +100,11 @@ class ScanHistoryScreen extends StatelessWidget {
                 final image = scannedItem.qrCode;
                 return ListTile(
                   leading: circularImage(image),
-                  title: Text(displayValue ?? ''),
+                  title: Text(
+                    scannedItem.customName.isNotEmpty
+                        ? scannedItem.customName
+                        : displayValue ?? '',
+                  ),
                   subtitle: Text(createdDate.toIso8601String()),
                   onTap: () => context
                       .bloc<ScanHistoryBloc>()

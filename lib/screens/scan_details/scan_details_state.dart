@@ -9,8 +9,5 @@ class ScanDetailsEvent with _$ScanDetailsEvent {
 
 @freezed
 class ScanDetailsState with _$ScanDetailsState {
-  const factory ScanDetailsState({
-    required String customName,
-    required String note,
-  }) = _ScanDetailsState;
+  const factory ScanDetailsState() = _ScanDetailsState;
 }

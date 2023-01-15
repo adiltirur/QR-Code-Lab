@@ -165,22 +165,13 @@ abstract class ScanDetailsDeleteEvent implements ScanDetailsEvent {
 }
 
 /// @nodoc
-mixin _$ScanDetailsState {
-  String get customName => throw _privateConstructorUsedError;
-  String get note => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ScanDetailsStateCopyWith<ScanDetailsState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+mixin _$ScanDetailsState {}
 
 /// @nodoc
 abstract class $ScanDetailsStateCopyWith<$Res> {
   factory $ScanDetailsStateCopyWith(
           ScanDetailsState value, $Res Function(ScanDetailsState) then) =
       _$ScanDetailsStateCopyWithImpl<$Res, ScanDetailsState>;
-  @useResult
-  $Res call({String customName, String note});
 }
 
 /// @nodoc
@@ -192,35 +183,13 @@ class _$ScanDetailsStateCopyWithImpl<$Res, $Val extends ScanDetailsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? customName = null,
-    Object? note = null,
-  }) {
-    return _then(_value.copyWith(
-      customName: null == customName
-          ? _value.customName
-          : customName // ignore: cast_nullable_to_non_nullable
-              as String,
-      note: null == note
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$_ScanDetailsStateCopyWith<$Res>
-    implements $ScanDetailsStateCopyWith<$Res> {
+abstract class _$$_ScanDetailsStateCopyWith<$Res> {
   factory _$$_ScanDetailsStateCopyWith(
           _$_ScanDetailsState value, $Res Function(_$_ScanDetailsState) then) =
       __$$_ScanDetailsStateCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String customName, String note});
 }
 
 /// @nodoc
@@ -230,72 +199,28 @@ class __$$_ScanDetailsStateCopyWithImpl<$Res>
   __$$_ScanDetailsStateCopyWithImpl(
       _$_ScanDetailsState _value, $Res Function(_$_ScanDetailsState) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? customName = null,
-    Object? note = null,
-  }) {
-    return _then(_$_ScanDetailsState(
-      customName: null == customName
-          ? _value.customName
-          : customName // ignore: cast_nullable_to_non_nullable
-              as String,
-      note: null == note
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_ScanDetailsState implements _ScanDetailsState {
-  const _$_ScanDetailsState({required this.customName, required this.note});
-
-  @override
-  final String customName;
-  @override
-  final String note;
+  const _$_ScanDetailsState();
 
   @override
   String toString() {
-    return 'ScanDetailsState(customName: $customName, note: $note)';
+    return 'ScanDetailsState()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ScanDetailsState &&
-            (identical(other.customName, customName) ||
-                other.customName == customName) &&
-            (identical(other.note, note) || other.note == note));
+        (other.runtimeType == runtimeType && other is _$_ScanDetailsState);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, customName, note);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_ScanDetailsStateCopyWith<_$_ScanDetailsState> get copyWith =>
-      __$$_ScanDetailsStateCopyWithImpl<_$_ScanDetailsState>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 }
 
 abstract class _ScanDetailsState implements ScanDetailsState {
-  const factory _ScanDetailsState(
-      {required final String customName,
-      required final String note}) = _$_ScanDetailsState;
-
-  @override
-  String get customName;
-  @override
-  String get note;
-  @override
-  @JsonKey(ignore: true)
-  _$$_ScanDetailsStateCopyWith<_$_ScanDetailsState> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _ScanDetailsState() = _$_ScanDetailsState;
 }

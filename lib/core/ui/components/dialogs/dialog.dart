@@ -11,8 +11,11 @@ class WBAlertDialogContent extends StatelessWidget {
 
   final String body;
 
+  final void Function()? onClose;
+
   const WBAlertDialogContent({
     required this.body,
+    this.onClose,
   });
 
   Widget _buildBody() {
@@ -20,7 +23,12 @@ class WBAlertDialogContent extends StatelessWidget {
   }
 
   Widget _buildCloseButton() {
-    return const CloseButton();
+    return IconButton(
+      icon: const Icon(Icons.close, color: WBColors.black),
+      onPressed: onClose,
+      alignment: Alignment.topCenter,
+      padding: EdgeInsets.zero,
+    );
   }
 
   @override
@@ -29,37 +37,8 @@ class WBAlertDialogContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildBody(),
-        _buildCloseButton(),
+        if (onClose != null) _buildCloseButton(),
       ],
-    );
-  }
-}
-
-class WBDialog extends StatelessWidget {
-  final WBNotificationType type;
-  final Widget content;
-
-  const WBDialog({
-    required this.type,
-    required this.content,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: type.backgroundColor,
-        borderRadius: const BorderRadius.all(WBRadius.circular),
-      ),
-      padding: const EdgeInsets.fromLTRB(18, 20, 0, 20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(type.icon),
-          const SizedBox(width: 14),
-          Expanded(child: content),
-        ],
-      ),
     );
   }
 }
@@ -144,6 +123,35 @@ class WBActionDialogContent<T> extends StatelessWidget {
             _buildActions(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class WBDialog extends StatelessWidget {
+  final WBNotificationType type;
+  final Widget content;
+
+  const WBDialog({
+    required this.type,
+    required this.content,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: type.backgroundColor,
+        borderRadius: const BorderRadius.all(WBRadius.circular),
+      ),
+      padding: const EdgeInsets.fromLTRB(18, 20, 0, 20),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(type.icon),
+          const SizedBox(width: 14),
+          Expanded(child: content),
+        ],
       ),
     );
   }

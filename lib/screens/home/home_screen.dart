@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/const/colors.dart';
@@ -33,28 +34,28 @@ extension on WBBottomNavigationItem {
   BottomNavigationBarItem get navigationItem {
     switch (this) {
       case WBBottomNavigationItem.scan:
-        return const BottomNavigationBarItem(
-          icon: Icon(
+        return BottomNavigationBarItem(
+          icon: const Icon(
             Icons.qr_code,
             size: 34,
           ),
-          label: 'Scan',
+          label: tr('bottom_navigation.scan'),
         );
       case WBBottomNavigationItem.history:
-        return const BottomNavigationBarItem(
-          icon: Icon(
+        return BottomNavigationBarItem(
+          icon: const Icon(
             Icons.history,
             size: 34,
           ),
-          label: 'History',
+          label: tr('bottom_navigation.history'),
         );
       case WBBottomNavigationItem.settings:
-        return const BottomNavigationBarItem(
-          icon: Icon(
+        return BottomNavigationBarItem(
+          icon: const Icon(
             Icons.settings,
             size: 34,
           ),
-          label: 'Settings',
+          label: tr('bottom_navigation.settings'),
         );
     }
   }
@@ -63,13 +64,12 @@ extension on WBBottomNavigationItem {
 class HomeScreen extends StatelessWidget {
   final SystemSettings? systemSettings;
 
-  const HomeScreen({super.key, this.systemSettings});
+  const HomeScreen({this.systemSettings});
 
   Widget _blocBuilder(BuildContext context, HomeBlocOutput output) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: WBColors.white,
-        elevation: 0,
         selectedFontSize: 12.0,
         items: WBBottomNavigationItem.values.mapToList(
           (e) => e.navigationItem,
@@ -87,14 +87,20 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Future<void> _showDeletedAlert(BuildContext context) {
+    return context.dialogDisplayer.showAlert(
+      type: WBNotificationType.confirmation,
+      body: tr('settings.history_deleted'),
+    );
+  }
+
   void _blocListener(BuildContext context, HomeBlocOutput output) {
     for (final event in output.events) {
-      event.when<void>(deleted: () {
-        context.dialogDisplayer.showAlert(
-          type: WBNotificationType.confirmation,
-          body: 'All History Deleted!',
-        );
-      });
+      event.when<void>(
+        deleted: () => _showDeletedAlert(
+          context,
+        ),
+      );
     }
   }
 

@@ -14,7 +14,12 @@ class HomeBloc extends WBBloc<HomeState, HomeEvent> {
   Future<void> deleteScanHistory() async {
     emitS(isLoading: true);
     await _scannerRepository.deleteScanHistory();
-    emitS(isLoading: false, events: [const HomeEvent.deleted()]);
+    emitS(
+      isLoading: false,
+      events: [
+        const HomeEvent.deleted(),
+      ],
+    );
   }
 
   void updateLanguage(Language language) {

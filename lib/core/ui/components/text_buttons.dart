@@ -4,7 +4,7 @@ import '../../const/borders.dart';
 import '../../const/colors.dart';
 import '../../extensions/material_state.dart';
 
-enum WBTextButtonStyle { filled, outlined, clear }
+enum WBTextButtonStyle { filled }
 
 class _WBTextButton extends StatelessWidget {
   final String text;
@@ -52,46 +52,6 @@ class _WBTextButton extends StatelessWidget {
   }
 }
 
-class _WBClearTextButton extends StatelessWidget {
-  final String text;
-  final void Function() onPressed;
-  final bool enabled;
-  final Color color;
-
-  const _WBClearTextButton({
-    required this.text,
-    required this.onPressed,
-    this.enabled = true,
-    required this.color,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: enabled ? onPressed : null,
-      style: ButtonStyle(
-        foregroundColor: WBMaterialStateProperty.resolveEnabled(
-          (enabled) => color.withOpacity(enabled ? 1 : 0.4),
-        ),
-        padding: MaterialStateProperty.all(EdgeInsets.zero),
-        minimumSize: MaterialStateProperty.all(
-          const Size.square(kMinInteractiveDimension),
-        ),
-      ),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          decoration: TextDecoration.underline,
-        ),
-      ),
-    );
-  }
-}
-
 class WBTextButton extends StatelessWidget {
   final String text;
   final void Function() onPressed;
@@ -118,21 +78,6 @@ class WBTextButton extends StatelessWidget {
           enabled: enabled,
           color: color,
           outlined: false,
-        );
-      case WBTextButtonStyle.outlined:
-        return _WBTextButton(
-          text: text,
-          onPressed: onPressed,
-          enabled: enabled,
-          color: color,
-          outlined: true,
-        );
-      case WBTextButtonStyle.clear:
-        return _WBClearTextButton(
-          text: text,
-          onPressed: onPressed,
-          enabled: enabled,
-          color: color,
         );
     }
   }

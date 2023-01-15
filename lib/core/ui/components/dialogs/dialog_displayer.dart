@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
 import '../../../const/colors.dart';
 import '../../../models/notification.dart';
+
 import '../animations/animated_appearance.dart';
-import '../text_buttons.dart';
 import 'dialog.dart';
 
 class DialogDisplayer extends StatefulWidget {
@@ -31,6 +30,7 @@ class DialogDisplayerState extends State<DialogDisplayer> {
   final List<WBDialog> _dialogs = [];
 
   void showDialog(WBDialog dialog) {
+    _dialogs.clear();
     setState(() {
       _dialogs.add(dialog);
     });
@@ -39,12 +39,20 @@ class DialogDisplayerState extends State<DialogDisplayer> {
   Future<void> showAlert({
     required WBNotificationType type,
     required String body,
+    String? linkText,
+    void Function()? onTapLink,
   }) async {
     final completer = Completer<void>();
     final dialog = WBDialog(
       type: type,
       content: WBAlertDialogContent(
         body: body,
+        onClose: () {
+          setState(() {
+            _dialogs.removeAt(0);
+          });
+          completer.complete();
+        },
       ),
     );
     setState(() {
@@ -130,74 +138,15 @@ Future<bool> showTextYesNoDialog(
         title: text,
         actions: [
           WBDialogAction(
-            text: yesText ?? 'Yes',
+            text: yesText ?? tr('general.yes'),
             value: true,
           ),
-          //TODO Add yes and no to intl
           WBDialogAction(
-            text: noText ?? 'No',
+            text: noText ?? tr('general.no'),
             value: false,
           ),
         ],
         isDismissible: true,
       ) ==
       true;
-}
-
-Future<void> showSingleActionBottomSheet({
-  required BuildContext context,
-  required String title,
-  required String message,
-  String? buttonText,
-  Function()? buttonAction,
-}) async {
-  return showModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(10.0),
-        topRight: Radius.circular(10.0),
-      )),
-      isScrollControlled: true,
-      context: context,
-      builder: (context) => Container(
-            decoration: const BoxDecoration(
-              color: WBColors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-            ),
-            child: SafeArea(
-              top: false,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(24, 13, 24, 13),
-                          child: Text(
-                            title,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  WBTextButton(
-                    text: buttonText ?? tr('general.close'),
-                    onPressed: () {
-                      if (buttonAction != null) {
-                        buttonAction();
-                      } else {
-                        Navigator.maybePop(context);
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ));
 }

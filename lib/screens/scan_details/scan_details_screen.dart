@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../core/const/colors.dart';
 import '../../core/extensions/build_context.dart';
@@ -15,23 +16,39 @@ import 'scan_details_state.dart';
 
 typedef _BlocOutput = WBBlocOutput<ScanDetailsState, ScanDetailsEvent>;
 
-class ScanDetails extends StatelessWidget {
+class ScanDetails extends HookWidget {
   final ScannedInfo scannedInfo;
   final void Function(String uuid) onDelete;
 
-  const ScanDetails({
-    super.key,
+  ScanDetails({
     required this.scannedInfo,
     required this.onDelete,
   });
+  final _formKey = GlobalKey<FormState>();
+
+  BottomAppBar _buildBottomAppBar(BuildContext context) {
+    return BottomAppBar(
+      elevation: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Created on: ${scannedInfo.createdAt.toIso8601String()}'),
+        ],
+      ),
+    );
+  }
 
   Widget _blocBuilder(
     BuildContext context,
     _BlocOutput output,
   ) {
     var qrCode = scannedInfo.qrCode;
-    var bool = scannedInfo.barCode.rawValue == scannedInfo.barCode.displayValue;
+    var isRawAndDisplayHaveSameValue =
+        scannedInfo.barCode.rawValue == scannedInfo.barCode.displayValue;
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      bottomNavigationBar: _buildBottomAppBar(context),
       appBar: AppBar(
         backgroundColor: WBColors.white,
         leading: BackButton(
@@ -52,6 +69,8 @@ class ScanDetails extends StatelessWidget {
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
           children: [
             if (qrCode != null) ...[
               const SizedBox(
@@ -69,24 +88,36 @@ class ScanDetails extends StatelessWidget {
                 height: 32,
               ),
             ],
-            if (bool) ...[
+            const Text('QR Code Info:-'),
+            if (isRawAndDisplayHaveSameValue) ...[
               Text(scannedInfo.barCode.rawValue ?? ''),
+              const SizedBox(
+                height: 32,
+              ),
               WBTextButton(
                   text: 'Open QR Code',
                   onPressed: () =>
                       tryLaunchUrlString(scannedInfo.barCode.rawValue)),
             ] else ...[
+              Text(scannedInfo.barCode.rawValue ?? ''),
+              const SizedBox(
+                height: 32,
+              ),
+              Text(scannedInfo.barCode.displayValue ?? ''),
+              const SizedBox(
+                height: 32,
+              ),
               WBTextButton(
                   text: 'Open QR Code',
-                  onPressed: () =>
-                      tryLaunchUrlString(scannedInfo.barCode.rawValue)),
-              Text(scannedInfo.barCode.rawValue ?? ''),
-              Text(scannedInfo.barCode.displayValue ?? ''),
+                  onPressed: () async {
+                    final isSuccess =
+                        await tryLaunchUrlString(scannedInfo.barCode.rawValue);
+                    if (!isSuccess) context.bloc<ScanDetailsBloc>().hasError();
+                  }),
             ],
             const SizedBox(
               height: 32,
             ),
-            const Text('Add more details here:'),
           ],
         ),
       ),

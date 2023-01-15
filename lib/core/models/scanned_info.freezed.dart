@@ -27,7 +27,6 @@ mixin _$ScannedInfo {
   DateTime get modifiedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'custom_name')
   String? get customName => throw _privateConstructorUsedError;
-  String? get note => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScannedInfoCopyWith<ScannedInfo> get copyWith =>
@@ -46,8 +45,7 @@ abstract class $ScannedInfoCopyWith<$Res> {
       @JsonKey(name: 'bar_code') Barcode barCode,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'modified_at') DateTime modifiedAt,
-      @JsonKey(name: 'custom_name') String? customName,
-      String? note});
+      @JsonKey(name: 'custom_name') String? customName});
 }
 
 /// @nodoc
@@ -69,7 +67,6 @@ class _$ScannedInfoCopyWithImpl<$Res, $Val extends ScannedInfo>
     Object? createdAt = null,
     Object? modifiedAt = null,
     Object? customName = freezed,
-    Object? note = freezed,
   }) {
     return _then(_value.copyWith(
       uuid: null == uuid
@@ -96,10 +93,6 @@ class _$ScannedInfoCopyWithImpl<$Res, $Val extends ScannedInfo>
           ? _value.customName
           : customName // ignore: cast_nullable_to_non_nullable
               as String?,
-      note: freezed == note
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -118,8 +111,7 @@ abstract class _$$_ScannedInfoCopyWith<$Res>
       @JsonKey(name: 'bar_code') Barcode barCode,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'modified_at') DateTime modifiedAt,
-      @JsonKey(name: 'custom_name') String? customName,
-      String? note});
+      @JsonKey(name: 'custom_name') String? customName});
 }
 
 /// @nodoc
@@ -139,7 +131,6 @@ class __$$_ScannedInfoCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? modifiedAt = null,
     Object? customName = freezed,
-    Object? note = freezed,
   }) {
     return _then(_$_ScannedInfo(
       uuid: null == uuid
@@ -166,10 +157,6 @@ class __$$_ScannedInfoCopyWithImpl<$Res>
           ? _value.customName
           : customName // ignore: cast_nullable_to_non_nullable
               as String?,
-      note: freezed == note
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -183,8 +170,7 @@ class _$_ScannedInfo implements _ScannedInfo {
       @JsonKey(name: 'bar_code') required this.barCode,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'modified_at') required this.modifiedAt,
-      @JsonKey(name: 'custom_name') required this.customName,
-      required this.note});
+      @JsonKey(name: 'custom_name') required this.customName});
 
   @override
   final String uuid;
@@ -203,12 +189,10 @@ class _$_ScannedInfo implements _ScannedInfo {
   @override
   @JsonKey(name: 'custom_name')
   final String? customName;
-  @override
-  final String? note;
 
   @override
   String toString() {
-    return 'ScannedInfo(uuid: $uuid, qrCode: $qrCode, barCode: $barCode, createdAt: $createdAt, modifiedAt: $modifiedAt, customName: $customName, note: $note)';
+    return 'ScannedInfo(uuid: $uuid, qrCode: $qrCode, barCode: $barCode, createdAt: $createdAt, modifiedAt: $modifiedAt, customName: $customName)';
   }
 
   @override
@@ -224,8 +208,7 @@ class _$_ScannedInfo implements _ScannedInfo {
             (identical(other.modifiedAt, modifiedAt) ||
                 other.modifiedAt == modifiedAt) &&
             (identical(other.customName, customName) ||
-                other.customName == customName) &&
-            (identical(other.note, note) || other.note == note));
+                other.customName == customName));
   }
 
   @override
@@ -236,8 +219,7 @@ class _$_ScannedInfo implements _ScannedInfo {
       barCode,
       createdAt,
       modifiedAt,
-      customName,
-      note);
+      customName);
 
   @JsonKey(ignore: true)
   @override
@@ -248,13 +230,13 @@ class _$_ScannedInfo implements _ScannedInfo {
 
 abstract class _ScannedInfo implements ScannedInfo {
   const factory _ScannedInfo(
-      {required final String uuid,
-      @JsonKey(name: 'qr_code') required final Uint8List? qrCode,
-      @JsonKey(name: 'bar_code') required final Barcode barCode,
-      @JsonKey(name: 'created_at') required final DateTime createdAt,
-      @JsonKey(name: 'modified_at') required final DateTime modifiedAt,
-      @JsonKey(name: 'custom_name') required final String? customName,
-      required final String? note}) = _$_ScannedInfo;
+          {required final String uuid,
+          @JsonKey(name: 'qr_code') required final Uint8List? qrCode,
+          @JsonKey(name: 'bar_code') required final Barcode barCode,
+          @JsonKey(name: 'created_at') required final DateTime createdAt,
+          @JsonKey(name: 'modified_at') required final DateTime modifiedAt,
+          @JsonKey(name: 'custom_name') required final String? customName}) =
+      _$_ScannedInfo;
 
   @override
   String get uuid;
@@ -273,8 +255,6 @@ abstract class _ScannedInfo implements ScannedInfo {
   @override
   @JsonKey(name: 'custom_name')
   String? get customName;
-  @override
-  String? get note;
   @override
   @JsonKey(ignore: true)
   _$$_ScannedInfoCopyWith<_$_ScannedInfo> get copyWith =>

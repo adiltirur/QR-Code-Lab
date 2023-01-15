@@ -170,7 +170,6 @@ class ScanScreen extends HookWidget {
       },
       errorBuilder: (_, error, __) {
         bloc.onErrorDetected(error);
-
         return const SizedBox.shrink();
       },
     );
@@ -192,7 +191,6 @@ class ScanScreen extends HookWidget {
     BuildContext context,
     _BlocOutput output,
     MobileScannerController mobileScannerController,
-    AnimationController animationController,
   ) {
     final state = output.state;
     final barcode = state.barcode;
@@ -233,7 +231,7 @@ class ScanScreen extends HookWidget {
         onDelete: bloc.onDeleteItem,
       ),
     );
-    bloc.resumeScanning();
+    bloc.emptyPreviousBarCodeDetails();
     if (shouldResumeCamera is bool && shouldResumeCamera)
       scannerController.start();
   }
@@ -262,21 +260,14 @@ class ScanScreen extends HookWidget {
       cameraFacing: systemSettings.defaultCamera,
       saveImage: systemSettings.shouldSaveImage,
     );
-    final animationController = useAnimationController();
+
     return Scaffold(
       body: BlocMaster<ScanBloc, _BlocOutput>(
         create: (_) => ScanBloc(),
-        builder: (context, output) => _blocBuilder(
-          context,
-          output,
-          mobileScannerController,
-          animationController,
-        ),
-        listener: (context, output) => _blocListener(
-          context,
-          output,
-          mobileScannerController,
-        ),
+        builder: (context, output) =>
+            _blocBuilder(context, output, mobileScannerController),
+        listener: (context, output) =>
+            _blocListener(context, output, mobileScannerController),
         useScreenLoader: true,
       ),
     );

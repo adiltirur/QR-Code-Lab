@@ -4,29 +4,14 @@ import 'package:lottie/lottie.dart';
 import '../../const/colors.dart';
 import 'animations/animated_appearance.dart';
 
-const _defaultBackgroundColor = WBColors.transparent;
 const _defaultColor = WBColors.primary;
 
-class LinearLoader extends StatelessWidget {
-  final Color color;
-
-  const LinearLoader({this.color = _defaultColor}) : super(key: null);
-
-  @override
-  Widget build(BuildContext context) {
-    return LinearProgressIndicator(
-      backgroundColor: _defaultBackgroundColor,
-      valueColor: AlwaysStoppedAnimation(color),
-    );
-  }
-}
-
-class CircularLoader extends StatelessWidget {
+class LottieLoader extends StatelessWidget {
   final Color color;
   final double size;
   final double strokeWidth;
 
-  const CircularLoader({
+  const LottieLoader({
     this.color = _defaultColor,
     this.size = 00,
     this.strokeWidth = 4,
@@ -60,7 +45,7 @@ class BlockingLoader extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const CircularLoader(color: WBColors.white),
+              const LottieLoader(color: WBColors.white),
               if (message.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.all(24),

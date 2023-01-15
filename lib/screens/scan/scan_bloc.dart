@@ -1,17 +1,15 @@
-import 'package:hive/hive.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../core/error/scanner_error.dart';
 import '../../core/extensions/list.dart';
 import '../../core/services/bloc.dart';
-import '../../repository/scanner/models/hive_scanned_item.dart';
 import '../../repository/scanner/scanner_repository.dart';
 import 'scan_state.dart';
 
 class ScanBloc extends WBBloc<ScanState, ScanEvent> {
   final _scannerRepository = ScannerRepository();
 
-  void resumeScanning() {
+  void emptyPreviousBarCodeDetails() {
     emitS(
       state: currentState.copyWith(
         barcode: null,
@@ -55,8 +53,7 @@ class ScanBloc extends WBBloc<ScanState, ScanEvent> {
 
   Future<void> onDeleteItem(String uuid) async {
     emitS(isLoading: true);
-    final box = await Hive.openBox<HiveScannedItem>('scanHistory');
-    box.delete(uuid);
+    await _scannerRepository.deleteItem(uuid);
     emitS(
       isLoading: false,
     );

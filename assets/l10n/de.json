@@ -1,4 +1,13 @@
 {
 	"general.app_name": "Scanner",
-    "general.company_name": "WorkerBase"
+    "general.company_name": "WorkerBase",
+    "general.yes":"Ja",
+    "general.no":"Nein",
+    "general.error.unknown":"Etwas ist schief gelaufen!",
+    "general.error.scanner_controller_not_ready":"Controller nicht bereit",
+    "general.error.permission_denied":"Erlaubnis verweigert",
+    "settings.history_deleted":"Die gesamte Geschichte wurde gelöscht!",
+    "bottom_navigation.scan":"Scannen",
+    "bottom_navigation.history":"Geschichte",
+    "bottom_navigation.settings":"Einstellungen"
 }

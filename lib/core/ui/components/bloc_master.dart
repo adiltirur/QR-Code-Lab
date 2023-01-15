@@ -15,7 +15,6 @@ class WBBlocConsumer<B extends Cubit<S>, S> extends StatelessWidget {
   final BlocListenerCondition<S>? listenWhen;
   final bool useScreenLoader;
   final bool useDialogDisplayer;
-  final bool listenToAppInfo;
 
   const WBBlocConsumer({
     this.bloc,
@@ -25,7 +24,6 @@ class WBBlocConsumer<B extends Cubit<S>, S> extends StatelessWidget {
     this.listenWhen,
     this.useScreenLoader = true,
     this.useDialogDisplayer = true,
-    this.listenToAppInfo = false,
     Key? key,
   }) : super(key: key);
 

@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 part 'hive_scanned_item.g.dart';
 
@@ -19,7 +18,5 @@ class HiveScannedItem extends HiveObject {
   @HiveField(7)
   late DateTime modifiedAt;
   @HiveField(8)
-  String? customName;
-  @HiveField(9)
-  String? note;
+  late String customName;
 }

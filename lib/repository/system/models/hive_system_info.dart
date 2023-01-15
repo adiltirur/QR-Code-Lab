@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 part 'hive_system_info.g.dart';
 
@@ -11,6 +10,4 @@ class HiveSystemInfo {
   late String cameraFacing;
   @HiveField(2)
   late bool shouldSaveImage;
-
-  // Hive fields go here
 }

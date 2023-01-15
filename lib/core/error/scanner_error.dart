@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import 'errors.dart';
@@ -9,13 +10,13 @@ class ScannerError extends WBAlertError {
   String get userMessage {
     switch (exception.errorCode) {
       case MobileScannerErrorCode.controllerUninitialized:
-        return 'Controller not ready.';
+        return tr('scanner_controller_not_ready');
 
       case MobileScannerErrorCode.permissionDenied:
-        return 'Permission denied';
+        return tr('general.error.permission_denied');
 
       default:
-        return 'Generic Error';
+        return tr('general.error.unknown');
     }
   }
 

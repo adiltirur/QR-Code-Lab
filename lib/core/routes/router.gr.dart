@@ -28,10 +28,7 @@ class _$AppRouter extends RootStackRouter {
           orElse: () => const HomeScreenRouteArgs());
       return MaterialPageX<dynamic>(
         routeData: routeData,
-        child: HomeScreen(
-          key: args.key,
-          systemSettings: args.systemSettings,
-        ),
+        child: HomeScreen(systemSettings: args.systemSettings),
       );
     },
     ScanDetailsRoute.name: (routeData) {
@@ -39,7 +36,6 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
         routeData: routeData,
         child: ScanDetails(
-          key: args.key,
           scannedInfo: args.scannedInfo,
           onDelete: args.onDelete,
         ),
@@ -93,34 +89,24 @@ class SplashScreenRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [HomeScreen]
 class HomeScreenRoute extends PageRouteInfo<HomeScreenRouteArgs> {
-  HomeScreenRoute({
-    Key? key,
-    SystemSettings? systemSettings,
-  }) : super(
+  HomeScreenRoute({SystemSettings? systemSettings})
+      : super(
           HomeScreenRoute.name,
           path: 'home',
-          args: HomeScreenRouteArgs(
-            key: key,
-            systemSettings: systemSettings,
-          ),
+          args: HomeScreenRouteArgs(systemSettings: systemSettings),
         );
 
   static const String name = 'HomeScreenRoute';
 }
 
 class HomeScreenRouteArgs {
-  const HomeScreenRouteArgs({
-    this.key,
-    this.systemSettings,
-  });
-
-  final Key? key;
+  const HomeScreenRouteArgs({this.systemSettings});
 
   final SystemSettings? systemSettings;
 
   @override
   String toString() {
-    return 'HomeScreenRouteArgs{key: $key, systemSettings: $systemSettings}';
+    return 'HomeScreenRouteArgs{systemSettings: $systemSettings}';
   }
 }
 
@@ -128,14 +114,12 @@ class HomeScreenRouteArgs {
 /// [ScanDetails]
 class ScanDetailsRoute extends PageRouteInfo<ScanDetailsRouteArgs> {
   ScanDetailsRoute({
-    Key? key,
     required ScannedInfo scannedInfo,
     required void Function(String) onDelete,
   }) : super(
           ScanDetailsRoute.name,
           path: 'scanDetails',
           args: ScanDetailsRouteArgs(
-            key: key,
             scannedInfo: scannedInfo,
             onDelete: onDelete,
           ),
@@ -146,12 +130,9 @@ class ScanDetailsRoute extends PageRouteInfo<ScanDetailsRouteArgs> {
 
 class ScanDetailsRouteArgs {
   const ScanDetailsRouteArgs({
-    this.key,
     required this.scannedInfo,
     required this.onDelete,
   });
-
-  final Key? key;
 
   final ScannedInfo scannedInfo;
 
@@ -159,7 +140,7 @@ class ScanDetailsRouteArgs {
 
   @override
   String toString() {
-    return 'ScanDetailsRouteArgs{key: $key, scannedInfo: $scannedInfo, onDelete: $onDelete}';
+    return 'ScanDetailsRouteArgs{scannedInfo: $scannedInfo, onDelete: $onDelete}';
   }
 }
 

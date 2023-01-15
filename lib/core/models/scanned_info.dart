@@ -13,6 +13,5 @@ class ScannedInfo with _$ScannedInfo {
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'modified_at') required DateTime modifiedAt,
     @JsonKey(name: 'custom_name') required String? customName,
-    required String? note,
   }) = _ScannedInfo;
 }

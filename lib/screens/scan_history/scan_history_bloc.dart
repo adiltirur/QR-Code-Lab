@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 
+import '../../core/const/hive_boxes.dart';
 import '../../core/services/bloc.dart';
 import '../../repository/scanner/models/hive_scanned_item.dart';
 import '../../repository/scanner/scanner_repository.dart';
@@ -8,7 +9,7 @@ import 'scan_history_state.dart';
 class ScanHistoryBloc extends WBBloc<ScanHistoryState, ScanHistoryEvent> {
   final _scannerRepository = ScannerRepository();
   Future<void> _init() async {
-    final box = await Hive.openBox<HiveScannedItem>('scanHistory');
+    final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
     emitS(
       state: currentState.copyWith(
         scannedItems: box.values.toList()
@@ -27,7 +28,7 @@ class ScanHistoryBloc extends WBBloc<ScanHistoryState, ScanHistoryEvent> {
 
   Future<void> onDeleteItem(String uuid) async {
     emitS(isLoading: true);
-    final box = await Hive.openBox<HiveScannedItem>('scanHistory');
+    final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
     box.delete(uuid);
     emitS(
       isLoading: false,
