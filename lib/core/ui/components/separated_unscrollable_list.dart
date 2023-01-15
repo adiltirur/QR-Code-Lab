@@ -38,13 +38,13 @@ class WBListButton extends StatelessWidget {
   }
 }
 
-class GSListSwitch extends StatelessWidget {
+class WBListSwitch extends StatelessWidget {
   final String title;
   final bool value;
   final void Function(bool)? onChanged;
   final bool enabled;
 
-  const GSListSwitch({
+  const WBListSwitch({
     required this.title,
     required this.value,
     required this.onChanged,

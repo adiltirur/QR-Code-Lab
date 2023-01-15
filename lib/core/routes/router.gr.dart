@@ -24,9 +24,14 @@ class _$AppRouter extends RootStackRouter {
       );
     },
     HomeScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<HomeScreenRouteArgs>(
+          orElse: () => const HomeScreenRouteArgs());
       return MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const HomeScreen(),
+        child: HomeScreen(
+          key: args.key,
+          systemSettings: args.systemSettings,
+        ),
       );
     },
     ScanDetailsRoute.name: (routeData) {
@@ -37,6 +42,16 @@ class _$AppRouter extends RootStackRouter {
           key: args.key,
           scannedInfo: args.scannedInfo,
           onDelete: args.onDelete,
+        ),
+      );
+    },
+    LanguageScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<LanguageScreenRouteArgs>();
+      return MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: LanguageScreen(
+          key: args.key,
+          onChangeLanguage: args.onChangeLanguage,
         ),
       );
     },
@@ -56,6 +71,10 @@ class _$AppRouter extends RootStackRouter {
           ScanDetailsRoute.name,
           path: 'scanDetails',
         ),
+        RouteConfig(
+          LanguageScreenRoute.name,
+          path: 'language',
+        ),
       ];
 }
 
@@ -73,14 +92,36 @@ class SplashScreenRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [HomeScreen]
-class HomeScreenRoute extends PageRouteInfo<void> {
-  const HomeScreenRoute()
-      : super(
+class HomeScreenRoute extends PageRouteInfo<HomeScreenRouteArgs> {
+  HomeScreenRoute({
+    Key? key,
+    SystemSettings? systemSettings,
+  }) : super(
           HomeScreenRoute.name,
           path: 'home',
+          args: HomeScreenRouteArgs(
+            key: key,
+            systemSettings: systemSettings,
+          ),
         );
 
   static const String name = 'HomeScreenRoute';
+}
+
+class HomeScreenRouteArgs {
+  const HomeScreenRouteArgs({
+    this.key,
+    this.systemSettings,
+  });
+
+  final Key? key;
+
+  final SystemSettings? systemSettings;
+
+  @override
+  String toString() {
+    return 'HomeScreenRouteArgs{key: $key, systemSettings: $systemSettings}';
+  }
 }
 
 /// generated route for
@@ -119,5 +160,39 @@ class ScanDetailsRouteArgs {
   @override
   String toString() {
     return 'ScanDetailsRouteArgs{key: $key, scannedInfo: $scannedInfo, onDelete: $onDelete}';
+  }
+}
+
+/// generated route for
+/// [LanguageScreen]
+class LanguageScreenRoute extends PageRouteInfo<LanguageScreenRouteArgs> {
+  LanguageScreenRoute({
+    Key? key,
+    required void Function(Language) onChangeLanguage,
+  }) : super(
+          LanguageScreenRoute.name,
+          path: 'language',
+          args: LanguageScreenRouteArgs(
+            key: key,
+            onChangeLanguage: onChangeLanguage,
+          ),
+        );
+
+  static const String name = 'LanguageScreenRoute';
+}
+
+class LanguageScreenRouteArgs {
+  const LanguageScreenRouteArgs({
+    this.key,
+    required this.onChangeLanguage,
+  });
+
+  final Key? key;
+
+  final void Function(Language) onChangeLanguage;
+
+  @override
+  String toString() {
+    return 'LanguageScreenRouteArgs{key: $key, onChangeLanguage: $onChangeLanguage}';
   }
 }

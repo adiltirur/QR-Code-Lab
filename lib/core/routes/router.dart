@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../../screens/home/home_screen.dart';
 import '../../screens/scan_details/scan_details_screen.dart';
+
+import '../../screens/settings/language_screen.dart';
 import '../../screens/splash/splash_screen.dart';
+import '../models/language.dart';
 import '../models/scanned_info.dart';
+import '../models/system_settings.dart';
 import 'navigation_path.dart';
 
 part 'router.gr.dart';
@@ -24,7 +28,11 @@ part 'router.gr.dart';
     AutoRoute(
       path: NavigationPath.scanDetails,
       page: ScanDetails,
-    )
+    ),
+    AutoRoute(
+      path: NavigationPath.language,
+      page: LanguageScreen,
+    ),
   ],
 )
 class AppRouter extends _$AppRouter {}
