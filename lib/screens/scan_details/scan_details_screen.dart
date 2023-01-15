@@ -102,6 +102,7 @@ class ScanDetails extends HookWidget {
 
     return WillPopScope(
       onWillPop: () async {
+        //A double verification to make sure the scanner is not stopped on swipe
         if (Navigator.of(context).userGestureInProgress)
           return false;
         else
@@ -122,7 +123,6 @@ class ScanDetails extends HookWidget {
           padding: const EdgeInsets.all(24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
               if (qrCode != null) ..._buildImage(qrCode),

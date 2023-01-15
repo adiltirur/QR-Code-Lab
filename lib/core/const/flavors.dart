@@ -13,9 +13,9 @@ class F {
   static String get title {
     switch (appFlavor) {
       case Flavor.prod:
-        return 'Scanner';
+        return 'WorkerBase Scanner';
       case Flavor.dev:
-        return 'Scanner Dev';
+        return 'WorkerBase Scanner Dev';
       default:
         return 'Scanner';
     }

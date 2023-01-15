@@ -44,13 +44,14 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _buildLanguageButton(BuildContext context) {
     return WBListButton(
-      title: 'settings.change_language_title'.tr(),
-      onTap: () => context.router.push(
-        LanguageScreenRoute(
-          onChangeLanguage: context.bloc<HomeBloc>().updateLanguage,
-        ),
-      ),
-    );
+        title: 'settings.change_language_title'.tr(),
+        onTap: () {
+          context.router.push(
+            LanguageScreenRoute(
+              onChangeLanguage: context.bloc<HomeBloc>().updateLanguage,
+            ),
+          );
+        });
   }
 
   RadioListItem<CameraFacing> _buildCameraItem(CameraFacing cameraFacing) {

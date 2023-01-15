@@ -77,9 +77,11 @@ class HomeScreen extends StatelessWidget {
         currentIndex: output.state.selectedItem.index,
         selectedItemColor: WBColors.primary,
         unselectedItemColor: WBColors.grey,
-        onTap: (value) => context.bloc<HomeBloc>().onTapBottomNavigationBar(
-              WBBottomNavigationItem.values[value],
-            ),
+        onTap: (value) {
+          context.bloc<HomeBloc>().onTapBottomNavigationBar(
+                WBBottomNavigationItem.values[value],
+              );
+        },
       ),
       body: WBBottomNavigationItem.values
           .elementAt(output.state.selectedItem.index)

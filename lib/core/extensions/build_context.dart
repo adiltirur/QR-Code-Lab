@@ -4,7 +4,4 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 extension WBBuildContext on BuildContext {
   B bloc<B extends StateStreamableSource<Object?>>() =>
       BlocProvider.of<B>(this);
-  void requestFocus(FocusNode focusNode) =>
-      FocusScope.of(this).requestFocus(focusNode);
-  void resetFocus() => requestFocus(FocusNode());
 }
