@@ -36,9 +36,11 @@ class SplashScreen extends StatelessWidget {
   void _blocListener(BuildContext context, _BlocOutput output) {
     for (final event in output.events) {
       event.when<void>(
-        done: () => context.router.replace(
-          const HomeScreenRoute(),
-        ),
+        done: (systemSettings) {
+          context.router.replace(
+            HomeScreenRoute(systemSettings: systemSettings),
+          );
+        },
       );
     }
   }

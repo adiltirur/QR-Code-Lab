@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SplashEvent {
+  SystemSettings? get systemSettings => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() done,
+    required TResult Function(SystemSettings? systemSettings) done,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? done,
+    TResult? Function(SystemSettings? systemSettings)? done,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? done,
+    TResult Function(SystemSettings? systemSettings)? done,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$SplashEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $SplashEventCopyWith<SplashEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,10 @@ abstract class $SplashEventCopyWith<$Res> {
   factory $SplashEventCopyWith(
           SplashEvent value, $Res Function(SplashEvent) then) =
       _$SplashEventCopyWithImpl<$Res, SplashEvent>;
+  @useResult
+  $Res call({SystemSettings? systemSettings});
+
+  $SystemSettingsCopyWith<$Res>? get systemSettings;
 }
 
 /// @nodoc
@@ -66,13 +75,45 @@ class _$SplashEventCopyWithImpl<$Res, $Val extends SplashEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? systemSettings = freezed,
+  }) {
+    return _then(_value.copyWith(
+      systemSettings: freezed == systemSettings
+          ? _value.systemSettings
+          : systemSettings // ignore: cast_nullable_to_non_nullable
+              as SystemSettings?,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SystemSettingsCopyWith<$Res>? get systemSettings {
+    if (_value.systemSettings == null) {
+      return null;
+    }
+
+    return $SystemSettingsCopyWith<$Res>(_value.systemSettings!, (value) {
+      return _then(_value.copyWith(systemSettings: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
-abstract class _$$SplashDoneEventCopyWith<$Res> {
+abstract class _$$SplashDoneEventCopyWith<$Res>
+    implements $SplashEventCopyWith<$Res> {
   factory _$$SplashDoneEventCopyWith(
           _$SplashDoneEvent value, $Res Function(_$SplashDoneEvent) then) =
       __$$SplashDoneEventCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({SystemSettings? systemSettings});
+
+  @override
+  $SystemSettingsCopyWith<$Res>? get systemSettings;
 }
 
 /// @nodoc
@@ -82,51 +123,76 @@ class __$$SplashDoneEventCopyWithImpl<$Res>
   __$$SplashDoneEventCopyWithImpl(
       _$SplashDoneEvent _value, $Res Function(_$SplashDoneEvent) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? systemSettings = freezed,
+  }) {
+    return _then(_$SplashDoneEvent(
+      systemSettings: freezed == systemSettings
+          ? _value.systemSettings
+          : systemSettings // ignore: cast_nullable_to_non_nullable
+              as SystemSettings?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$SplashDoneEvent implements SplashDoneEvent {
-  const _$SplashDoneEvent();
+  const _$SplashDoneEvent({this.systemSettings});
+
+  @override
+  final SystemSettings? systemSettings;
 
   @override
   String toString() {
-    return 'SplashEvent.done()';
+    return 'SplashEvent.done(systemSettings: $systemSettings)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SplashDoneEvent);
+        (other.runtimeType == runtimeType &&
+            other is _$SplashDoneEvent &&
+            (identical(other.systemSettings, systemSettings) ||
+                other.systemSettings == systemSettings));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, systemSettings);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SplashDoneEventCopyWith<_$SplashDoneEvent> get copyWith =>
+      __$$SplashDoneEventCopyWithImpl<_$SplashDoneEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() done,
+    required TResult Function(SystemSettings? systemSettings) done,
   }) {
-    return done();
+    return done(systemSettings);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? done,
+    TResult? Function(SystemSettings? systemSettings)? done,
   }) {
-    return done?.call();
+    return done?.call(systemSettings);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? done,
+    TResult Function(SystemSettings? systemSettings)? done,
     required TResult orElse(),
   }) {
     if (done != null) {
-      return done();
+      return done(systemSettings);
     }
     return orElse();
   }
@@ -161,7 +227,15 @@ class _$SplashDoneEvent implements SplashDoneEvent {
 }
 
 abstract class SplashDoneEvent implements SplashEvent {
-  const factory SplashDoneEvent() = _$SplashDoneEvent;
+  const factory SplashDoneEvent({final SystemSettings? systemSettings}) =
+      _$SplashDoneEvent;
+
+  @override
+  SystemSettings? get systemSettings;
+  @override
+  @JsonKey(ignore: true)
+  _$$SplashDoneEventCopyWith<_$SplashDoneEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

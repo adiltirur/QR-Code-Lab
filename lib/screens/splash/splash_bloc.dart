@@ -1,16 +1,20 @@
 import '../../core/services/bloc.dart';
+import '../../repository/system/system_repository.dart';
 import 'splash_state.dart';
 
 class SplashBloc extends WBBloc<SplashState, SplashEvent> {
+  final _systemRepository = SystemRepository();
+
   void _init() {
     executeSafely(() async {
       emitS(isLoading: true);
       await Future.delayed(
         const Duration(seconds: 2),
       );
+      final systemInfo = await _systemRepository.getSystemInfo();
       emitS(
         isLoading: false,
-        events: [const SplashEvent.done()],
+        events: [SplashEvent.done(systemSettings: systemInfo)],
       );
     });
   }
