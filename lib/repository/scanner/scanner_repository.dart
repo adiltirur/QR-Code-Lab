@@ -93,4 +93,9 @@ class ScannerRepository {
       scannedItem,
     );
   }
+
+  Future<void> deleteScanHistory() async {
+    final box = await Hive.openBox<HiveScannedItem>('scanHistory');
+    box.deleteFromDisk();
+  }
 }

@@ -18,33 +18,33 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loading,
+    required TResult Function() deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loading,
+    TResult? Function()? deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loading,
+    TResult Function()? deleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HomeLoadingEvent value) loading,
+    required TResult Function(HomeDeletedEvent value) deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HomeLoadingEvent value)? loading,
+    TResult? Function(HomeDeletedEvent value)? deleted,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HomeLoadingEvent value)? loading,
+    TResult Function(HomeDeletedEvent value)? deleted,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -68,35 +68,35 @@ class _$HomeEventCopyWithImpl<$Res, $Val extends HomeEvent>
 }
 
 /// @nodoc
-abstract class _$$HomeLoadingEventCopyWith<$Res> {
-  factory _$$HomeLoadingEventCopyWith(
-          _$HomeLoadingEvent value, $Res Function(_$HomeLoadingEvent) then) =
-      __$$HomeLoadingEventCopyWithImpl<$Res>;
+abstract class _$$HomeDeletedEventCopyWith<$Res> {
+  factory _$$HomeDeletedEventCopyWith(
+          _$HomeDeletedEvent value, $Res Function(_$HomeDeletedEvent) then) =
+      __$$HomeDeletedEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$HomeLoadingEventCopyWithImpl<$Res>
-    extends _$HomeEventCopyWithImpl<$Res, _$HomeLoadingEvent>
-    implements _$$HomeLoadingEventCopyWith<$Res> {
-  __$$HomeLoadingEventCopyWithImpl(
-      _$HomeLoadingEvent _value, $Res Function(_$HomeLoadingEvent) _then)
+class __$$HomeDeletedEventCopyWithImpl<$Res>
+    extends _$HomeEventCopyWithImpl<$Res, _$HomeDeletedEvent>
+    implements _$$HomeDeletedEventCopyWith<$Res> {
+  __$$HomeDeletedEventCopyWithImpl(
+      _$HomeDeletedEvent _value, $Res Function(_$HomeDeletedEvent) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$HomeLoadingEvent implements HomeLoadingEvent {
-  const _$HomeLoadingEvent();
+class _$HomeDeletedEvent implements HomeDeletedEvent {
+  const _$HomeDeletedEvent();
 
   @override
   String toString() {
-    return 'HomeEvent.loading()';
+    return 'HomeEvent.deleted()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$HomeLoadingEvent);
+        (other.runtimeType == runtimeType && other is _$HomeDeletedEvent);
   }
 
   @override
@@ -105,27 +105,27 @@ class _$HomeLoadingEvent implements HomeLoadingEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loading,
+    required TResult Function() deleted,
   }) {
-    return loading();
+    return deleted();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loading,
+    TResult? Function()? deleted,
   }) {
-    return loading?.call();
+    return deleted?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loading,
+    TResult Function()? deleted,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading();
+    if (deleted != null) {
+      return deleted();
     }
     return orElse();
   }
@@ -133,39 +133,40 @@ class _$HomeLoadingEvent implements HomeLoadingEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HomeLoadingEvent value) loading,
+    required TResult Function(HomeDeletedEvent value) deleted,
   }) {
-    return loading(this);
+    return deleted(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(HomeLoadingEvent value)? loading,
+    TResult? Function(HomeDeletedEvent value)? deleted,
   }) {
-    return loading?.call(this);
+    return deleted?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HomeLoadingEvent value)? loading,
+    TResult Function(HomeDeletedEvent value)? deleted,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(this);
+    if (deleted != null) {
+      return deleted(this);
     }
     return orElse();
   }
 }
 
-abstract class HomeLoadingEvent implements HomeEvent {
-  const factory HomeLoadingEvent() = _$HomeLoadingEvent;
+abstract class HomeDeletedEvent implements HomeEvent {
+  const factory HomeDeletedEvent() = _$HomeDeletedEvent;
 }
 
 /// @nodoc
 mixin _$HomeState {
   WBBottomNavigationItem get selectedItem => throw _privateConstructorUsedError;
+  SystemSettings get systemSettings => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -177,7 +178,10 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({WBBottomNavigationItem selectedItem});
+  $Res call(
+      {WBBottomNavigationItem selectedItem, SystemSettings systemSettings});
+
+  $SystemSettingsCopyWith<$Res> get systemSettings;
 }
 
 /// @nodoc
@@ -194,13 +198,26 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @override
   $Res call({
     Object? selectedItem = null,
+    Object? systemSettings = null,
   }) {
     return _then(_value.copyWith(
       selectedItem: null == selectedItem
           ? _value.selectedItem
           : selectedItem // ignore: cast_nullable_to_non_nullable
               as WBBottomNavigationItem,
+      systemSettings: null == systemSettings
+          ? _value.systemSettings
+          : systemSettings // ignore: cast_nullable_to_non_nullable
+              as SystemSettings,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SystemSettingsCopyWith<$Res> get systemSettings {
+    return $SystemSettingsCopyWith<$Res>(_value.systemSettings, (value) {
+      return _then(_value.copyWith(systemSettings: value) as $Val);
+    });
   }
 }
 
@@ -211,7 +228,11 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
       __$$_HomeStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({WBBottomNavigationItem selectedItem});
+  $Res call(
+      {WBBottomNavigationItem selectedItem, SystemSettings systemSettings});
+
+  @override
+  $SystemSettingsCopyWith<$Res> get systemSettings;
 }
 
 /// @nodoc
@@ -226,12 +247,17 @@ class __$$_HomeStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? selectedItem = null,
+    Object? systemSettings = null,
   }) {
     return _then(_$_HomeState(
       selectedItem: null == selectedItem
           ? _value.selectedItem
           : selectedItem // ignore: cast_nullable_to_non_nullable
               as WBBottomNavigationItem,
+      systemSettings: null == systemSettings
+          ? _value.systemSettings
+          : systemSettings // ignore: cast_nullable_to_non_nullable
+              as SystemSettings,
     ));
   }
 }
@@ -239,14 +265,17 @@ class __$$_HomeStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_HomeState implements _HomeState {
-  const _$_HomeState({required this.selectedItem});
+  const _$_HomeState(
+      {required this.selectedItem, required this.systemSettings});
 
   @override
   final WBBottomNavigationItem selectedItem;
+  @override
+  final SystemSettings systemSettings;
 
   @override
   String toString() {
-    return 'HomeState(selectedItem: $selectedItem)';
+    return 'HomeState(selectedItem: $selectedItem, systemSettings: $systemSettings)';
   }
 
   @override
@@ -255,11 +284,13 @@ class _$_HomeState implements _HomeState {
         (other.runtimeType == runtimeType &&
             other is _$_HomeState &&
             (identical(other.selectedItem, selectedItem) ||
-                other.selectedItem == selectedItem));
+                other.selectedItem == selectedItem) &&
+            (identical(other.systemSettings, systemSettings) ||
+                other.systemSettings == systemSettings));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, selectedItem);
+  int get hashCode => Object.hash(runtimeType, selectedItem, systemSettings);
 
   @JsonKey(ignore: true)
   @override
@@ -270,10 +301,13 @@ class _$_HomeState implements _HomeState {
 
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
-      {required final WBBottomNavigationItem selectedItem}) = _$_HomeState;
+      {required final WBBottomNavigationItem selectedItem,
+      required final SystemSettings systemSettings}) = _$_HomeState;
 
   @override
   WBBottomNavigationItem get selectedItem;
+  @override
+  SystemSettings get systemSettings;
   @override
   @JsonKey(ignore: true)
   _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>

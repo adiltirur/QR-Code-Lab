@@ -3,23 +3,26 @@ import 'package:flutter/material.dart';
 import '../../core/const/colors.dart';
 import '../../core/extensions/build_context.dart';
 import '../../core/extensions/list.dart';
+import '../../core/models/notification.dart';
+import '../../core/models/system_settings.dart';
 import '../../core/services/bloc.dart';
 import '../../core/ui/components/bloc_master.dart';
 
+import '../../core/ui/components/dialogs/dialog_displayer.dart';
 import '../scan/scan_screen.dart';
 import '../scan_history/scan_history_screen.dart';
-import '../settings/settings.dart';
+import '../settings/settings_screen.dart';
 
 import 'home_bloc.dart';
 import 'home_state.dart';
 
-typedef _BlocOutput = WBBlocOutput<HomeState, HomeEvent>;
+typedef HomeBlocOutput = WBBlocOutput<HomeState, HomeEvent>;
 
 extension on WBBottomNavigationItem {
-  Widget get screen {
+  Widget screen(SystemSettings systemSettings) {
     switch (this) {
       case WBBottomNavigationItem.scan:
-        return ScanScreen();
+        return ScanScreen(systemSettings: systemSettings);
       case WBBottomNavigationItem.history:
         return ScanHistoryScreen();
       case WBBottomNavigationItem.settings:
@@ -58,9 +61,11 @@ extension on WBBottomNavigationItem {
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final SystemSettings? systemSettings;
 
-  Widget _blocBuilder(BuildContext context, _BlocOutput output) {
+  const HomeScreen({super.key, this.systemSettings});
+
+  Widget _blocBuilder(BuildContext context, HomeBlocOutput output) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: WBColors.white,
@@ -70,7 +75,7 @@ class HomeScreen extends StatelessWidget {
           (e) => e.navigationItem,
         ),
         currentIndex: output.state.selectedItem.index,
-        selectedItemColor: WBColors.black,
+        selectedItemColor: WBColors.primary,
         unselectedItemColor: WBColors.grey,
         onTap: (value) => context.bloc<HomeBloc>().onTapBottomNavigationBar(
               WBBottomNavigationItem.values[value],
@@ -78,20 +83,25 @@ class HomeScreen extends StatelessWidget {
       ),
       body: WBBottomNavigationItem.values
           .elementAt(output.state.selectedItem.index)
-          .screen,
+          .screen(output.state.systemSettings),
     );
   }
 
-  void _blocListener(BuildContext context, _BlocOutput output) {
+  void _blocListener(BuildContext context, HomeBlocOutput output) {
     for (final event in output.events) {
-      event.when<void>(loading: () {});
+      event.when<void>(deleted: () {
+        context.dialogDisplayer.showAlert(
+          type: WBNotificationType.confirmation,
+          body: 'All History Deleted!',
+        );
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocMaster<HomeBloc, _BlocOutput>(
-      create: (_) => HomeBloc(),
+    return BlocMaster<HomeBloc, HomeBlocOutput>(
+      create: (_) => HomeBloc(systemSettings: systemSettings),
       builder: _blocBuilder,
       listener: _blocListener,
       useScreenLoader: true,
