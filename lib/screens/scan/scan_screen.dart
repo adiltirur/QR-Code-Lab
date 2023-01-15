@@ -7,6 +7,7 @@ import '../../core/const/colors.dart';
 import '../../core/extensions/build_context.dart';
 import '../../core/hooks/camera_controller_hook.dart';
 import '../../core/models/scanned_info.dart';
+import '../../core/models/system_settings.dart';
 import '../../core/routes/router.dart';
 import '../../core/services/bloc.dart';
 import '../../core/ui/components/bar_code_overlay.dart';
@@ -84,8 +85,9 @@ extension on _CameraControls {
 }
 
 class ScanScreen extends HookWidget {
-  final double scanWindowWidth = 240.0;
-  final double scanWindowHeight = 240.0;
+  final SystemSettings systemSettings;
+
+  const ScanScreen({required this.systemSettings});
   Widget _buildCameraControl(
     BuildContext context,
     _CameraControls cameraControlItem,
@@ -164,7 +166,7 @@ class ScanScreen extends HookWidget {
         if (arguments != null) bloc.onScanStart(arguments);
       },
       onDetect: (barcode) {
-        bloc.onBarCodeDetect(barcode);
+        bloc.onBarCodeDetect(barcode, systemSettings.shouldSaveImage);
       },
       errorBuilder: (_, error, __) {
         bloc.onErrorDetected(error);
@@ -175,6 +177,8 @@ class ScanScreen extends HookWidget {
   }
 
   Rect _scanWindow(BuildContext context) {
+    const scanWindowWidth = 240.0;
+    const scanWindowHeight = 240.0;
     return Rect.fromCenter(
       center: MediaQuery.of(context).size.center(
             const Offset(0, -50),
@@ -222,14 +226,14 @@ class ScanScreen extends HookWidget {
     ScannedInfo scannedInfo,
   ) async {
     scannerController.stop();
-    final bloc = context.bloc<ScanBloc>();
+    var bloc = context.bloc<ScanBloc>();
     final shouldResumeCamera = await context.router.push(
       ScanDetailsRoute(
         scannedInfo: scannedInfo,
         onDelete: bloc.onDeleteItem,
       ),
     );
-    bloc.clearBarCodeData();
+    bloc.resumeScanning();
     if (shouldResumeCamera is bool && shouldResumeCamera)
       scannerController.start();
   }
@@ -255,7 +259,8 @@ class ScanScreen extends HookWidget {
   Widget build(BuildContext context) {
     final mobileScannerController = useMobileScannerController(
       torchEnabled: false,
-      cameraFacing: CameraFacing.back,
+      cameraFacing: systemSettings.defaultCamera,
+      saveImage: systemSettings.shouldSaveImage,
     );
     final animationController = useAnimationController();
     return Scaffold(
