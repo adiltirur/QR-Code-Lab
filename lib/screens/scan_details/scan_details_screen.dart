@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 
 import '../../core/const/colors.dart';
 import '../../core/extensions/build_context.dart';
+import '../../core/globals/url_launcher.dart';
 import '../../core/models/notification.dart';
 import '../../core/models/scanned_info.dart';
 import '../../core/services/bloc.dart';
 import '../../core/ui/components/bloc_master.dart';
 import '../../core/ui/components/dialogs/dialog_displayer.dart';
+import '../../core/ui/components/text_buttons.dart';
 import 'scan_details.bloc.dart';
 import 'scan_details_state.dart';
 
@@ -74,9 +76,17 @@ class ScanDetails extends StatelessWidget {
                   height: 32,
                 ),
               ],
-              if (bool)
-                Text(scannedInfo.barCode.rawValue ?? '')
-              else ...[
+              if (bool) ...[
+                Text(scannedInfo.barCode.rawValue ?? ''),
+                WBTextButton(
+                    text: 'Open QR Code',
+                    onPressed: () =>
+                        tryLaunchUrlString(scannedInfo.barCode.rawValue)),
+              ] else ...[
+                WBTextButton(
+                    text: 'Open QR Code',
+                    onPressed: () =>
+                        tryLaunchUrlString(scannedInfo.barCode.rawValue)),
                 Text(scannedInfo.barCode.rawValue ?? ''),
                 Text(scannedInfo.barCode.displayValue ?? ''),
               ],
