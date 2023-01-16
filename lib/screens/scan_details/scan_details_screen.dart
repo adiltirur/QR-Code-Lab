@@ -127,11 +127,10 @@ class ScanDetails extends HookWidget {
     return WillPopScope(
       onWillPop: () async {
         //A double verification to make sure the scanner is not stopped on swipe
-        if (Navigator.of(context).userGestureInProgress) return false;
-        return showTextYesNoDialog(
-          context,
-          tr('scan_details.delete_confirmation_msg'),
-        );
+        if (Navigator.of(context).userGestureInProgress)
+          return false;
+        else
+          return true;
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,

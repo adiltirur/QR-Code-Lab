@@ -1,16 +1,15 @@
 # WorkerBase QR Code Scanning App
 
-This app demostrate basic qr code scanning functionality and mainly depends on [mobile_scanner] (https://pub.dev/packages/mobile_scanner) library.
+This app demonstrate basic qr code scanning functionality and mainly depends on [mobile_scanner](https://pub.dev/packages/mobile_scanner) library.
 
-
-# Functionalities
+## Functionalities
 
 - QR Code Scanning
 - Torch On and Off
 - Switch Camera
 - Save Scanned QR Code to local database
 - Multi Language support
-- Scave Scanned QR code as an image to local database
+- Save Scanned QR code as an image to local database
 - Open links, phone numbers etc of the scanned QR Code
 - Deleting single records
 - Deleting all records
@@ -34,7 +33,7 @@ This app demostrate basic qr code scanning functionality and mainly depends on [
 ## Before Running
 
 - Make sure to run the build_runner
-either with 
+either with
 <code>flutter pub run build_runner build</code>
 or
 <code>flutter pub run build_runner watch --delete-conflicting-outputs</code>
