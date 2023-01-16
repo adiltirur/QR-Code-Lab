@@ -52,7 +52,9 @@ class WorkerBaseScannerApp extends StatelessWidget {
         ),
         dialogTheme: const DialogTheme(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(16),
+            ),
           ),
         ),
       ),
