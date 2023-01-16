@@ -126,7 +126,7 @@ class ScanDetails extends HookWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        if (Navigator.of(context).userGestureInProgress) onBack();
+        onBack();
         return true;
       },
       child: Scaffold(
