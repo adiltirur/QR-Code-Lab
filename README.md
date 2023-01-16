@@ -1,6 +1,6 @@
 # WorkerBase QR Code Scanning App
 
-This app demostrate basic qr code scanning functionality and mainly depends on [mobile_scanner] (https://pub.dev/packages/mobile_scanner) library.
+This app demostrate basic qr code scanning functionality and mainly depends on [mobile_scanner](https://pub.dev/packages/mobile_scanner) library.
 
 
 # Functionalities
