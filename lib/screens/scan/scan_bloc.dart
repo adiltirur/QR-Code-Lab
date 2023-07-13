@@ -6,7 +6,7 @@ import '../../core/services/bloc.dart';
 import '../../repository/scanner/scanner_repository.dart';
 import 'scan_state.dart';
 
-class ScanBloc extends WBBloc<ScanState, ScanEvent> {
+class ScanBloc extends GSBloc<ScanState, ScanEvent> {
   final _scannerRepository = ScannerRepository();
 
   void onBackFromDetailsPage() {

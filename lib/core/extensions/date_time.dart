@@ -1,6 +1,6 @@
 import '../globals/intl.dart';
 
-extension WBDateTime on DateTime {
+extension GSDateTime on DateTime {
   String get formattedDate {
     return dateFormat.format(this);
   }

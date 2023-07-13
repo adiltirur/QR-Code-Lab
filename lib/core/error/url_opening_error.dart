@@ -1,6 +1,6 @@
 import 'errors.dart';
 
-class UrlOpeningError extends WBAlertError {
+class UrlOpeningError extends GSAlertError {
   final String exception;
 
   @override

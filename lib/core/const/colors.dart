@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class WBColors {
+class GSColors {
   static const transparent = Colors.transparent;
   static const white = Colors.white;
   static const black = Colors.black;

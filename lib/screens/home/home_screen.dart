@@ -17,23 +17,23 @@ import '../settings/settings_screen.dart';
 import 'home_bloc.dart';
 import 'home_state.dart';
 
-typedef HomeBlocOutput = WBBlocOutput<HomeState, HomeEvent>;
+typedef HomeBlocOutput = GSBlocOutput<HomeState, HomeEvent>;
 
-extension on WBBottomNavigationItem {
+extension on GSBottomNavigationItem {
   Widget screen(SystemSettings systemSettings) {
     switch (this) {
-      case WBBottomNavigationItem.scan:
+      case GSBottomNavigationItem.scan:
         return ScanScreen(systemSettings: systemSettings);
-      case WBBottomNavigationItem.history:
+      case GSBottomNavigationItem.history:
         return ScanHistoryScreen();
-      case WBBottomNavigationItem.settings:
+      case GSBottomNavigationItem.settings:
         return SettingsScreen();
     }
   }
 
   BottomNavigationBarItem get navigationItem {
     switch (this) {
-      case WBBottomNavigationItem.scan:
+      case GSBottomNavigationItem.scan:
         return BottomNavigationBarItem(
           icon: const Icon(
             Icons.qr_code,
@@ -41,7 +41,7 @@ extension on WBBottomNavigationItem {
           ),
           label: tr('bottom_navigation.scan'),
         );
-      case WBBottomNavigationItem.history:
+      case GSBottomNavigationItem.history:
         return BottomNavigationBarItem(
           icon: const Icon(
             Icons.history,
@@ -49,7 +49,7 @@ extension on WBBottomNavigationItem {
           ),
           label: tr('bottom_navigation.history'),
         );
-      case WBBottomNavigationItem.settings:
+      case GSBottomNavigationItem.settings:
         return BottomNavigationBarItem(
           icon: const Icon(
             Icons.settings,
@@ -69,21 +69,21 @@ class HomeScreen extends StatelessWidget {
   Widget _blocBuilder(BuildContext context, HomeBlocOutput output) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: WBColors.white,
+        backgroundColor: GSColors.white,
         selectedFontSize: 12.0,
-        items: WBBottomNavigationItem.values.mapToList(
+        items: GSBottomNavigationItem.values.mapToList(
           (e) => e.navigationItem,
         ),
         currentIndex: output.state.selectedItem.index,
-        selectedItemColor: WBColors.primary,
-        unselectedItemColor: WBColors.grey,
+        selectedItemColor: GSColors.primary,
+        unselectedItemColor: GSColors.grey,
         onTap: (value) {
           context.bloc<HomeBloc>().onTapBottomNavigationBar(
-                WBBottomNavigationItem.values[value],
+                GSBottomNavigationItem.values[value],
               );
         },
       ),
-      body: WBBottomNavigationItem.values
+      body: GSBottomNavigationItem.values
           .elementAt(output.state.selectedItem.index)
           .screen(output.state.systemSettings),
     );
@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
 
   Future<void> _showDeletedAlert(BuildContext context) {
     return context.dialogDisplayer.showAlert(
-      type: WBNotificationType.confirmation,
+      type: GSNotificationType.confirmation,
       body: tr('settings.history_deleted'),
     );
   }

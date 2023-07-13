@@ -66,7 +66,6 @@ linter:
     file_names: true
     hash_and_equals: true
     implementation_imports: true
-    invariant_booleans: true
     iterable_contains_unrelated_type: true
     join_return_with_assignment: true
     library_names: true

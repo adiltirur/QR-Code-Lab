@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'notification.freezed.dart';
 
-enum WBNotificationType {
+enum GSNotificationType {
   info(
     backgroundColor: Colors.lightBlueAccent,
     icon: Icons.info,
@@ -24,16 +24,16 @@ enum WBNotificationType {
   final Color backgroundColor;
   final IconData icon;
 
-  const WBNotificationType({
+  const GSNotificationType({
     required this.backgroundColor,
     required this.icon,
   });
 }
 
 @freezed
-class WBNotification with _$WBNotification {
-  const factory WBNotification({
-    required WBNotificationType type,
+class GSNotification with _$GSNotification {
+  const factory GSNotification({
+    required GSNotificationType type,
     required String text,
-  }) = _WBNotification;
+  }) = _GSNotification;
 }

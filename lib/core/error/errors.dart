@@ -1,14 +1,14 @@
-abstract class WBError implements Exception {
+abstract class GSError implements Exception {
   String? get debugLog => null;
   bool get canBeIgnored => false;
   bool get logToServer => true;
   String? get serverLog => debugLog;
 
-  const WBError();
+  const GSError();
 }
 
-abstract class WBAlertError extends WBError {
+abstract class GSAlertError extends GSError {
   String get userMessage;
 
-  const WBAlertError();
+  const GSAlertError();
 }

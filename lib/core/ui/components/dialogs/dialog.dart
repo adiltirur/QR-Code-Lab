@@ -6,14 +6,14 @@ import '../../../extensions/list.dart';
 import '../../../models/notification.dart';
 import '../separated_unscrollable_list.dart';
 
-class WBAlertDialogContent extends StatelessWidget {
+class GSAlertDialogContent extends StatelessWidget {
   static const _textStyle = TextStyle(fontSize: 16);
 
   final String body;
 
   final void Function()? onClose;
 
-  const WBAlertDialogContent({
+  const GSAlertDialogContent({
     required this.body,
     this.onClose,
   });
@@ -24,7 +24,7 @@ class WBAlertDialogContent extends StatelessWidget {
 
   Widget _buildCloseButton() {
     return IconButton(
-      icon: const Icon(Icons.close, color: WBColors.black),
+      icon: const Icon(Icons.close, color: GSColors.black),
       onPressed: onClose,
       alignment: Alignment.topCenter,
       padding: EdgeInsets.zero,
@@ -44,28 +44,28 @@ class WBAlertDialogContent extends StatelessWidget {
   }
 }
 
-class WBDialogAction<T> {
+class GSDialogAction<T> {
   final String text;
   final IconData? iconData;
   final T value;
 
-  const WBDialogAction({
+  const GSDialogAction({
     required this.text,
     this.iconData,
     required this.value,
   });
 }
 
-class WBActionDialogContent<T> extends StatelessWidget {
+class GSActionDialogContent<T> extends StatelessWidget {
   static const _textStyle =
       TextStyle(fontSize: 20, fontWeight: FontWeight.w600);
 
   final String title;
-  final List<WBDialogAction<T>> actions;
+  final List<GSDialogAction<T>> actions;
   final void Function(T value) onTapAction;
   final bool isDismissible;
 
-  const WBActionDialogContent({
+  const GSActionDialogContent({
     required this.title,
     required this.actions,
     required this.onTapAction,
@@ -97,7 +97,7 @@ class WBActionDialogContent<T> extends StatelessWidget {
     return SeparatedUnScrollableList(
       showLastSeparator: false,
       children: actions.mapToList(
-        (e) => WBListButton(
+        (e) => GSListButton(
           title: e.text,
           onTap: () => onTapAction(e.value),
           leadingIcon: e.iconData,
@@ -111,7 +111,7 @@ class WBActionDialogContent<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: WBColors.white,
+        color: GSColors.white,
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(16),
         ),
@@ -130,11 +130,11 @@ class WBActionDialogContent<T> extends StatelessWidget {
   }
 }
 
-class WBDialog extends StatelessWidget {
-  final WBNotificationType type;
+class GSDialog extends StatelessWidget {
+  final GSNotificationType type;
   final Widget content;
 
-  const WBDialog({
+  const GSDialog({
     required this.type,
     required this.content,
   });
@@ -144,7 +144,7 @@ class WBDialog extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: type.backgroundColor,
-        borderRadius: const BorderRadius.all(WBRadius.circular),
+        borderRadius: const BorderRadius.all(GSRadius.circular),
       ),
       padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
       child: content,

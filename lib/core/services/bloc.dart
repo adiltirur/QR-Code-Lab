@@ -7,22 +7,22 @@ part 'bloc.freezed.dart';
 
 @immutable
 @Freezed(copyWith: false)
-class WBBlocOutput<S, E> with _$WBBlocOutput<S, E> {
-  const factory WBBlocOutput({
+class GSBlocOutput<S, E> with _$GSBlocOutput<S, E> {
+  const factory GSBlocOutput({
     required S state,
     @Default(false) bool isLoading,
     Object? error,
     @Default([]) List<E> events,
-  }) = _WBBlocOutput;
+  }) = _GSBlocOutput;
 
-  const WBBlocOutput._();
+  const GSBlocOutput._();
 
   @override
   bool operator ==(other) {
     if (error != null || events.isNotEmpty) return super == other;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_WBBlocOutput<S, E> &&
+            other is _$_GSBlocOutput<S, E> &&
             const DeepCollectionEquality().equals(other.state, state) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading));
   }
@@ -35,20 +35,20 @@ class WBBlocOutput<S, E> with _$WBBlocOutput<S, E> {
   }
 }
 
-class WBBloc<S, E> extends Cubit<WBBlocOutput<S, E>> {
-  WBBloc(S initialState, {bool isLoading = false})
-      : super(WBBlocOutput<S, E>(state: initialState, isLoading: isLoading));
+class GSBloc<S, E> extends Cubit<GSBlocOutput<S, E>> {
+  GSBloc(S initialState, {bool isLoading = false})
+      : super(GSBlocOutput<S, E>(state: initialState, isLoading: isLoading));
 
   @override
   @Deprecated('Use currentOutput or currentState instead')
-  WBBlocOutput<S, E> get state => super.state;
+  GSBlocOutput<S, E> get state => super.state;
 
-  WBBlocOutput<S, E> get currentOutput => super.state;
+  GSBlocOutput<S, E> get currentOutput => super.state;
   S get currentState => currentOutput.state;
 
   @override
   @Deprecated('Use emitS instead')
-  void emit(WBBlocOutput<S, E> state) {
+  void emit(GSBlocOutput<S, E> state) {
     if (isClosed) {
       return;
     }
@@ -59,7 +59,7 @@ class WBBloc<S, E> extends Cubit<WBBlocOutput<S, E>> {
     if (isClosed) {
       return;
     }
-    super.emit(WBBlocOutput<S, E>(
+    super.emit(GSBlocOutput<S, E>(
       state: state ?? currentState,
       isLoading: isLoading ?? currentOutput.isLoading,
       error: error,

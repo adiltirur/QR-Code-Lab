@@ -33,12 +33,12 @@ android {
     productFlavors {
         prod {
             dimension "flavor-type"
-            applicationId "com.workerbase.scanner"
+            applicationId "com.gradsprint.scanner"
             resValue "string", "app_name", "Scanner"
         }
         dev {
             dimension "flavor-type"
-            applicationId "com.workerbase.scannerDev"
+            applicationId "com.gradsprint.scannerDev"
             resValue "string", "app_name", "Scanner Dev"
         }
     }
@@ -63,7 +63,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.workerbase.scanner.qr_code_scanner"
+        applicationId "com.gradsprint.scanner.qr_code_scanner"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21

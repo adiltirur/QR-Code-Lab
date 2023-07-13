@@ -4,16 +4,16 @@ import '../../const/borders.dart';
 import '../../const/colors.dart';
 import '../../extensions/material_state.dart';
 
-enum WBTextButtonStyle { filled }
+enum GSTextButtonStyle { filled }
 
-class _WBTextButton extends StatelessWidget {
+class _GSTextButton extends StatelessWidget {
   final String text;
   final void Function() onPressed;
   final bool enabled;
   final Color color;
   final bool outlined;
 
-  const _WBTextButton({
+  const _GSTextButton({
     required this.text,
     required this.onPressed,
     this.enabled = true,
@@ -29,16 +29,16 @@ class _WBTextButton extends StatelessWidget {
         onPressed: enabled ? onPressed : null,
         style: ButtonStyle(
           shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            borderRadius: const BorderRadius.all(WBRadius.circular),
+            borderRadius: const BorderRadius.all(GSRadius.circular),
             side:
                 outlined ? BorderSide(color: color, width: 2) : BorderSide.none,
           )),
-          backgroundColor: WBMaterialStateProperty.resolveEnabled(
-            (enabled) => (outlined ? WBColors.white : color)
+          backgroundColor: GSMaterialStateProperty.resolveEnabled(
+            (enabled) => (outlined ? GSColors.white : color)
                 .withOpacity(enabled ? 1 : 0.4),
           ),
-          foregroundColor: WBMaterialStateProperty.resolveEnabled(
-            (enabled) => (outlined ? color : WBColors.white)
+          foregroundColor: GSMaterialStateProperty.resolveEnabled(
+            (enabled) => (outlined ? color : GSColors.white)
                 .withOpacity(enabled ? 1 : 0.4),
           ),
         ),
@@ -52,27 +52,27 @@ class _WBTextButton extends StatelessWidget {
   }
 }
 
-class WBTextButton extends StatelessWidget {
+class GSTextButton extends StatelessWidget {
   final String text;
   final void Function() onPressed;
-  final WBTextButtonStyle style;
+  final GSTextButtonStyle style;
   final bool enabled;
   final Color color;
 
-  const WBTextButton({
+  const GSTextButton({
     required this.text,
     required this.onPressed,
-    this.style = WBTextButtonStyle.filled,
+    this.style = GSTextButtonStyle.filled,
     this.enabled = true,
-    this.color = WBColors.primary,
+    this.color = GSColors.primary,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     switch (style) {
-      case WBTextButtonStyle.filled:
-        return _WBTextButton(
+      case GSTextButtonStyle.filled:
+        return _GSTextButton(
           text: text,
           onPressed: onPressed,
           enabled: enabled,

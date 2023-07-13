@@ -1,4 +1,4 @@
-package com.workerbase.scanner.qr_code_scanner
+package com.gradsprint.scanner.qr_code_scanner
 
 import io.flutter.embedding.android.FlutterActivity
 

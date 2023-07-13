@@ -15,14 +15,7 @@ import 'core/ui/components/dialogs/dialog_displayer.dart';
 import 'repository/scanner/models/hive_scanned_item.dart';
 import 'repository/system/models/hive_system_info.dart';
 
-const _textStyle = TextStyle(
-  fontFamily: WBFonts.titilliumWeb,
-  color: WBColors.black,
-  height: 1.521,
-  letterSpacing: 0.12,
-);
-
-class WorkerBaseScannerApp extends StatelessWidget {
+class GradSprintScannerApp extends StatelessWidget {
   static final _appRouter = AppRouter();
 
   @override
@@ -36,18 +29,12 @@ class WorkerBaseScannerApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'QR-Scanner',
       theme: ThemeData(
-        backgroundColor: WBColors.white,
-        scaffoldBackgroundColor: WBColors.white,
-        fontFamily: WBFonts.titilliumWeb,
-        textTheme: TextTheme(
-          bodyText1: _textStyle,
-          bodyText2: _textStyle,
-          button: _textStyle,
-          subtitle1: _textStyle.copyWith(fontSize: 16),
-        ),
+        useMaterial3: true,
+        scaffoldBackgroundColor: GSColors.white,
+        fontFamily: GSFonts.titilliumWeb,
         radioTheme: RadioThemeData(
           fillColor: MaterialStateColor.resolveWith(
-            (states) => WBColors.primary,
+            (states) => GSColors.primary,
           ),
         ),
         dialogTheme: const DialogTheme(
@@ -83,7 +70,7 @@ Future<void> _appEntry() async {
       ),
       fallbackLocale: Language.english.locale,
       path: 'assets/l10n',
-      child: WorkerBaseScannerApp(),
+      child: GradSprintScannerApp(),
     ),
   );
 }

@@ -3,8 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'wb_state.freezed.dart';
 
 @freezed
-class WBState<T> with _$WBState<T> {
-  const factory WBState.loading() = WBLoadingState;
-  const factory WBState.error(Object error) = WBErrorState;
-  const factory WBState.data(T data) = WBDataState;
+class GSState<T> with _$GSState<T> {
+  const factory GSState.loading() = GSLoadingState;
+  const factory GSState.error(Object error) = GSErrorState;
+  const factory GSState.data(T data) = GSDataState;
 }

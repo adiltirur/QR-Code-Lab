@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$WBBlocOutput<S, E> {
+mixin _$GSBlocOutput<S, E> {
   S get state => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   Object? get error => throw _privateConstructorUsedError;
@@ -24,8 +24,8 @@ mixin _$WBBlocOutput<S, E> {
 
 /// @nodoc
 
-class _$_WBBlocOutput<S, E> extends _WBBlocOutput<S, E> {
-  const _$_WBBlocOutput(
+class _$_GSBlocOutput<S, E> extends _GSBlocOutput<S, E> {
+  const _$_GSBlocOutput(
       {required this.state,
       this.isLoading = false,
       this.error,
@@ -51,17 +51,17 @@ class _$_WBBlocOutput<S, E> extends _WBBlocOutput<S, E> {
 
   @override
   String toString() {
-    return 'WBBlocOutput<$S, $E>(state: $state, isLoading: $isLoading, error: $error, events: $events)';
+    return 'GSBlocOutput<$S, $E>(state: $state, isLoading: $isLoading, error: $error, events: $events)';
   }
 }
 
-abstract class _WBBlocOutput<S, E> extends WBBlocOutput<S, E> {
-  const factory _WBBlocOutput(
+abstract class _GSBlocOutput<S, E> extends GSBlocOutput<S, E> {
+  const factory _GSBlocOutput(
       {required final S state,
       final bool isLoading,
       final Object? error,
-      final List<E> events}) = _$_WBBlocOutput<S, E>;
-  const _WBBlocOutput._() : super._();
+      final List<E> events}) = _$_GSBlocOutput<S, E>;
+  const _GSBlocOutput._() : super._();
 
   @override
   S get state;

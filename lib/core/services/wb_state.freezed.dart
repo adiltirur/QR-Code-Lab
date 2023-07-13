@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$WBState<T> {
+mixin _$GSState<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
@@ -40,38 +40,38 @@ mixin _$WBState<T> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(WBLoadingState<T> value) loading,
-    required TResult Function(WBErrorState<T> value) error,
-    required TResult Function(WBDataState<T> value) data,
+    required TResult Function(GSLoadingState<T> value) loading,
+    required TResult Function(GSErrorState<T> value) error,
+    required TResult Function(GSDataState<T> value) data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(WBLoadingState<T> value)? loading,
-    TResult? Function(WBErrorState<T> value)? error,
-    TResult? Function(WBDataState<T> value)? data,
+    TResult? Function(GSLoadingState<T> value)? loading,
+    TResult? Function(GSErrorState<T> value)? error,
+    TResult? Function(GSDataState<T> value)? data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(WBLoadingState<T> value)? loading,
-    TResult Function(WBErrorState<T> value)? error,
-    TResult Function(WBDataState<T> value)? data,
+    TResult Function(GSLoadingState<T> value)? loading,
+    TResult Function(GSErrorState<T> value)? error,
+    TResult Function(GSDataState<T> value)? data,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $WBStateCopyWith<T, $Res> {
-  factory $WBStateCopyWith(WBState<T> value, $Res Function(WBState<T>) then) =
-      _$WBStateCopyWithImpl<T, $Res, WBState<T>>;
+abstract class $GSStateCopyWith<T, $Res> {
+  factory $GSStateCopyWith(GSState<T> value, $Res Function(GSState<T>) then) =
+      _$GSStateCopyWithImpl<T, $Res, GSState<T>>;
 }
 
 /// @nodoc
-class _$WBStateCopyWithImpl<T, $Res, $Val extends WBState<T>>
-    implements $WBStateCopyWith<T, $Res> {
-  _$WBStateCopyWithImpl(this._value, this._then);
+class _$GSStateCopyWithImpl<T, $Res, $Val extends GSState<T>>
+    implements $GSStateCopyWith<T, $Res> {
+  _$GSStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -80,35 +80,35 @@ class _$WBStateCopyWithImpl<T, $Res, $Val extends WBState<T>>
 }
 
 /// @nodoc
-abstract class _$$WBLoadingStateCopyWith<T, $Res> {
-  factory _$$WBLoadingStateCopyWith(
-          _$WBLoadingState<T> value, $Res Function(_$WBLoadingState<T>) then) =
-      __$$WBLoadingStateCopyWithImpl<T, $Res>;
+abstract class _$$GSLoadingStateCopyWith<T, $Res> {
+  factory _$$GSLoadingStateCopyWith(
+          _$GSLoadingState<T> value, $Res Function(_$GSLoadingState<T>) then) =
+      __$$GSLoadingStateCopyWithImpl<T, $Res>;
 }
 
 /// @nodoc
-class __$$WBLoadingStateCopyWithImpl<T, $Res>
-    extends _$WBStateCopyWithImpl<T, $Res, _$WBLoadingState<T>>
-    implements _$$WBLoadingStateCopyWith<T, $Res> {
-  __$$WBLoadingStateCopyWithImpl(
-      _$WBLoadingState<T> _value, $Res Function(_$WBLoadingState<T>) _then)
+class __$$GSLoadingStateCopyWithImpl<T, $Res>
+    extends _$GSStateCopyWithImpl<T, $Res, _$GSLoadingState<T>>
+    implements _$$GSLoadingStateCopyWith<T, $Res> {
+  __$$GSLoadingStateCopyWithImpl(
+      _$GSLoadingState<T> _value, $Res Function(_$GSLoadingState<T>) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$WBLoadingState<T> implements WBLoadingState<T> {
-  const _$WBLoadingState();
+class _$GSLoadingState<T> implements GSLoadingState<T> {
+  const _$GSLoadingState();
 
   @override
   String toString() {
-    return 'WBState<$T>.loading()';
+    return 'GSState<$T>.loading()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WBLoadingState<T>);
+        (other.runtimeType == runtimeType && other is _$GSLoadingState<T>);
   }
 
   @override
@@ -151,9 +151,9 @@ class _$WBLoadingState<T> implements WBLoadingState<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(WBLoadingState<T> value) loading,
-    required TResult Function(WBErrorState<T> value) error,
-    required TResult Function(WBDataState<T> value) data,
+    required TResult Function(GSLoadingState<T> value) loading,
+    required TResult Function(GSErrorState<T> value) error,
+    required TResult Function(GSDataState<T> value) data,
   }) {
     return loading(this);
   }
@@ -161,9 +161,9 @@ class _$WBLoadingState<T> implements WBLoadingState<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(WBLoadingState<T> value)? loading,
-    TResult? Function(WBErrorState<T> value)? error,
-    TResult? Function(WBDataState<T> value)? data,
+    TResult? Function(GSLoadingState<T> value)? loading,
+    TResult? Function(GSErrorState<T> value)? error,
+    TResult? Function(GSDataState<T> value)? data,
   }) {
     return loading?.call(this);
   }
@@ -171,9 +171,9 @@ class _$WBLoadingState<T> implements WBLoadingState<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(WBLoadingState<T> value)? loading,
-    TResult Function(WBErrorState<T> value)? error,
-    TResult Function(WBDataState<T> value)? data,
+    TResult Function(GSLoadingState<T> value)? loading,
+    TResult Function(GSErrorState<T> value)? error,
+    TResult Function(GSDataState<T> value)? data,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -183,25 +183,25 @@ class _$WBLoadingState<T> implements WBLoadingState<T> {
   }
 }
 
-abstract class WBLoadingState<T> implements WBState<T> {
-  const factory WBLoadingState() = _$WBLoadingState<T>;
+abstract class GSLoadingState<T> implements GSState<T> {
+  const factory GSLoadingState() = _$GSLoadingState<T>;
 }
 
 /// @nodoc
-abstract class _$$WBErrorStateCopyWith<T, $Res> {
-  factory _$$WBErrorStateCopyWith(
-          _$WBErrorState<T> value, $Res Function(_$WBErrorState<T>) then) =
-      __$$WBErrorStateCopyWithImpl<T, $Res>;
+abstract class _$$GSErrorStateCopyWith<T, $Res> {
+  factory _$$GSErrorStateCopyWith(
+          _$GSErrorState<T> value, $Res Function(_$GSErrorState<T>) then) =
+      __$$GSErrorStateCopyWithImpl<T, $Res>;
   @useResult
   $Res call({Object error});
 }
 
 /// @nodoc
-class __$$WBErrorStateCopyWithImpl<T, $Res>
-    extends _$WBStateCopyWithImpl<T, $Res, _$WBErrorState<T>>
-    implements _$$WBErrorStateCopyWith<T, $Res> {
-  __$$WBErrorStateCopyWithImpl(
-      _$WBErrorState<T> _value, $Res Function(_$WBErrorState<T>) _then)
+class __$$GSErrorStateCopyWithImpl<T, $Res>
+    extends _$GSStateCopyWithImpl<T, $Res, _$GSErrorState<T>>
+    implements _$$GSErrorStateCopyWith<T, $Res> {
+  __$$GSErrorStateCopyWithImpl(
+      _$GSErrorState<T> _value, $Res Function(_$GSErrorState<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -209,7 +209,7 @@ class __$$WBErrorStateCopyWithImpl<T, $Res>
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$WBErrorState<T>(
+    return _then(_$GSErrorState<T>(
       null == error ? _value.error : error,
     ));
   }
@@ -217,22 +217,22 @@ class __$$WBErrorStateCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$WBErrorState<T> implements WBErrorState<T> {
-  const _$WBErrorState(this.error);
+class _$GSErrorState<T> implements GSErrorState<T> {
+  const _$GSErrorState(this.error);
 
   @override
   final Object error;
 
   @override
   String toString() {
-    return 'WBState<$T>.error(error: $error)';
+    return 'GSState<$T>.error(error: $error)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WBErrorState<T> &&
+            other is _$GSErrorState<T> &&
             const DeepCollectionEquality().equals(other.error, error));
   }
 
@@ -243,8 +243,8 @@ class _$WBErrorState<T> implements WBErrorState<T> {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$WBErrorStateCopyWith<T, _$WBErrorState<T>> get copyWith =>
-      __$$WBErrorStateCopyWithImpl<T, _$WBErrorState<T>>(this, _$identity);
+  _$$GSErrorStateCopyWith<T, _$GSErrorState<T>> get copyWith =>
+      __$$GSErrorStateCopyWithImpl<T, _$GSErrorState<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -283,9 +283,9 @@ class _$WBErrorState<T> implements WBErrorState<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(WBLoadingState<T> value) loading,
-    required TResult Function(WBErrorState<T> value) error,
-    required TResult Function(WBDataState<T> value) data,
+    required TResult Function(GSLoadingState<T> value) loading,
+    required TResult Function(GSErrorState<T> value) error,
+    required TResult Function(GSDataState<T> value) data,
   }) {
     return error(this);
   }
@@ -293,9 +293,9 @@ class _$WBErrorState<T> implements WBErrorState<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(WBLoadingState<T> value)? loading,
-    TResult? Function(WBErrorState<T> value)? error,
-    TResult? Function(WBDataState<T> value)? data,
+    TResult? Function(GSLoadingState<T> value)? loading,
+    TResult? Function(GSErrorState<T> value)? error,
+    TResult? Function(GSDataState<T> value)? data,
   }) {
     return error?.call(this);
   }
@@ -303,9 +303,9 @@ class _$WBErrorState<T> implements WBErrorState<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(WBLoadingState<T> value)? loading,
-    TResult Function(WBErrorState<T> value)? error,
-    TResult Function(WBDataState<T> value)? data,
+    TResult Function(GSLoadingState<T> value)? loading,
+    TResult Function(GSErrorState<T> value)? error,
+    TResult Function(GSDataState<T> value)? data,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -315,30 +315,30 @@ class _$WBErrorState<T> implements WBErrorState<T> {
   }
 }
 
-abstract class WBErrorState<T> implements WBState<T> {
-  const factory WBErrorState(final Object error) = _$WBErrorState<T>;
+abstract class GSErrorState<T> implements GSState<T> {
+  const factory GSErrorState(final Object error) = _$GSErrorState<T>;
 
   Object get error;
   @JsonKey(ignore: true)
-  _$$WBErrorStateCopyWith<T, _$WBErrorState<T>> get copyWith =>
+  _$$GSErrorStateCopyWith<T, _$GSErrorState<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$WBDataStateCopyWith<T, $Res> {
-  factory _$$WBDataStateCopyWith(
-          _$WBDataState<T> value, $Res Function(_$WBDataState<T>) then) =
-      __$$WBDataStateCopyWithImpl<T, $Res>;
+abstract class _$$GSDataStateCopyWith<T, $Res> {
+  factory _$$GSDataStateCopyWith(
+          _$GSDataState<T> value, $Res Function(_$GSDataState<T>) then) =
+      __$$GSDataStateCopyWithImpl<T, $Res>;
   @useResult
   $Res call({T data});
 }
 
 /// @nodoc
-class __$$WBDataStateCopyWithImpl<T, $Res>
-    extends _$WBStateCopyWithImpl<T, $Res, _$WBDataState<T>>
-    implements _$$WBDataStateCopyWith<T, $Res> {
-  __$$WBDataStateCopyWithImpl(
-      _$WBDataState<T> _value, $Res Function(_$WBDataState<T>) _then)
+class __$$GSDataStateCopyWithImpl<T, $Res>
+    extends _$GSStateCopyWithImpl<T, $Res, _$GSDataState<T>>
+    implements _$$GSDataStateCopyWith<T, $Res> {
+  __$$GSDataStateCopyWithImpl(
+      _$GSDataState<T> _value, $Res Function(_$GSDataState<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -346,7 +346,7 @@ class __$$WBDataStateCopyWithImpl<T, $Res>
   $Res call({
     Object? data = freezed,
   }) {
-    return _then(_$WBDataState<T>(
+    return _then(_$GSDataState<T>(
       freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -357,22 +357,22 @@ class __$$WBDataStateCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$WBDataState<T> implements WBDataState<T> {
-  const _$WBDataState(this.data);
+class _$GSDataState<T> implements GSDataState<T> {
+  const _$GSDataState(this.data);
 
   @override
   final T data;
 
   @override
   String toString() {
-    return 'WBState<$T>.data(data: $data)';
+    return 'GSState<$T>.data(data: $data)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$WBDataState<T> &&
+            other is _$GSDataState<T> &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
@@ -383,8 +383,8 @@ class _$WBDataState<T> implements WBDataState<T> {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$WBDataStateCopyWith<T, _$WBDataState<T>> get copyWith =>
-      __$$WBDataStateCopyWithImpl<T, _$WBDataState<T>>(this, _$identity);
+  _$$GSDataStateCopyWith<T, _$GSDataState<T>> get copyWith =>
+      __$$GSDataStateCopyWithImpl<T, _$GSDataState<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -423,9 +423,9 @@ class _$WBDataState<T> implements WBDataState<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(WBLoadingState<T> value) loading,
-    required TResult Function(WBErrorState<T> value) error,
-    required TResult Function(WBDataState<T> value) data,
+    required TResult Function(GSLoadingState<T> value) loading,
+    required TResult Function(GSErrorState<T> value) error,
+    required TResult Function(GSDataState<T> value) data,
   }) {
     return data(this);
   }
@@ -433,9 +433,9 @@ class _$WBDataState<T> implements WBDataState<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(WBLoadingState<T> value)? loading,
-    TResult? Function(WBErrorState<T> value)? error,
-    TResult? Function(WBDataState<T> value)? data,
+    TResult? Function(GSLoadingState<T> value)? loading,
+    TResult? Function(GSErrorState<T> value)? error,
+    TResult? Function(GSDataState<T> value)? data,
   }) {
     return data?.call(this);
   }
@@ -443,9 +443,9 @@ class _$WBDataState<T> implements WBDataState<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(WBLoadingState<T> value)? loading,
-    TResult Function(WBErrorState<T> value)? error,
-    TResult Function(WBDataState<T> value)? data,
+    TResult Function(GSLoadingState<T> value)? loading,
+    TResult Function(GSErrorState<T> value)? error,
+    TResult Function(GSDataState<T> value)? data,
     required TResult orElse(),
   }) {
     if (data != null) {
@@ -455,11 +455,11 @@ class _$WBDataState<T> implements WBDataState<T> {
   }
 }
 
-abstract class WBDataState<T> implements WBState<T> {
-  const factory WBDataState(final T data) = _$WBDataState<T>;
+abstract class GSDataState<T> implements GSState<T> {
+  const factory GSDataState(final T data) = _$GSDataState<T>;
 
   T get data;
   @JsonKey(ignore: true)
-  _$$WBDataStateCopyWith<T, _$WBDataState<T>> get copyWith =>
+  _$$GSDataStateCopyWith<T, _$GSDataState<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

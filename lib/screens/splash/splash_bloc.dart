@@ -2,7 +2,7 @@ import '../../core/services/bloc.dart';
 import '../../repository/system/system_repository.dart';
 import 'splash_state.dart';
 
-class SplashBloc extends WBBloc<SplashState, SplashEvent> {
+class SplashBloc extends GSBloc<SplashState, SplashEvent> {
   final _systemRepository = SystemRepository();
 
   void _init() {

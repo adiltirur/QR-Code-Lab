@@ -9,7 +9,7 @@ import '../../core/ui/components/bloc_master.dart';
 import 'splash_bloc.dart';
 import 'splash_state.dart';
 
-typedef _BlocOutput = WBBlocOutput<SplashState, SplashEvent>;
+typedef _BlocOutput = GSBlocOutput<SplashState, SplashEvent>;
 
 class SplashScreen extends StatelessWidget {
   Widget _buildAppName() {

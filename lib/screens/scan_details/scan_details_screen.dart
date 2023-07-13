@@ -17,7 +17,7 @@ import '../../core/ui/components/text_buttons.dart';
 import 'scan_details.bloc.dart';
 import 'scan_details_state.dart';
 
-typedef _BlocOutput = WBBlocOutput<ScanDetailsState, ScanDetailsEvent>;
+typedef _BlocOutput = GSBlocOutput<ScanDetailsState, ScanDetailsEvent>;
 
 class ScanDetails extends HookWidget {
   final ScannedInfo scannedInfo;
@@ -31,7 +31,7 @@ class ScanDetails extends HookWidget {
   });
 
   Widget _openImage(BuildContext context, Uint8List qrCode) {
-    return WBTextButton(
+    return GSTextButton(
       text: tr('scan_details.open_image'),
       onPressed: () async {
         await showDialog(
@@ -40,19 +40,19 @@ class ScanDetails extends HookWidget {
                   image: qrCode,
                 ));
       },
-      color: WBColors.black,
+      color: GSColors.black,
     );
   }
 
   Widget _buildUrlLaunchButton(BuildContext context) {
-    return WBTextButton(
+    return GSTextButton(
       text: tr('scan_details.launch_url'),
       onPressed: () async {
         final isSuccess =
             await tryLaunchUrlString(scannedInfo.barCode.rawValue);
         if (!isSuccess) context.bloc<ScanDetailsBloc>().hasError();
       },
-      color: WBColors.primary,
+      color: GSColors.primary,
     );
   }
 
@@ -97,7 +97,7 @@ class ScanDetails extends HookWidget {
       onPressed: () => context.bloc<ScanDetailsBloc>().onDelete(),
       icon: const Icon(
         Icons.delete,
-        color: WBColors.white,
+        color: GSColors.white,
       ),
     );
   }
@@ -133,9 +133,9 @@ class ScanDetails extends HookWidget {
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: _buildBottomAppBar(context),
         appBar: AppBar(
-          backgroundColor: WBColors.primary,
+          backgroundColor: GSColors.primary,
           leading: BackButton(
-            color: WBColors.white,
+            color: GSColors.white,
             onPressed: () => onBack(),
           ),
           actions: [_buildDeleteRecord(context)],
@@ -169,7 +169,7 @@ class ScanDetails extends HookWidget {
     if (answer) {
       onDelete(scannedInfo.uuid);
       context.dialogDisplayer.showAlert(
-        type: WBNotificationType.confirmation,
+        type: GSNotificationType.confirmation,
         body: tr('general.deleted'),
       );
       onBack();

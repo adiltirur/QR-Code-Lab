@@ -27,9 +27,9 @@ class DialogDisplayer extends StatefulWidget {
 class DialogDisplayerState extends State<DialogDisplayer> {
   static const _animationDuration = Duration(milliseconds: 200);
 
-  final List<WBDialog> _dialogs = [];
+  final List<GSDialog> _dialogs = [];
 
-  void showDialog(WBDialog dialog) {
+  void showDialog(GSDialog dialog) {
     _dialogs.clear();
     setState(() {
       _dialogs.add(dialog);
@@ -37,13 +37,13 @@ class DialogDisplayerState extends State<DialogDisplayer> {
   }
 
   Future<void> showAlert({
-    required WBNotificationType type,
+    required GSNotificationType type,
     required String body,
   }) async {
     final completer = Completer<void>();
-    final dialog = WBDialog(
+    final dialog = GSDialog(
       type: type,
-      content: WBAlertDialogContent(
+      content: GSAlertDialogContent(
         body: body,
         onClose: () {
           setState(() {
@@ -68,7 +68,7 @@ class DialogDisplayerState extends State<DialogDisplayer> {
           visible: visible,
           duration: _animationDuration,
           childBuilder: (_) => Container(
-            color: WBColors.black.withOpacity(0.5),
+            color: GSColors.black.withOpacity(0.5),
           ),
         ),
         AnimatedAppearance.slide(
@@ -107,7 +107,7 @@ extension DialogDisplayerBuildContext on BuildContext {
 Future<T?> showActionDialog<T>({
   required BuildContext context,
   required String title,
-  required List<WBDialogAction<T>> actions,
+  required List<GSDialogAction<T>> actions,
   required bool isDismissible,
 }) async {
   return showModalBottomSheet<T>(
@@ -115,8 +115,8 @@ Future<T?> showActionDialog<T>({
     enableDrag: false,
     isScrollControlled: true,
     isDismissible: isDismissible,
-    backgroundColor: WBColors.transparent,
-    builder: (context) => WBActionDialogContent<T>(
+    backgroundColor: GSColors.transparent,
+    builder: (context) => GSActionDialogContent<T>(
       title: title,
       actions: actions,
       onTapAction: (value) => context.router.pop(value),
@@ -135,11 +135,11 @@ Future<bool> showTextYesNoDialog(
         context: context,
         title: text,
         actions: [
-          WBDialogAction(
+          GSDialogAction(
             text: yesText ?? tr('general.yes'),
             value: true,
           ),
-          WBDialogAction(
+          GSDialogAction(
             text: noText ?? tr('general.no'),
             value: false,
           ),

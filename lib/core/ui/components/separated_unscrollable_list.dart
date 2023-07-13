@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../../const/colors.dart';
 import '../../extensions/list.dart';
 
-class WBListButton extends StatelessWidget {
+class GSListButton extends StatelessWidget {
   final String title;
   final void Function()? onTap;
   final IconData? leadingIcon;
   final bool showTrailingIcon;
 
-  const WBListButton({
+  const GSListButton({
     required this.title,
     required this.onTap,
     this.leadingIcon,
@@ -23,28 +23,28 @@ class WBListButton extends StatelessWidget {
         horizontal: 24,
         vertical: 4,
       ),
-      tileColor: WBColors.white,
+      tileColor: GSColors.white,
       leading:
-          leadingIcon != null ? Icon(leadingIcon, color: WBColors.black) : null,
+          leadingIcon != null ? Icon(leadingIcon, color: GSColors.black) : null,
       title: Text(
         title,
         style: const TextStyle(fontSize: 16),
       ),
       trailing: showTrailingIcon
-          ? const Icon(Icons.chevron_right, color: WBColors.black)
+          ? const Icon(Icons.chevron_right, color: GSColors.black)
           : null,
       onTap: onTap,
     );
   }
 }
 
-class WBListSwitch extends StatelessWidget {
+class GSListSwitch extends StatelessWidget {
   final String title;
   final bool value;
   final void Function(bool)? onChanged;
   final bool enabled;
 
-  const WBListSwitch({
+  const GSListSwitch({
     required this.title,
     required this.value,
     required this.onChanged,
@@ -58,9 +58,9 @@ class WBListSwitch extends StatelessWidget {
         horizontal: 24,
         vertical: 4,
       ),
-      tileColor: WBColors.white,
+      tileColor: GSColors.white,
       title: Text(title, style: const TextStyle(fontSize: 16)),
-      activeColor: WBColors.primary,
+      activeColor: GSColors.primary,
       value: value,
       onChanged: enabled ? onChanged : null,
     );
@@ -75,7 +75,7 @@ class SeparatedUnScrollableList extends ListView {
       children: [
         child,
         if (isNotLast || showLastSeparator)
-          Container(height: 1, color: WBColors.grey),
+          Container(height: 1, color: GSColors.grey),
       ],
     );
   }
@@ -118,7 +118,7 @@ class SeparatedUnScrollableList extends ListView {
     bool showLastSeparator = true,
   }) : this(
           children: texts.mapIndexed(
-            (i, text) => WBListButton(
+            (i, text) => GSListButton(
               title: text,
               onTap: onTap == null ? null : () => onTap(i),
             ),

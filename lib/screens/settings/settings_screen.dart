@@ -29,7 +29,7 @@ extension on CameraFacing {
 
 class SettingsScreen extends StatelessWidget {
   Widget _buildDeleteButton(BuildContext context) {
-    return WBTextButton(
+    return GSTextButton(
       text: 'settings.delete_history_button'.tr(),
       onPressed: () async {
         final answer = await showTextYesNoDialog(
@@ -38,12 +38,12 @@ class SettingsScreen extends StatelessWidget {
         );
         if (answer) context.bloc<HomeBloc>().deleteScanHistory();
       },
-      color: WBColors.red,
+      color: GSColors.red,
     );
   }
 
   Widget _buildLanguageButton(BuildContext context) {
-    return WBListButton(
+    return GSListButton(
         title: 'settings.change_language_title'.tr(),
         onTap: () {
           context.router.push(
@@ -92,7 +92,7 @@ class SettingsScreen extends StatelessWidget {
     BuildContext context,
     bool value,
   ) {
-    return WBListSwitch(
+    return GSListSwitch(
       title: tr('settings.save_image'),
       value: value,
       onChanged: (switchValue) {
@@ -107,7 +107,7 @@ class SettingsScreen extends StatelessWidget {
       style: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w600,
-        color: WBColors.white,
+        color: GSColors.white,
       ),
     );
   }
@@ -118,7 +118,7 @@ class SettingsScreen extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: WBColors.primary,
+        backgroundColor: GSColors.primary,
         centerTitle: false,
         title: _buildTitle().tr(),
       ),
@@ -149,7 +149,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WBBlocConsumer<HomeBloc, HomeBlocOutput>(
+    return GSBlocConsumer<HomeBloc, HomeBlocOutput>(
       builder: _blocBuilder,
       useDialogDisplayer: false,
     );

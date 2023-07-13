@@ -7,7 +7,7 @@ import '../../services/bloc.dart';
 import 'dialogs/dialog_displayer.dart';
 import 'loader.dart';
 
-class WBBlocConsumer<B extends Cubit<S>, S> extends StatelessWidget {
+class GSBlocConsumer<B extends Cubit<S>, S> extends StatelessWidget {
   final B? bloc;
   final BlocWidgetBuilder<S> builder;
   final BlocWidgetListener<S>? listener;
@@ -16,7 +16,7 @@ class WBBlocConsumer<B extends Cubit<S>, S> extends StatelessWidget {
   final bool useScreenLoader;
   final bool useDialogDisplayer;
 
-  const WBBlocConsumer({
+  const GSBlocConsumer({
     this.bloc,
     required this.builder,
     this.listener,
@@ -34,18 +34,18 @@ class WBBlocConsumer<B extends Cubit<S>, S> extends StatelessWidget {
       builder: (context, output) {
         return BlockingLoader(
           isLoading:
-              output is WBBlocOutput && useScreenLoader && output.isLoading,
+              output is GSBlocOutput && useScreenLoader && output.isLoading,
           child: builder(context, output),
         );
       },
       buildWhen: buildWhen,
       listener: (context, output) {
-        if (output is WBBlocOutput) {
+        if (output is GSBlocOutput) {
           if (useDialogDisplayer) {
             final error = output.error;
-            if (error is WBAlertError) {
+            if (error is GSAlertError) {
               context.dialogDisplayer.showAlert(
-                type: WBNotificationType.error,
+                type: GSNotificationType.error,
                 body: error.userMessage,
               );
             }
@@ -83,7 +83,7 @@ class BlocMaster<B extends Cubit<S>, S> extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<B>(
       create: create,
-      child: WBBlocConsumer<B, S>(
+      child: GSBlocConsumer<B, S>(
         builder: builder,
         listener: listener,
         buildWhen: buildWhen,

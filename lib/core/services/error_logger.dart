@@ -58,7 +58,7 @@ class ErrorLogger {
   }
 
   String? _getErrorMessage(Object error, bool forServer) {
-    if (error is WBError) {
+    if (error is GSError) {
       return forServer ? error.serverLog : error.debugLog;
     }
     if (error is FlutterErrorDetails) {
@@ -76,7 +76,7 @@ class ErrorLogger {
   }
 
   void log(Object error, StackTrace stackTrace) {
-    if (error is WBError && error.canBeIgnored) {
+    if (error is GSError && error.canBeIgnored) {
       return;
     }
     _logToDebugConsole(error, stackTrace);

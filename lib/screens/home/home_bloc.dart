@@ -7,7 +7,7 @@ import '../../repository/scanner/scanner_repository.dart';
 import '../../repository/system/system_repository.dart';
 import 'home_state.dart';
 
-class HomeBloc extends WBBloc<HomeState, HomeEvent> {
+class HomeBloc extends GSBloc<HomeState, HomeEvent> {
   final _systemRepository = SystemRepository();
   final _scannerRepository = ScannerRepository();
 
@@ -59,7 +59,7 @@ class HomeBloc extends WBBloc<HomeState, HomeEvent> {
     _saveToHive();
   }
 
-  void onTapBottomNavigationBar(WBBottomNavigationItem item) {
+  void onTapBottomNavigationBar(GSBottomNavigationItem item) {
     emitS(
       state: currentState.copyWith(
         selectedItem: item,
@@ -70,7 +70,7 @@ class HomeBloc extends WBBloc<HomeState, HomeEvent> {
   HomeBloc({SystemSettings? systemSettings})
       : super(
           HomeState(
-            selectedItem: WBBottomNavigationItem.scan,
+            selectedItem: GSBottomNavigationItem.scan,
             systemSettings: SystemSettings(
               defaultCamera: systemSettings != null
                   ? systemSettings.defaultCamera

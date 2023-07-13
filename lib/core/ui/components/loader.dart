@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import '../../const/colors.dart';
 import 'animations/animated_appearance.dart';
 
-const _defaultColor = WBColors.primary;
+const _defaultColor = GSColors.primary;
 
 class LottieLoader extends StatelessWidget {
   final Color color;
@@ -39,12 +39,12 @@ class BlockingLoader extends StatelessWidget {
       visible: isLoading,
       duration: const Duration(milliseconds: 120),
       childBuilder: (_) => Container(
-        color: WBColors.black.withOpacity(0.5),
+        color: GSColors.black.withOpacity(0.5),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const LottieLoader(color: WBColors.white),
+              const LottieLoader(color: GSColors.white),
               if (message.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.all(24),
@@ -54,7 +54,7 @@ class BlockingLoader extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: WBColors.white,
+                      color: GSColors.white,
                     ),
                   ),
                 ),

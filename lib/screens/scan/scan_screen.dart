@@ -15,7 +15,7 @@ import '../../core/ui/components/bloc_master.dart';
 import 'scan_bloc.dart';
 import 'scan_state.dart';
 
-typedef _BlocOutput = WBBlocOutput<ScanState, ScanEvent>;
+typedef _BlocOutput = GSBlocOutput<ScanState, ScanEvent>;
 
 enum _CameraControls {
   torch(icon: Icons.flash_on),
@@ -55,7 +55,7 @@ Widget _buildCameraIcon(
 ) {
   return Icon(
     cameraControlItem.icon,
-    color: WBColors.white,
+    color: GSColors.white,
   );
 }
 
@@ -66,7 +66,7 @@ Widget _buildTorchIcon(
     valueListenable: scannerController.torchState,
     builder: (_, state, __) => Icon(
       state.displayIcon,
-      color: WBColors.white,
+      color: GSColors.white,
     ),
   );
 }
@@ -95,7 +95,7 @@ class ScanScreen extends HookWidget {
   ) {
     return Container(
       decoration: const BoxDecoration(
-        color: WBColors.black,
+        color: GSColors.black,
         shape: BoxShape.circle,
       ),
       child: IconButton(

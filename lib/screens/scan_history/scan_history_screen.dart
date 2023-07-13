@@ -15,7 +15,7 @@ import 'empty_list_screen.dart';
 import 'scan_history_bloc.dart';
 import 'scan_history_state.dart';
 
-typedef _BlocOutput = WBBlocOutput<ScanHistoryState, ScanHistoryEvent>;
+typedef _BlocOutput = GSBlocOutput<ScanHistoryState, ScanHistoryEvent>;
 
 class ScanHistoryScreen extends StatelessWidget {
   Widget _circularImage(Uint8List? image) {
@@ -71,7 +71,7 @@ class ScanHistoryScreen extends StatelessWidget {
               context.bloc<ScanHistoryBloc>().onToggleReverseList(),
           icon: const Icon(
             Icons.sort,
-            color: WBColors.white,
+            color: GSColors.white,
           ),
         )
     ];
@@ -83,7 +83,7 @@ class ScanHistoryScreen extends StatelessWidget {
       style: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w600,
-        color: WBColors.white,
+        color: GSColors.white,
       ),
     );
   }
@@ -95,7 +95,7 @@ class ScanHistoryScreen extends StatelessWidget {
     final scannedItems = output.state.scannedItems;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: WBColors.primary,
+        backgroundColor: GSColors.primary,
         centerTitle: false,
         title: _buildTitle().tr(),
         actions: _buildSortButton(scannedItems, context),

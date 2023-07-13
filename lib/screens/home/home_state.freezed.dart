@@ -165,7 +165,7 @@ abstract class HomeDeletedEvent implements HomeEvent {
 
 /// @nodoc
 mixin _$HomeState {
-  WBBottomNavigationItem get selectedItem => throw _privateConstructorUsedError;
+  GSBottomNavigationItem get selectedItem => throw _privateConstructorUsedError;
   SystemSettings get systemSettings => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -179,7 +179,7 @@ abstract class $HomeStateCopyWith<$Res> {
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
   $Res call(
-      {WBBottomNavigationItem selectedItem, SystemSettings systemSettings});
+      {GSBottomNavigationItem selectedItem, SystemSettings systemSettings});
 
   $SystemSettingsCopyWith<$Res> get systemSettings;
 }
@@ -204,7 +204,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       selectedItem: null == selectedItem
           ? _value.selectedItem
           : selectedItem // ignore: cast_nullable_to_non_nullable
-              as WBBottomNavigationItem,
+              as GSBottomNavigationItem,
       systemSettings: null == systemSettings
           ? _value.systemSettings
           : systemSettings // ignore: cast_nullable_to_non_nullable
@@ -229,7 +229,7 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {WBBottomNavigationItem selectedItem, SystemSettings systemSettings});
+      {GSBottomNavigationItem selectedItem, SystemSettings systemSettings});
 
   @override
   $SystemSettingsCopyWith<$Res> get systemSettings;
@@ -253,7 +253,7 @@ class __$$_HomeStateCopyWithImpl<$Res>
       selectedItem: null == selectedItem
           ? _value.selectedItem
           : selectedItem // ignore: cast_nullable_to_non_nullable
-              as WBBottomNavigationItem,
+              as GSBottomNavigationItem,
       systemSettings: null == systemSettings
           ? _value.systemSettings
           : systemSettings // ignore: cast_nullable_to_non_nullable
@@ -269,7 +269,7 @@ class _$_HomeState implements _HomeState {
       {required this.selectedItem, required this.systemSettings});
 
   @override
-  final WBBottomNavigationItem selectedItem;
+  final GSBottomNavigationItem selectedItem;
   @override
   final SystemSettings systemSettings;
 
@@ -301,11 +301,11 @@ class _$_HomeState implements _HomeState {
 
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
-      {required final WBBottomNavigationItem selectedItem,
+      {required final GSBottomNavigationItem selectedItem,
       required final SystemSettings systemSettings}) = _$_HomeState;
 
   @override
-  WBBottomNavigationItem get selectedItem;
+  GSBottomNavigationItem get selectedItem;
   @override
   SystemSettings get systemSettings;
   @override

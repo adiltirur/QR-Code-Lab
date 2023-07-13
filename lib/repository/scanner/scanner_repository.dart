@@ -42,7 +42,7 @@ class ScannerRepository {
   }
 
   Future<void> _saveScannedInfo(ScannedInfo scannedInfo) async {
-    final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
+    final box = await Hive.openBox<HiveScannedItem>(GSHiveNames.scanHistory);
     final barCode = scannedInfo.barCode;
     final scannedItem = HiveScannedItem()
       ..uuid = scannedInfo.uuid
@@ -93,12 +93,12 @@ class ScannerRepository {
   }
 
   Future<void> deleteScanHistory() async {
-    final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
+    final box = await Hive.openBox<HiveScannedItem>(GSHiveNames.scanHistory);
     box.deleteFromDisk();
   }
 
   Future<List<HiveScannedItem>> deleteItem(String uuid) async {
-    final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
+    final box = await Hive.openBox<HiveScannedItem>(GSHiveNames.scanHistory);
     box.delete(uuid);
     return box.values.toList();
   }

@@ -37,7 +37,7 @@ class LanguageScreen extends StatelessWidget {
       style: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w600,
-        color: WBColors.white,
+        color: GSColors.white,
       ),
     );
   }
@@ -46,7 +46,7 @@ class LanguageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: WBColors.primary,
+          backgroundColor: GSColors.primary,
           centerTitle: false,
           title: _buildTitle().tr()),
       body: Column(

@@ -4,7 +4,7 @@ import '../../core/error/url_opening_error.dart';
 import '../../core/services/bloc.dart';
 import 'scan_details_state.dart';
 
-class ScanDetailsBloc extends WBBloc<ScanDetailsState, ScanDetailsEvent> {
+class ScanDetailsBloc extends GSBloc<ScanDetailsState, ScanDetailsEvent> {
   void onDelete() {
     emitS(events: [const ScanDetailsEvent.delete()]);
   }

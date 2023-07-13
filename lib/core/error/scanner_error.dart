@@ -3,7 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 
 import 'errors.dart';
 
-class ScannerError extends WBAlertError {
+class ScannerError extends GSAlertError {
   final MobileScannerException exception;
 
   @override

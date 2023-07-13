@@ -6,7 +6,7 @@ import '../../repository/scanner/models/hive_scanned_item.dart';
 import '../../repository/scanner/scanner_repository.dart';
 import 'scan_history_state.dart';
 
-class ScanHistoryBloc extends WBBloc<ScanHistoryState, ScanHistoryEvent> {
+class ScanHistoryBloc extends GSBloc<ScanHistoryState, ScanHistoryEvent> {
   final _scannerRepository = ScannerRepository();
 
   void onBackFromDetailsPage() {
@@ -50,7 +50,7 @@ class ScanHistoryBloc extends WBBloc<ScanHistoryState, ScanHistoryEvent> {
 
   Future<void> _init() async {
     emitS(isLoading: true);
-    final box = await Hive.openBox<HiveScannedItem>(WBHiveNames.scanHistory);
+    final box = await Hive.openBox<HiveScannedItem>(GSHiveNames.scanHistory);
     emitS(
       state: currentState.copyWith(
         scannedItems: box.values.toList()

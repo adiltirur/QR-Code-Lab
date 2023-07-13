@@ -6,12 +6,13 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.18.5 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   auto_route: 5.0.4
+  bloc: 8.1.2
   cupertino_icons: 1.0.5
-  easy_localization: 3.0.2-dev
+  easy_localization: 3.0.2
   flutter:
     sdk: flutter
   flutter_bloc: 8.1.1
@@ -19,9 +20,10 @@ dependencies:
   freezed_annotation: 2.2.0
   hive: 2.2.3
   hive_flutter: 1.1.0
+  image: 3.2.2
   logger: 1.1.0
   lottie: 2.1.0
-  mobile_scanner: 3.0.0-beta.4
+  mobile_scanner: 3.3.0
   path_provider: 2.0.11
   url_launcher: 6.1.7
   uuid: 3.0.7
@@ -61,10 +63,10 @@ flavorizr:
         icon: "assets/app_icons/prod.png"
 
       android:
-        applicationId: "com.workerbase.scanner"
+        applicationId: "com.gradsprint.scanner"
 
       ios:
-        bundleId: "com.workerbase.scanner"
+        bundleId: "com.gradsprint.scanner"
 
     dev:
       app:
@@ -72,6 +74,6 @@ flavorizr:
         icon: "assets/app_icons/dev.png"
 
       android:
-        applicationId: "com.workerbase.scannerDev"
+        applicationId: "com.gradsprint.scannerDev"
       ios:
-        bundleId: "com.workerbase.scannerDev"
+        bundleId: "com.gradsprint.scannerDev"
