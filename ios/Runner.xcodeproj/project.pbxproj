@@ -403,7 +403,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.scannerDev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.qrScannerDev;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -446,7 +446,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8C0BA670A3BCFC8F33DB6EC3 /* Pods-Runner.debug-dev.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = M35X7RP5G7;
+				DEVELOPMENT_TEAM = LHKY9LYC7N;
 				PRODUCT_NAME = Runner;
 			};
 			name = "Debug-dev";
@@ -455,7 +455,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E47AFFCCBC6A2E04A3FD344 /* Pods-Runner.profile-dev.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = M35X7RP5G7;
+				DEVELOPMENT_TEAM = LHKY9LYC7N;
 				PRODUCT_NAME = Runner;
 			};
 			name = "Profile-dev";
@@ -464,7 +464,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FCAB5021426B5C9FA484B817 /* Pods-Runner.release-dev.xcconfig */;
 			buildSettings = {
-				DEVELOPMENT_TEAM = M35X7RP5G7;
+				DEVELOPMENT_TEAM = LHKY9LYC7N;
 				PRODUCT_NAME = Runner;
 			};
 			name = "Release-dev";
@@ -525,16 +525,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = M35X7RP5G7;
+				DEVELOPMENT_TEAM = LHKY9LYC7N;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.scanner.qrCodeScanner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.qrScannerDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -742,7 +745,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.scannerDev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.qrScannerDev;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -865,16 +868,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = M35X7RP5G7;
+				DEVELOPMENT_TEAM = LHKY9LYC7N;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.scanner.qrCodeScanner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.qrScannerDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -888,16 +894,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = M35X7RP5G7;
+				DEVELOPMENT_TEAM = LHKY9LYC7N;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.scanner.qrCodeScanner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.qrScannerDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1037,7 +1046,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.scannerDev;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gradsprint.qrScannerDev;
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

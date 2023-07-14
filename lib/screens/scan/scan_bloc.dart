@@ -79,32 +79,10 @@ class ScanBloc extends GSBloc<ScanState, ScanEvent> {
     );
   }
 
-  void _tryToggleCamera() {
-    emitS(
-      events: [
-        const ScanEvent.toggleCamera(),
-      ],
-    );
-  }
-
   void onErrorDetected(MobileScannerException exception) {
-    //below hardCoded error message is an open issue
-    //with the MobileScanner Plugin
-    //This is a temporary fix(work around) and should be reverted when
-    //https://github.com/juliansteenbakker/mobile_scanner/issues/425 is fixed
-    //Also this will happen only when hot reloading,
-    //so in production the chances of this happening is less
-    const errorMessage = 'Called start() while already started!';
-    final errorDetails = exception.errorDetails;
-    if (currentOutput.error == null) {
-      if (errorDetails != null) if (errorDetails.message == errorMessage) {
-        _tryToggleCamera();
-      } else {
-        emitS(
-          error: ScannerError(exception),
-        );
-      }
-    }
+    emitS(
+      error: ScannerError(exception),
+    );
   }
 
   ScanBloc()

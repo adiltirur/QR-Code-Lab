@@ -74,6 +74,6 @@ flavorizr:
         icon: "assets/app_icons/dev.png"
 
       android:
-        applicationId: "com.gradsprint.scannerDev"
+        applicationId: "com.gradsprint.qrScannerDev"
       ios:
-        bundleId: "com.gradsprint.scannerDev"
+        bundleId: "com.gradsprint.qrScannerDev"

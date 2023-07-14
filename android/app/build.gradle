@@ -38,7 +38,7 @@ android {
         }
         dev {
             dimension "flavor-type"
-            applicationId "com.gradsprint.scannerDev"
+            applicationId "com.gradsprint.qrScannerDev"
             resValue "string", "app_name", "Scanner Dev"
         }
     }
