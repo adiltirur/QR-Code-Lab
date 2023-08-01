@@ -10,6 +10,7 @@ import '../../core/services/bloc.dart';
 import '../../core/ui/components/bloc_master.dart';
 
 import '../../core/ui/components/dialogs/dialog_displayer.dart';
+import '../create/create_qr_code_screen.dart';
 import '../scan/scan_screen.dart';
 import '../scan_history/scan_history_screen.dart';
 import '../settings/settings_screen.dart';
@@ -22,6 +23,8 @@ typedef HomeBlocOutput = GSBlocOutput<HomeState, HomeEvent>;
 extension on GSBottomNavigationItem {
   Widget screen(SystemSettings systemSettings) {
     switch (this) {
+      case GSBottomNavigationItem.create:
+        return CreateQRCode();
       case GSBottomNavigationItem.scan:
         return ScanScreen(systemSettings: systemSettings);
       case GSBottomNavigationItem.history:
@@ -33,32 +36,40 @@ extension on GSBottomNavigationItem {
 
   BottomNavigationBarItem get navigationItem {
     switch (this) {
+      case GSBottomNavigationItem.create:
+        return _buildBottomNavigationItem(
+          Icons.qr_code_scanner_sharp,
+          tr('bottom_navigation.create'),
+        );
       case GSBottomNavigationItem.scan:
-        return BottomNavigationBarItem(
-          icon: const Icon(
-            Icons.qr_code,
-            size: 34,
-          ),
-          label: tr('bottom_navigation.scan'),
+        return _buildBottomNavigationItem(
+          Icons.document_scanner_rounded,
+          tr('bottom_navigation.scan'),
         );
       case GSBottomNavigationItem.history:
-        return BottomNavigationBarItem(
-          icon: const Icon(
-            Icons.history,
-            size: 34,
-          ),
-          label: tr('bottom_navigation.history'),
+        return _buildBottomNavigationItem(
+          Icons.history,
+          tr('bottom_navigation.history'),
         );
+
       case GSBottomNavigationItem.settings:
-        return BottomNavigationBarItem(
-          icon: const Icon(
-            Icons.settings,
-            size: 34,
-          ),
-          label: tr('bottom_navigation.settings'),
+        return _buildBottomNavigationItem(
+          Icons.settings,
+          tr('bottom_navigation.settings'),
         );
     }
   }
+}
+
+BottomNavigationBarItem _buildBottomNavigationItem(
+    IconData icon, String label) {
+  return BottomNavigationBarItem(
+    icon: Icon(
+      icon,
+      size: 34,
+    ),
+    label: label,
+  );
 }
 
 class HomeScreen extends StatelessWidget {
@@ -69,6 +80,7 @@ class HomeScreen extends StatelessWidget {
   Widget _blocBuilder(BuildContext context, HomeBlocOutput output) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: GSColors.white,
         selectedFontSize: 12.0,
         items: GSBottomNavigationItem.values.mapToList(
@@ -76,7 +88,9 @@ class HomeScreen extends StatelessWidget {
         ),
         currentIndex: output.state.selectedItem.index,
         selectedItemColor: GSColors.primary,
+        iconSize: 24,
         unselectedItemColor: GSColors.grey,
+        showUnselectedLabels: true,
         onTap: (value) {
           context.bloc<HomeBloc>().onTapBottomNavigationBar(
                 GSBottomNavigationItem.values[value],

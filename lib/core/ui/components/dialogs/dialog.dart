@@ -7,7 +7,10 @@ import '../../../models/notification.dart';
 import '../separated_unscrollable_list.dart';
 
 class GSAlertDialogContent extends StatelessWidget {
-  static const _textStyle = TextStyle(fontSize: 16);
+  static const _textStyle = TextStyle(
+    fontSize: 16,
+    color: GSColors.white,
+  );
 
   final String body;
 
@@ -57,8 +60,10 @@ class GSDialogAction<T> {
 }
 
 class GSActionDialogContent<T> extends StatelessWidget {
-  static const _textStyle =
-      TextStyle(fontSize: 20, fontWeight: FontWeight.w600);
+  static const _textStyle = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+  );
 
   final String title;
   final List<GSDialogAction<T>> actions;

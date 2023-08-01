@@ -7,7 +7,6 @@ part 'system_settings.freezed.dart';
 class SystemSettings with _$SystemSettings {
   const factory SystemSettings({
     required CameraFacing defaultCamera,
-    required bool shouldSaveImage,
     required String? languageCode,
   }) = _SystemSettings;
 }

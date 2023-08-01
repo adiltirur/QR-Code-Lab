@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../core/models/system_settings.dart';
 part 'home_state.freezed.dart';
 
-enum GSBottomNavigationItem { scan, history, settings }
+enum GSBottomNavigationItem { create, scan, history, settings }
 
 @freezed
 class HomeEvent with _$HomeEvent {

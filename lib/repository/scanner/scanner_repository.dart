@@ -51,14 +51,18 @@ class ScannerRepository {
       ..displayValue = barCode.displayValue
       ..createdAt = scannedInfo.createdAt
       ..modifiedAt = scannedInfo.createdAt
-      ..customName = '';
+      ..customName = scannedInfo.customName ?? '';
     await box.put(
       scannedInfo.uuid,
       scannedItem,
     );
   }
 
-  Future<ScannedInfo> getScannedInfo(Barcode barCode, Uint8List? qrCode) async {
+  Future<ScannedInfo> getScannedInfo(
+    Barcode barCode,
+    Uint8List? qrCode, {
+    String? title,
+  }) async {
     final uuid = const Uuid().v1();
     final compressedImage = await _compressImage(qrCode);
 
@@ -69,7 +73,7 @@ class ScannerRepository {
       barCode: barCode,
       createdAt: dateTime,
       modifiedAt: dateTime,
-      customName: '',
+      customName: title,
     );
     _saveScannedInfo(scannedInfo);
     return scannedInfo;

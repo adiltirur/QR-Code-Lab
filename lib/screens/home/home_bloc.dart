@@ -48,17 +48,6 @@ class HomeBloc extends GSBloc<HomeState, HomeEvent> {
     _systemRepository.saveSystemInfo(currentState.systemSettings);
   }
 
-  void updateSaveImage(bool switchValue) {
-    emitS(
-      state: currentState.copyWith(
-        systemSettings: currentState.systemSettings.copyWith(
-          shouldSaveImage: switchValue,
-        ),
-      ),
-    );
-    _saveToHive();
-  }
-
   void onTapBottomNavigationBar(GSBottomNavigationItem item) {
     emitS(
       state: currentState.copyWith(
@@ -70,13 +59,11 @@ class HomeBloc extends GSBloc<HomeState, HomeEvent> {
   HomeBloc({SystemSettings? systemSettings})
       : super(
           HomeState(
-            selectedItem: GSBottomNavigationItem.scan,
+            selectedItem: GSBottomNavigationItem.create,
             systemSettings: SystemSettings(
               defaultCamera: systemSettings != null
                   ? systemSettings.defaultCamera
                   : CameraFacing.back,
-              shouldSaveImage:
-                  systemSettings != null && systemSettings.shouldSaveImage,
               languageCode: systemSettings?.languageCode,
             ),
           ),

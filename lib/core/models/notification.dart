@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../const/colors.dart';
+
 part 'notification.freezed.dart';
 
 enum GSNotificationType {
   info(
-    backgroundColor: Colors.lightBlueAccent,
+    backgroundColor: GSColors.info,
     icon: Icons.info,
   ),
   warning(
-    backgroundColor: Colors.yellowAccent,
+    backgroundColor: GSColors.warning,
     icon: Icons.warning,
   ),
   confirmation(
-    backgroundColor: Colors.green,
+    backgroundColor: GSColors.success,
     icon: Icons.check,
   ),
   error(
-    backgroundColor: Colors.red,
+    backgroundColor: GSColors.error,
     icon: Icons.close,
   );
 

@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/const/colors.dart';
@@ -18,40 +17,27 @@ import 'scan_history_state.dart';
 typedef _BlocOutput = GSBlocOutput<ScanHistoryState, ScanHistoryEvent>;
 
 class ScanHistoryScreen extends StatelessWidget {
-  Widget _circularImage(Uint8List? image) {
+  Widget _circularImage() {
     return CircleAvatar(
       radius: 40,
       backgroundColor: Colors.grey.withOpacity(0.2),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(40),
-        child: image != null
-            ? RotatedBox(
-                quarterTurns: 1,
-                child: Image.memory(
-                  image,
-                  height: 50.0,
-                  width: 50.0,
-                  fit: BoxFit.cover,
-                ),
-              )
-            : const Icon(Icons.qr_code),
+        child: const Icon(Icons.qr_code),
       ),
     );
   }
 
   Widget _buildListTile(
-    Uint8List? image,
-    HiveScannedItem scannedItem,
-    String? displayValue,
-    DateTime createdDate,
     BuildContext context,
+    HiveScannedItem scannedItem,
+    String displayValue,
+    DateTime createdDate,
   ) {
     return ListTile(
-      leading: _circularImage(image),
+      leading: _circularImage(),
       title: Text(
-        scannedItem.customName.isNotEmpty
-            ? scannedItem.customName
-            : displayValue ?? '',
+        displayValue,
       ),
       subtitle: Text(createdDate.formattedDate),
       onTap: () {
@@ -110,14 +96,13 @@ class ScanHistoryScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final scannedItem = scannedItems[index];
                 final createdDate = scannedItem.createdAt;
-                final displayValue = scannedItem.displayValue;
-                final image = scannedItem.qrCode;
+                final displayValue =
+                    scannedItem.displayValue ?? scannedItem.customName;
                 return _buildListTile(
-                  image,
+                  context,
                   scannedItem,
                   displayValue,
                   createdDate,
-                  context,
                 );
               },
             ),

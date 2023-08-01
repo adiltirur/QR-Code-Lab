@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SystemSettings {
   CameraFacing get defaultCamera => throw _privateConstructorUsedError;
-  bool get shouldSaveImage => throw _privateConstructorUsedError;
   String? get languageCode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,8 +30,7 @@ abstract class $SystemSettingsCopyWith<$Res> {
           SystemSettings value, $Res Function(SystemSettings) then) =
       _$SystemSettingsCopyWithImpl<$Res, SystemSettings>;
   @useResult
-  $Res call(
-      {CameraFacing defaultCamera, bool shouldSaveImage, String? languageCode});
+  $Res call({CameraFacing defaultCamera, String? languageCode});
 }
 
 /// @nodoc
@@ -49,7 +47,6 @@ class _$SystemSettingsCopyWithImpl<$Res, $Val extends SystemSettings>
   @override
   $Res call({
     Object? defaultCamera = null,
-    Object? shouldSaveImage = null,
     Object? languageCode = freezed,
   }) {
     return _then(_value.copyWith(
@@ -57,10 +54,6 @@ class _$SystemSettingsCopyWithImpl<$Res, $Val extends SystemSettings>
           ? _value.defaultCamera
           : defaultCamera // ignore: cast_nullable_to_non_nullable
               as CameraFacing,
-      shouldSaveImage: null == shouldSaveImage
-          ? _value.shouldSaveImage
-          : shouldSaveImage // ignore: cast_nullable_to_non_nullable
-              as bool,
       languageCode: freezed == languageCode
           ? _value.languageCode
           : languageCode // ignore: cast_nullable_to_non_nullable
@@ -77,8 +70,7 @@ abstract class _$$_SystemSettingsCopyWith<$Res>
       __$$_SystemSettingsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {CameraFacing defaultCamera, bool shouldSaveImage, String? languageCode});
+  $Res call({CameraFacing defaultCamera, String? languageCode});
 }
 
 /// @nodoc
@@ -93,7 +85,6 @@ class __$$_SystemSettingsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? defaultCamera = null,
-    Object? shouldSaveImage = null,
     Object? languageCode = freezed,
   }) {
     return _then(_$_SystemSettings(
@@ -101,10 +92,6 @@ class __$$_SystemSettingsCopyWithImpl<$Res>
           ? _value.defaultCamera
           : defaultCamera // ignore: cast_nullable_to_non_nullable
               as CameraFacing,
-      shouldSaveImage: null == shouldSaveImage
-          ? _value.shouldSaveImage
-          : shouldSaveImage // ignore: cast_nullable_to_non_nullable
-              as bool,
       languageCode: freezed == languageCode
           ? _value.languageCode
           : languageCode // ignore: cast_nullable_to_non_nullable
@@ -117,20 +104,16 @@ class __$$_SystemSettingsCopyWithImpl<$Res>
 
 class _$_SystemSettings implements _SystemSettings {
   const _$_SystemSettings(
-      {required this.defaultCamera,
-      required this.shouldSaveImage,
-      required this.languageCode});
+      {required this.defaultCamera, required this.languageCode});
 
   @override
   final CameraFacing defaultCamera;
-  @override
-  final bool shouldSaveImage;
   @override
   final String? languageCode;
 
   @override
   String toString() {
-    return 'SystemSettings(defaultCamera: $defaultCamera, shouldSaveImage: $shouldSaveImage, languageCode: $languageCode)';
+    return 'SystemSettings(defaultCamera: $defaultCamera, languageCode: $languageCode)';
   }
 
   @override
@@ -140,15 +123,12 @@ class _$_SystemSettings implements _SystemSettings {
             other is _$_SystemSettings &&
             (identical(other.defaultCamera, defaultCamera) ||
                 other.defaultCamera == defaultCamera) &&
-            (identical(other.shouldSaveImage, shouldSaveImage) ||
-                other.shouldSaveImage == shouldSaveImage) &&
             (identical(other.languageCode, languageCode) ||
                 other.languageCode == languageCode));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, defaultCamera, shouldSaveImage, languageCode);
+  int get hashCode => Object.hash(runtimeType, defaultCamera, languageCode);
 
   @JsonKey(ignore: true)
   @override
@@ -160,13 +140,10 @@ class _$_SystemSettings implements _SystemSettings {
 abstract class _SystemSettings implements SystemSettings {
   const factory _SystemSettings(
       {required final CameraFacing defaultCamera,
-      required final bool shouldSaveImage,
       required final String? languageCode}) = _$_SystemSettings;
 
   @override
   CameraFacing get defaultCamera;
-  @override
-  bool get shouldSaveImage;
   @override
   String? get languageCode;
   @override

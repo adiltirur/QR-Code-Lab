@@ -31,6 +31,10 @@ class GradSprintScannerApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: GSColors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: GSColors.primary,
+          iconTheme: IconThemeData(color: GSColors.white),
+        ),
         fontFamily: GSFonts.titilliumWeb,
         radioTheme: RadioThemeData(
           fillColor: MaterialStateColor.resolveWith(

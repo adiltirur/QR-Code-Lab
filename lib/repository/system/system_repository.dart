@@ -11,8 +11,7 @@ class SystemRepository {
 
     final hiveSystemInfo = HiveSystemInfo()
       ..cameraFacing = systemSettings.defaultCamera.name
-      ..languageCode = systemSettings.languageCode
-      ..shouldSaveImage = systemSettings.shouldSaveImage;
+      ..languageCode = systemSettings.languageCode;
     await box.put(
       GSHiveNames.settingsId,
       hiveSystemInfo,
@@ -29,7 +28,6 @@ class SystemRepository {
         defaultCamera: hiveSystemInfo.cameraFacing == frontCameraEnumValue
             ? CameraFacing.front
             : CameraFacing.back,
-        shouldSaveImage: hiveSystemInfo.shouldSaveImage,
         languageCode: hiveSystemInfo.languageCode,
       );
       return systemSettings;

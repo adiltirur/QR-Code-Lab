@@ -167,7 +167,7 @@ class ScanScreen extends HookWidget {
       },
       onDetect: (barcode) {
         mobileScannerController.stop();
-        bloc.onBarCodeDetect(barcode, systemSettings.shouldSaveImage);
+        bloc.onBarCodeDetect(barcode);
       },
       errorBuilder: (_, error, __) {
         bloc.onErrorDetected(error);
@@ -265,7 +265,6 @@ class ScanScreen extends HookWidget {
     final mobileScannerController = useMobileScannerController(
       torchEnabled: false,
       cameraFacing: systemSettings.defaultCamera,
-      saveImage: systemSettings.shouldSaveImage,
     );
 
     return Scaffold(

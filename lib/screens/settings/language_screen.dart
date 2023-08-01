@@ -46,9 +46,9 @@ class LanguageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: GSColors.primary,
-          centerTitle: false,
-          title: _buildTitle().tr()),
+        centerTitle: false,
+        title: _buildTitle().tr(),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

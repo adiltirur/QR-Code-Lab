@@ -88,19 +88,6 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSaveImageSwitch(
-    BuildContext context,
-    bool value,
-  ) {
-    return GSListSwitch(
-      title: tr('settings.save_image'),
-      value: value,
-      onChanged: (switchValue) {
-        context.bloc<HomeBloc>().updateSaveImage(switchValue);
-      },
-    );
-  }
-
   Text _buildTitle() {
     return const Text(
       'bottom_navigation.settings',
@@ -118,8 +105,6 @@ class SettingsScreen extends StatelessWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: GSColors.primary,
-        centerTitle: false,
         title: _buildTitle().tr(),
       ),
       body: Column(
@@ -128,10 +113,6 @@ class SettingsScreen extends StatelessWidget {
           SeparatedUnScrollableList(
             children: [
               _buildLanguageButton(context),
-              _buildSaveImageSwitch(
-                context,
-                output.state.systemSettings.shouldSaveImage,
-              ),
               _buildCameraButton(
                 context,
                 output.state.systemSettings.defaultCamera,

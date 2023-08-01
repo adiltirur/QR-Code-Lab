@@ -28,7 +28,7 @@ class ScanBloc extends GSBloc<ScanState, ScanEvent> {
     );
   }
 
-  void onBarCodeDetect(BarcodeCapture barcode, bool saveImage) {
+  void onBarCodeDetect(BarcodeCapture barcode) {
     emitS(isLoading: true);
     final extractedBarCode = barcode.barcodes.tryFirst;
     if (extractedBarCode != null) {
@@ -36,7 +36,7 @@ class ScanBloc extends GSBloc<ScanState, ScanEvent> {
         () async {
           final scannedInfo = await _scannerRepository.getScannedInfo(
             extractedBarCode,
-            saveImage ? barcode.image : null,
+            null,
           );
           return scannedInfo;
         },

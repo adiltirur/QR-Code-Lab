@@ -5,13 +5,11 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 MobileScannerController useMobileScannerController({
   required bool torchEnabled,
   required CameraFacing cameraFacing,
-  required bool saveImage,
 }) {
   return use(
     _MobileScannerControllerHook(
       torchEnabled: torchEnabled,
       cameraFacing: cameraFacing,
-      saveImage: saveImage,
     ),
   );
 }
@@ -20,11 +18,9 @@ class _MobileScannerControllerHook extends Hook<MobileScannerController> {
   const _MobileScannerControllerHook({
     required this.torchEnabled,
     required this.cameraFacing,
-    required this.saveImage,
   });
 
   final bool torchEnabled;
-  final bool saveImage;
   final CameraFacing cameraFacing;
 
   @override
@@ -43,7 +39,6 @@ class _MobileScannerControllerHookState
       facing: hook.cameraFacing,
       torchEnabled: hook.torchEnabled,
       detectionSpeed: DetectionSpeed.noDuplicates,
-      returnImage: hook.saveImage,
     );
   }
 
