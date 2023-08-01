@@ -2,6 +2,8 @@
 
 This app demonstrate basic qr code scanning functionality and mainly depends on [mobile_scanner](https://pub.dev/packages/mobile_scanner) library.
 
+[![Codemagic build status](https://api.codemagic.io/apps/63fdd213d0185cf1058e3a57/63fdd213d0185cf1058e3a56/status_badge.svg)](https://codemagic.io/apps/63fdd213d0185cf1058e3a57/63fdd213d0185cf1058e3a56/latest_build)
+
 ## Functionalities
 
 - QR Code Scanning
