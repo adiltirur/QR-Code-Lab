@@ -11,6 +11,7 @@
 	"create.url_hint": "Geben Sie Ihre URL ein",
 	"general.app_name": "Scanner",
 	"general.company_name": "GradSprint",
+	"general.created_by": "{version}\nErstellt von GradSprint LLP",
 	"general.date_format": "dd.MM.yyyy - kk:mm",
 	"general.deleted": "Gelöscht!",
 	"general.english": "Englisch",

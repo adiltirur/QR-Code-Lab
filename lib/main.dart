@@ -1,19 +1,57 @@
 import 'dart:async';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'core/const/colors.dart';
 import 'core/const/fonts.dart';
 import 'core/extensions/list.dart';
+import 'core/globals/platforms.dart';
 import 'core/models/language.dart';
+import 'core/models/system_info.dart';
 import 'core/routes/router.dart';
 import 'core/services/error_logger.dart';
 import 'core/ui/components/dialogs/dialog_displayer.dart';
 import 'repository/scanner/models/hive_scanned_item.dart';
 import 'repository/system/models/hive_system_info.dart';
+
+Future<SystemInfo> _createSystemInfo() async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  final String deviceModel;
+  final String deviceOSName;
+  final String deviceOSVersion;
+  final bool isRealDevice;
+  final deviceInfo = DeviceInfoPlugin();
+  switch (platform) {
+    case GSPlatform.android:
+      final androidInfo = await deviceInfo.androidInfo;
+      deviceModel = androidInfo.model;
+      deviceOSName = 'android';
+      deviceOSVersion = androidInfo.version.release;
+      isRealDevice = androidInfo.isPhysicalDevice;
+      break;
+    case GSPlatform.ios:
+      final iosInfo = await deviceInfo.iosInfo;
+      deviceModel = iosInfo.utsname.machine;
+      deviceOSName = iosInfo.systemName;
+      deviceOSVersion = iosInfo.systemVersion;
+      isRealDevice = iosInfo.isPhysicalDevice;
+      break;
+  }
+  return SystemInfo(
+    appVersion: packageInfo.version,
+    buildNumber: packageInfo.buildNumber,
+    packageName: packageInfo.packageName,
+    deviceModel: deviceModel,
+    deviceOSName: deviceOSName,
+    deviceOSVersion: deviceOSVersion,
+    isRealDevice: isRealDevice,
+  );
+}
 
 class GradSprintScannerApp extends StatelessWidget {
   static final _appRouter = AppRouter();
@@ -60,6 +98,7 @@ class GradSprintScannerApp extends StatelessWidget {
 
 Future<void> _appEntry() async {
   await EasyLocalization.ensureInitialized();
+  SystemInfo.shared = await _createSystemInfo();
   await Hive.initFlutter();
   Hive
     ..registerAdapter<HiveScannedItem>(HiveScannedItemAdapter())

@@ -225,6 +225,22 @@
                                 </translations>
                             </concept_node>
                             <concept_node>
+                                <name>created_by</name>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>de-DE</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>false</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                            <concept_node>
                                 <name>date_format</name>
                                 <description/>
                                 <comment/>

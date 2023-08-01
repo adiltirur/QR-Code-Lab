@@ -6,6 +6,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../core/const/colors.dart';
 import '../../core/extensions/build_context.dart';
 import '../../core/extensions/list.dart';
+import '../../core/models/system_info.dart';
 import '../../core/routes/router.dart';
 import '../../core/ui/components/bloc_master.dart';
 import '../../core/ui/components/dialogs/dialog_displayer.dart';
@@ -99,11 +100,31 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
+  BottomAppBar _buildBottomAppBar(BuildContext context) {
+    return BottomAppBar(
+      elevation: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'general.created_by',
+            textAlign: TextAlign.center,
+          ).tr(
+            namedArgs: {
+              'version': SystemInfo.shared.fullVersion,
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   Widget _blocBuilder(
     BuildContext context,
     HomeBlocOutput output,
   ) {
     return Scaffold(
+      bottomNavigationBar: _buildBottomAppBar(context),
       appBar: AppBar(
         title: _buildTitle().tr(),
       ),
