@@ -1,0 +1,4 @@
+Release of New Version v1.0.0, build 3
+
+- This release includes creating a custom QR Code and much more.
+- This release removes saving the scanned QR Code image, instead, a new QR Code will be generated in the history based on raw data
