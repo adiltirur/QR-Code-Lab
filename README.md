@@ -43,8 +43,10 @@ or
 <code>flutter pub run build_runner watch --delete-conflicting-outputs</code>
 
 
-### Note:- If you run in VSCode from a keyboard shortcut, it will by default run dev flavour.
+
 ## Running Dev App
 
 - If you are using VSCode, go to Run and Debug tab and choose the flavour from dropdown and click on start debugging button.
-- If you want to run from terminal, use flutter run --flavor dev -t lib/main_dev.dart
+- If you want to run from terminal, use <code>flutter run --flavor dev -t lib/main_dev.dart</code>
+
+#### Note:- If you run in VSCode from a keyboard shortcut, it will by default run dev flavour.
