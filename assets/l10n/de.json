@@ -28,6 +28,7 @@
 	"scan_details.delete_confirmation_msg": "Sind Sie sicher, dass Sie diesen Datensatz löschen wollen?",
 	"scan_details.launch_url": "QR-Code öffnen",
 	"scan_details.open_image": "Bild öffnen",
+	"scan_details.share_subject": "Unterstützt von GradSprint",
 	"scan_history.no_item": "Sie haben kein gescanntes Element, bitte scannen Sie, um die Daten hier zu sehen",
 	"scan_history.title": "Verlauf scannen",
 	"settings.camera_back": "Rückfahrkamera",

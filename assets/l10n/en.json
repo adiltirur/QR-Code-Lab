@@ -28,6 +28,7 @@
 	"scan_details.delete_confirmation_msg": "Are you sure you want to delete this record?",
 	"scan_details.launch_url": "Open QR Code",
 	"scan_details.open_image": "Open Image",
+	"scan_details.share_subject": "Powered by GradSprint",
 	"scan_history.no_item": "You Have No Scanned Item, Please Scan to See Data here",
 	"scan_history.title": "Scan History",
 	"settings.camera_back": "Back Camera",
