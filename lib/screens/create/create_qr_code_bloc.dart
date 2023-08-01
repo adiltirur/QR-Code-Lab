@@ -1,7 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
-import '../../core/error/creation_error.dart';
 import '../../core/services/bloc.dart';
 import '../../repository/scanner/scanner_repository.dart';
 import 'create_qr_code_state.dart';
@@ -40,7 +38,8 @@ class CreateQRCodeBloc extends GSBloc<CreateQRCodeState, CreateQRCodeEvent> {
   }
 
   void onCreate(QRCodeItem type, String text) {
-    if (text.isNotEmpty) {
+    FirebaseCrashlytics.instance.crash();
+/*     if (text.isNotEmpty) {
       executeSafely(
         () async {
           final scannedInfo = await _scannerRepository.getScannedInfo(
@@ -55,7 +54,7 @@ class CreateQRCodeBloc extends GSBloc<CreateQRCodeState, CreateQRCodeEvent> {
       );
     } else {
       emitS(error: CreationError(tr('general.error.required_error')));
-    }
+    } */
   }
 
   Future<void> onDeleteItem(String uuid) async {

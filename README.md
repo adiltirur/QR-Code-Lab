@@ -33,6 +33,8 @@ This app demonstrate basic qr code scanning functionality and mainly depends on 
 - [uuid](https://pub.dev/packages/uuid)
 - [qr_flutter](https://pub.dev/packages/qr_flutter)
 - [share_plus](https://pub.dev/packages/share_plus)
+- [firebase_crashlytics](https://pub.dev/packages/firebase_crashlytics)
+- [firebase_core](https://pub.dev/packages/firebase_core)
 
 ## Before Running
 

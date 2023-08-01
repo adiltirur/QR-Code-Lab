@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -16,6 +18,7 @@ import 'core/models/system_info.dart';
 import 'core/routes/router.dart';
 import 'core/services/error_logger.dart';
 import 'core/ui/components/dialogs/dialog_displayer.dart';
+import 'firebase_options.dart';
 import 'repository/scanner/models/hive_scanned_item.dart';
 import 'repository/system/models/hive_system_info.dart';
 
@@ -120,8 +123,12 @@ Future<void> _appEntry() async {
 
 void appEntry() {
   runZonedGuarded(
-    () {
+    () async {
       WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform);
+      FlutterError.onError =
+          FirebaseCrashlytics.instance.recordFlutterFatalError;
       FlutterError.onError = (error) =>
           ErrorLogger.shared.log(error, error.stack ?? StackTrace.current);
       _appEntry();

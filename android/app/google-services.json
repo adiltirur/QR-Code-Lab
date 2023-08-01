@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "660013430053",
+    "project_id": "qr-code-41c98",
+    "storage_bucket": "qr-code-41c98.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660013430053:android:21c280ec8a5a61a9fc96cc",
+        "android_client_info": {
+          "package_name": "com.gradsprint.qrScannerDev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660013430053-nk2n2jsvita71p1q8l6jfgd0avbmifpt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJtuj3qnqR5ivsHhxXCHmeep1zsbl8Rk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660013430053-nk2n2jsvita71p1q8l6jfgd0avbmifpt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "660013430053-9eopole82f497b9k49032hu7p6mg5q98.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.workerbase.scannerDev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660013430053:android:02ba760c87ee7caffc96cc",
+        "android_client_info": {
+          "package_name": "com.gradsprint.scanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660013430053-nk2n2jsvita71p1q8l6jfgd0avbmifpt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJtuj3qnqR5ivsHhxXCHmeep1zsbl8Rk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660013430053-nk2n2jsvita71p1q8l6jfgd0avbmifpt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "660013430053-9eopole82f497b9k49032hu7p6mg5q98.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.workerbase.scannerDev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660013430053:android:da0cbe88d6f21f6afc96cc",
+        "android_client_info": {
+          "package_name": "com.workerbase.scannerDev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660013430053-nk2n2jsvita71p1q8l6jfgd0avbmifpt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJtuj3qnqR5ivsHhxXCHmeep1zsbl8Rk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660013430053-nk2n2jsvita71p1q8l6jfgd0avbmifpt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "660013430053-9eopole82f497b9k49032hu7p6mg5q98.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.workerbase.scannerDev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
