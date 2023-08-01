@@ -80,7 +80,7 @@ class ScanDetails extends HookWidget {
     return FutureBuilder<ui.Image>(
       future: _loadOverlayImage(),
       builder: (ctx, snapshot) {
-        const size = 280.0;
+        const size = 360.0;
         if (!snapshot.hasData) {
           return const SizedBox(width: size, height: size);
         }
@@ -101,23 +101,18 @@ class ScanDetails extends HookWidget {
       version: QrVersions.auto,
       eyeStyle: const QrEyeStyle(
         eyeShape: QrEyeShape.circle,
-        color: Color(0xff128760),
+        color: GSColors.black,
       ),
       errorCorrectionLevel: QrErrorCorrectLevel.Q,
       dataModuleStyle: const QrDataModuleStyle(
         dataModuleShape: QrDataModuleShape.circle,
-        color: Color(0xff1a5441),
+        color: GSColors.black,
       ),
       embeddedImage: image,
       embeddedImageStyle: const QrEmbeddedImageStyle(
         size: Size.square(80),
       ),
     );
-  }
-
-  Future<Uint8List?> imageToByteData(ui.Image image) async {
-    var byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-    return byteData?.buffer.asUint8List();
   }
 
   Widget _buildShareButton(BuildContext context) {
