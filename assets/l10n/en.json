@@ -34,6 +34,7 @@
 	"settings.camera_back": "Back Camera",
 	"settings.camera_front": "Front Camera",
 	"settings.change_language_title": "Change Language",
+	"settings.dark_mode": "Dark Mode",
 	"settings.delete_history_button": "Delete Scan History",
 	"settings.delete_history_confirmation_msg": "This will delete all scan history, are you sure?",
 	"settings.history_deleted": "All History Deleted!",

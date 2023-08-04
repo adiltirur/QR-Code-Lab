@@ -55,7 +55,6 @@ Widget _buildCameraIcon(
 ) {
   return Icon(
     cameraControlItem.icon,
-    color: GSColors.white,
   );
 }
 
@@ -66,7 +65,6 @@ Widget _buildTorchIcon(
     valueListenable: scannerController.torchState,
     builder: (_, state, __) => Icon(
       state.displayIcon,
-      color: GSColors.white,
     ),
   );
 }
@@ -94,8 +92,8 @@ class ScanScreen extends HookWidget {
     MobileScannerController scannerController,
   ) {
     return Container(
-      decoration: const BoxDecoration(
-        color: GSColors.black,
+      decoration: BoxDecoration(
+        color: systemSettings.isDarkMode ? GSColors.black : GSColors.white,
         shape: BoxShape.circle,
       ),
       child: IconButton(

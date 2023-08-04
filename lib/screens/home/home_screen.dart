@@ -73,23 +73,23 @@ BottomNavigationBarItem _buildBottomNavigationItem(
 }
 
 class HomeScreen extends StatelessWidget {
-  final SystemSettings? systemSettings;
-
-  const HomeScreen({this.systemSettings});
-
   Widget _blocBuilder(BuildContext context, HomeBlocOutput output) {
+    final isDarkMode = output.state.systemSettings.isDarkMode;
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: GSColors.white,
+        backgroundColor: isDarkMode ? GSColors.black : GSColors.white,
         selectedFontSize: 12.0,
         items: GSBottomNavigationItem.values.mapToList(
           (e) => e.navigationItem,
         ),
+        selectedIconTheme: const IconThemeData(fill: 1.0),
+        unselectedIconTheme: const IconThemeData(fill: 0.0),
         currentIndex: output.state.selectedItem.index,
-        selectedItemColor: GSColors.primary,
+        selectedItemColor: isDarkMode ? GSColors.white : GSColors.primary,
+        unselectedItemColor:
+            isDarkMode ? GSColors.white.withOpacity(0.5) : GSColors.grey,
         iconSize: 24,
-        unselectedItemColor: GSColors.grey,
         showUnselectedLabels: true,
         onTap: (value) {
           context.bloc<HomeBloc>().onTapBottomNavigationBar(
@@ -122,8 +122,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocMaster<HomeBloc, HomeBlocOutput>(
-      create: (_) => HomeBloc(systemSettings: systemSettings),
+    return GSBlocConsumer<HomeBloc, HomeBlocOutput>(
       builder: _blocBuilder,
       listener: _blocListener,
       useScreenLoader: true,

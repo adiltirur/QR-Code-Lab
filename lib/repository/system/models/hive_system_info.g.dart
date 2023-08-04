@@ -19,7 +19,7 @@ class HiveSystemInfoAdapter extends TypeAdapter<HiveSystemInfo> {
     return HiveSystemInfo()
       ..languageCode = fields[0] as String?
       ..cameraFacing = fields[1] as String
-      ..shouldSaveImage = fields[2] as bool;
+      ..isDarkMode = fields[2] as bool;
   }
 
   @override
@@ -31,7 +31,7 @@ class HiveSystemInfoAdapter extends TypeAdapter<HiveSystemInfo> {
       ..writeByte(1)
       ..write(obj.cameraFacing)
       ..writeByte(2)
-      ..write(obj.shouldSaveImage);
+      ..write(obj.isDarkMode);
   }
 
   @override

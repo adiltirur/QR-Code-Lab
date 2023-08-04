@@ -11,7 +11,8 @@ class SystemRepository {
 
     final hiveSystemInfo = HiveSystemInfo()
       ..cameraFacing = systemSettings.defaultCamera.name
-      ..languageCode = systemSettings.languageCode;
+      ..languageCode = systemSettings.languageCode
+      ..isDarkMode = systemSettings.isDarkMode;
     await box.put(
       GSHiveNames.settingsId,
       hiveSystemInfo,
@@ -29,6 +30,7 @@ class SystemRepository {
             ? CameraFacing.front
             : CameraFacing.back,
         languageCode: hiveSystemInfo.languageCode,
+        isDarkMode: hiveSystemInfo.isDarkMode,
       );
       return systemSettings;
     }

@@ -24,11 +24,9 @@ class _$AppRouter extends RootStackRouter {
       );
     },
     HomeScreenRoute.name: (routeData) {
-      final args = routeData.argsAs<HomeScreenRouteArgs>(
-          orElse: () => const HomeScreenRouteArgs());
       return MaterialPageX<dynamic>(
         routeData: routeData,
-        child: HomeScreen(systemSettings: args.systemSettings),
+        child: HomeScreen(),
       );
     },
     ScanDetailsRoute.name: (routeData) {
@@ -86,26 +84,14 @@ class SplashScreenRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [HomeScreen]
-class HomeScreenRoute extends PageRouteInfo<HomeScreenRouteArgs> {
-  HomeScreenRoute({SystemSettings? systemSettings})
+class HomeScreenRoute extends PageRouteInfo<void> {
+  const HomeScreenRoute()
       : super(
           HomeScreenRoute.name,
           path: 'home',
-          args: HomeScreenRouteArgs(systemSettings: systemSettings),
         );
 
   static const String name = 'HomeScreenRoute';
-}
-
-class HomeScreenRouteArgs {
-  const HomeScreenRouteArgs({this.systemSettings});
-
-  final SystemSettings? systemSettings;
-
-  @override
-  String toString() {
-    return 'HomeScreenRouteArgs{systemSettings: $systemSettings}';
-  }
 }
 
 /// generated route for

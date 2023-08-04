@@ -20,6 +20,7 @@ import '../../core/services/bloc.dart';
 import '../../core/ui/components/bloc_master.dart';
 import '../../core/ui/components/dialogs/dialog_displayer.dart';
 import '../../core/ui/components/text_buttons.dart';
+import '../home/home_bloc.dart';
 import 'scan_details.bloc.dart';
 import 'scan_details_state.dart';
 
@@ -68,15 +69,15 @@ class ScanDetails extends HookWidget {
     return completer.future;
   }
 
-  List<Widget> _buildImage(String value) {
+  List<Widget> _buildImage(String value, bool isDarkMode) {
     return [
       const SizedBox(height: 32),
-      Center(child: _buildQRImage(value)),
+      Center(child: _buildQRImage(value, isDarkMode)),
       const SizedBox(height: 32),
     ];
   }
 
-  FutureBuilder<ui.Image> _buildQRImage(String value) {
+  FutureBuilder<ui.Image> _buildQRImage(String value, bool isDarkMode) {
     return FutureBuilder<ui.Image>(
       future: _loadOverlayImage(),
       builder: (ctx, snapshot) {
@@ -86,7 +87,7 @@ class ScanDetails extends HookWidget {
         }
         return CustomPaint(
           size: const Size.square(size),
-          painter: _buildQRCode(value, snapshot.data),
+          painter: _buildQRCode(value, snapshot.data, isDarkMode),
         );
       },
     );
@@ -95,18 +96,20 @@ class ScanDetails extends HookWidget {
   QrPainter _buildQRCode(
     String data,
     ui.Image? image,
+    bool isDarkMode,
   ) {
+    var color = isDarkMode ? GSColors.white : GSColors.black;
     return QrPainter(
       data: data,
       version: QrVersions.auto,
-      eyeStyle: const QrEyeStyle(
+      eyeStyle: QrEyeStyle(
         eyeShape: QrEyeShape.circle,
-        color: GSColors.black,
+        color: color,
       ),
       errorCorrectionLevel: QrErrorCorrectLevel.Q,
-      dataModuleStyle: const QrDataModuleStyle(
+      dataModuleStyle: QrDataModuleStyle(
         dataModuleShape: QrDataModuleShape.circle,
-        color: GSColors.black,
+        color: color,
       ),
       embeddedImage: image,
       embeddedImageStyle: const QrEmbeddedImageStyle(
@@ -115,14 +118,14 @@ class ScanDetails extends HookWidget {
     );
   }
 
-  Widget _buildShareButton(BuildContext context) {
+  Widget _buildShareButton(BuildContext context, bool isDarkMode) {
     return IconButton(
       onPressed: () async {
         var rawValue = scannedInfo.barCode.rawValue;
         if (rawValue != null) {
-          final overlayImage = await _buildQRImage(rawValue).future;
-          final image =
-              await _buildQRCode(rawValue, overlayImage).toImageData(360);
+          final overlayImage = await _buildQRImage(rawValue, isDarkMode).future;
+          final image = await _buildQRCode(rawValue, overlayImage, isDarkMode)
+              .toImageData(360);
           final bytes = image?.buffer.asUint8List();
           if (bytes != null) {
             final tempDir = await getTemporaryDirectory();
@@ -172,8 +175,10 @@ class ScanDetails extends HookWidget {
   Widget _blocBuilder(
     BuildContext context,
     _BlocOutput output,
+    bool isDarkMode,
   ) {
-    var rawValue = scannedInfo.barCode.rawValue;
+    final rawValue = scannedInfo.barCode.rawValue;
+
     return WillPopScope(
       onWillPop: () async {
         onBack();
@@ -184,11 +189,10 @@ class ScanDetails extends HookWidget {
         bottomNavigationBar: _buildBottomAppBar(context),
         appBar: AppBar(
           leading: BackButton(
-            color: GSColors.white,
             onPressed: () => onBack(),
           ),
           actions: [
-            _buildShareButton(context),
+            _buildShareButton(context, isDarkMode),
             _buildDeleteRecord(context),
           ],
         ),
@@ -196,7 +200,7 @@ class ScanDetails extends HookWidget {
             padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
             child: ListView(
               children: [
-                if (rawValue != null) ..._buildImage(rawValue),
+                if (rawValue != null) ..._buildImage(rawValue, isDarkMode),
                 const Text(
                   'scan_details.code_info',
                   style: TextStyle(
@@ -206,7 +210,6 @@ class ScanDetails extends HookWidget {
                 ).tr(),
                 ..._buildRawValue(context),
                 const SizedBox(height: 32),
-                /*    _openImage(context, qrCode) */
               ],
             )),
       ),
@@ -241,9 +244,11 @@ class ScanDetails extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        context.bloc<HomeBloc>().currentState.systemSettings.isDarkMode;
     return BlocMaster<ScanDetailsBloc, _BlocOutput>(
       create: (_) => ScanDetailsBloc(),
-      builder: _blocBuilder,
+      builder: (context, output) => _blocBuilder(context, output, isDarkMode),
       listener: _blocListener,
       useScreenLoader: true,
     );

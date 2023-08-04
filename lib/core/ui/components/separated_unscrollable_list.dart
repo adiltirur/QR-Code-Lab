@@ -23,16 +23,12 @@ class GSListButton extends StatelessWidget {
         horizontal: 24,
         vertical: 4,
       ),
-      tileColor: GSColors.white,
-      leading:
-          leadingIcon != null ? Icon(leadingIcon, color: GSColors.black) : null,
+      leading: leadingIcon != null ? Icon(leadingIcon) : null,
       title: Text(
         title,
         style: const TextStyle(fontSize: 16),
       ),
-      trailing: showTrailingIcon
-          ? const Icon(Icons.chevron_right, color: GSColors.black)
-          : null,
+      trailing: showTrailingIcon ? const Icon(Icons.chevron_right) : null,
       onTap: onTap,
     );
   }
@@ -58,9 +54,7 @@ class GSListSwitch extends StatelessWidget {
         horizontal: 24,
         vertical: 4,
       ),
-      tileColor: GSColors.white,
       title: Text(title, style: const TextStyle(fontSize: 16)),
-      activeColor: GSColors.primary,
       value: value,
       onChanged: enabled ? onChanged : null,
     );

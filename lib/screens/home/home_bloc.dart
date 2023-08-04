@@ -22,6 +22,17 @@ class HomeBloc extends GSBloc<HomeState, HomeEvent> {
     );
   }
 
+  void updateTheme(bool isDarkMode) {
+    emitS(
+      state: currentState.copyWith(
+        systemSettings: currentState.systemSettings.copyWith(
+          isDarkMode: isDarkMode,
+        ),
+      ),
+    );
+    _saveToHive();
+  }
+
   void updateLanguage(Language language) {
     emitS(
       state: currentState.copyWith(
@@ -56,14 +67,19 @@ class HomeBloc extends GSBloc<HomeState, HomeEvent> {
     );
   }
 
-  HomeBloc({SystemSettings? systemSettings})
-      : super(
+  HomeBloc({
+    required bool isDarkMode,
+    SystemSettings? systemSettings,
+  }) : super(
           HomeState(
             selectedItem: GSBottomNavigationItem.create,
             systemSettings: SystemSettings(
               defaultCamera: systemSettings != null
                   ? systemSettings.defaultCamera
                   : CameraFacing.back,
+              isDarkMode: systemSettings != null
+                  ? systemSettings.isDarkMode
+                  : isDarkMode,
               languageCode: systemSettings?.languageCode,
             ),
           ),

@@ -43,6 +43,19 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildUpdateThemeSwitch(
+    BuildContext context,
+    bool value,
+  ) {
+    return GSListSwitch(
+      title: tr('settings.dark_mode'),
+      value: value,
+      onChanged: (switchValue) {
+        context.bloc<HomeBloc>().updateTheme(switchValue);
+      },
+    );
+  }
+
   Widget _buildLanguageButton(BuildContext context) {
     return GSListButton(
         title: 'settings.change_language_title'.tr(),
@@ -134,6 +147,10 @@ class SettingsScreen extends StatelessWidget {
           SeparatedUnScrollableList(
             children: [
               _buildLanguageButton(context),
+              _buildUpdateThemeSwitch(
+                context,
+                output.state.systemSettings.isDarkMode,
+              ),
               _buildCameraButton(
                 context,
                 output.state.systemSettings.defaultCamera,

@@ -34,6 +34,7 @@
 	"settings.camera_back": "Rückfahrkamera",
 	"settings.camera_front": "Frontkamera",
 	"settings.change_language_title": "Sprache ändern",
+	"settings.dark_mode": "Dunkler Modus",
 	"settings.delete_history_button": "Scanverlauf löschen",
 	"settings.delete_history_confirmation_msg": "Dadurch wird der gesamte Scanverlauf gelöscht, sind Sie sicher?",
 	"settings.history_deleted": "Die gesamte Geschichte wurde gelöscht!",

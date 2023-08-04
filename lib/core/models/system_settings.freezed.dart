@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SystemSettings {
   CameraFacing get defaultCamera => throw _privateConstructorUsedError;
   String? get languageCode => throw _privateConstructorUsedError;
+  bool get isDarkMode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SystemSettingsCopyWith<SystemSettings> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $SystemSettingsCopyWith<$Res> {
           SystemSettings value, $Res Function(SystemSettings) then) =
       _$SystemSettingsCopyWithImpl<$Res, SystemSettings>;
   @useResult
-  $Res call({CameraFacing defaultCamera, String? languageCode});
+  $Res call(
+      {CameraFacing defaultCamera, String? languageCode, bool isDarkMode});
 }
 
 /// @nodoc
@@ -48,6 +50,7 @@ class _$SystemSettingsCopyWithImpl<$Res, $Val extends SystemSettings>
   $Res call({
     Object? defaultCamera = null,
     Object? languageCode = freezed,
+    Object? isDarkMode = null,
   }) {
     return _then(_value.copyWith(
       defaultCamera: null == defaultCamera
@@ -58,6 +61,10 @@ class _$SystemSettingsCopyWithImpl<$Res, $Val extends SystemSettings>
           ? _value.languageCode
           : languageCode // ignore: cast_nullable_to_non_nullable
               as String?,
+      isDarkMode: null == isDarkMode
+          ? _value.isDarkMode
+          : isDarkMode // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -70,7 +77,8 @@ abstract class _$$_SystemSettingsCopyWith<$Res>
       __$$_SystemSettingsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({CameraFacing defaultCamera, String? languageCode});
+  $Res call(
+      {CameraFacing defaultCamera, String? languageCode, bool isDarkMode});
 }
 
 /// @nodoc
@@ -86,6 +94,7 @@ class __$$_SystemSettingsCopyWithImpl<$Res>
   $Res call({
     Object? defaultCamera = null,
     Object? languageCode = freezed,
+    Object? isDarkMode = null,
   }) {
     return _then(_$_SystemSettings(
       defaultCamera: null == defaultCamera
@@ -96,6 +105,10 @@ class __$$_SystemSettingsCopyWithImpl<$Res>
           ? _value.languageCode
           : languageCode // ignore: cast_nullable_to_non_nullable
               as String?,
+      isDarkMode: null == isDarkMode
+          ? _value.isDarkMode
+          : isDarkMode // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -104,16 +117,20 @@ class __$$_SystemSettingsCopyWithImpl<$Res>
 
 class _$_SystemSettings implements _SystemSettings {
   const _$_SystemSettings(
-      {required this.defaultCamera, required this.languageCode});
+      {required this.defaultCamera,
+      required this.languageCode,
+      required this.isDarkMode});
 
   @override
   final CameraFacing defaultCamera;
   @override
   final String? languageCode;
+  @override
+  final bool isDarkMode;
 
   @override
   String toString() {
-    return 'SystemSettings(defaultCamera: $defaultCamera, languageCode: $languageCode)';
+    return 'SystemSettings(defaultCamera: $defaultCamera, languageCode: $languageCode, isDarkMode: $isDarkMode)';
   }
 
   @override
@@ -124,11 +141,14 @@ class _$_SystemSettings implements _SystemSettings {
             (identical(other.defaultCamera, defaultCamera) ||
                 other.defaultCamera == defaultCamera) &&
             (identical(other.languageCode, languageCode) ||
-                other.languageCode == languageCode));
+                other.languageCode == languageCode) &&
+            (identical(other.isDarkMode, isDarkMode) ||
+                other.isDarkMode == isDarkMode));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, defaultCamera, languageCode);
+  int get hashCode =>
+      Object.hash(runtimeType, defaultCamera, languageCode, isDarkMode);
 
   @JsonKey(ignore: true)
   @override
@@ -140,12 +160,15 @@ class _$_SystemSettings implements _SystemSettings {
 abstract class _SystemSettings implements SystemSettings {
   const factory _SystemSettings(
       {required final CameraFacing defaultCamera,
-      required final String? languageCode}) = _$_SystemSettings;
+      required final String? languageCode,
+      required final bool isDarkMode}) = _$_SystemSettings;
 
   @override
   CameraFacing get defaultCamera;
   @override
   String? get languageCode;
+  @override
+  bool get isDarkMode;
   @override
   @JsonKey(ignore: true)
   _$$_SystemSettingsCopyWith<_$_SystemSettings> get copyWith =>

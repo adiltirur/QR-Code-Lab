@@ -8,5 +8,6 @@ class SystemSettings with _$SystemSettings {
   const factory SystemSettings({
     required CameraFacing defaultCamera,
     required String? languageCode,
+    required bool isDarkMode,
   }) = _SystemSettings;
 }

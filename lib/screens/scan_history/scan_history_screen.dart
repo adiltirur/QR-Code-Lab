@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import '../../core/const/colors.dart';
 import '../../core/extensions/build_context.dart';
 import '../../core/extensions/date_time.dart';
+import '../../core/extensions/list.dart';
 import '../../core/models/scanned_info.dart';
 import '../../core/routes/router.dart';
 import '../../core/services/bloc.dart';
 import '../../core/ui/components/bloc_master.dart';
+import '../../core/ui/components/separated_unscrollable_list.dart';
 import '../../repository/scanner/models/hive_scanned_item.dart';
 import 'empty_list_screen.dart';
 import 'scan_history_bloc.dart';
@@ -20,7 +22,6 @@ class ScanHistoryScreen extends StatelessWidget {
   Widget _circularImage() {
     return CircleAvatar(
       radius: 40,
-      backgroundColor: Colors.grey.withOpacity(0.2),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(40),
         child: const Icon(Icons.qr_code),
@@ -35,11 +36,14 @@ class ScanHistoryScreen extends StatelessWidget {
     DateTime createdDate,
   ) {
     return ListTile(
+      minVerticalPadding: 8.0,
       leading: _circularImage(),
       title: Text(
         displayValue,
       ),
-      subtitle: Text(createdDate.formattedDate),
+      subtitle: Text(
+        createdDate.formattedDate,
+      ),
       onTap: () {
         context.bloc<ScanHistoryBloc>().onTapScannedItem(scannedItem);
       },
@@ -81,30 +85,27 @@ class ScanHistoryScreen extends StatelessWidget {
     final scannedItems = output.state.scannedItems;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: GSColors.primary,
         centerTitle: false,
         title: _buildTitle().tr(),
         actions: _buildSortButton(scannedItems, context),
       ),
       body: scannedItems.isEmpty
           ? EmptyListScreen()
-          : ListView.builder(
-              itemCount: scannedItems.length,
-              reverse: output.state.reverseList,
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                final scannedItem = scannedItems[index];
-                final createdDate = scannedItem.createdAt;
-                final displayValue =
-                    scannedItem.displayValue ?? scannedItem.customName;
-                return _buildListTile(
-                  context,
-                  scannedItem,
-                  displayValue,
-                  createdDate,
-                );
-              },
+          : SeparatedUnScrollableList(
+              children: scannedItems.mapIndexed(
+                (index, item) {
+                  final scannedItem = scannedItems[index];
+                  final createdDate = scannedItem.createdAt;
+                  final displayValue =
+                      scannedItem.displayValue ?? scannedItem.customName;
+                  return _buildListTile(
+                    context,
+                    scannedItem,
+                    displayValue,
+                    createdDate,
+                  );
+                },
+              ),
             ),
     );
   }

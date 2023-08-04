@@ -1,5 +1,12 @@
-Release of New Version v1.0.0, build 3
+Release of New Version v1.0.0, build 6
 
-- Updated Share Text
-- Updated QR Code painter
-- Fixed iOS Build error
+Features
+
+- Added Dark mode support
+- Performance improvements
+
+Known Issues
+
+- Unable to close error Messages
+- AlertBox style error
+- QR Code Overlay Image issue in dark mode

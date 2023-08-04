@@ -2,9 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../core/extensions/build_context.dart';
+import '../home/home_bloc.dart';
+
 class EmptyListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        context.bloc<HomeBloc>().currentState.systemSettings.isDarkMode;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -12,7 +17,7 @@ class EmptyListScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Lottie.asset(
-              'assets/animations/loader.json',
+              'assets/animations/${isDarkMode ? 'loader_dark' : 'loader'}.json',
               width: 84,
               height: 84,
             ),

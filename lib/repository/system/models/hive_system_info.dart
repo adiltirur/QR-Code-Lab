@@ -9,5 +9,5 @@ class HiveSystemInfo {
   @HiveField(1)
   late String cameraFacing;
   @HiveField(2)
-  late bool shouldSaveImage;
+  late bool isDarkMode;
 }

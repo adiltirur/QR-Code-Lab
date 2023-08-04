@@ -12,6 +12,7 @@ class SplashBloc extends GSBloc<SplashState, SplashEvent> {
         const Duration(seconds: 2),
       );
       final systemInfo = await _systemRepository.getSystemInfo();
+
       emitS(
         isLoading: false,
         events: [SplashEvent.done(systemSettings: systemInfo)],

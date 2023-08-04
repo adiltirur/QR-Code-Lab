@@ -11,16 +11,20 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import 'core/const/colors.dart';
 import 'core/const/fonts.dart';
+import 'core/extensions/build_context.dart';
 import 'core/extensions/list.dart';
 import 'core/globals/platforms.dart';
 import 'core/models/language.dart';
 import 'core/models/system_info.dart';
 import 'core/routes/router.dart';
 import 'core/services/error_logger.dart';
+import 'core/ui/components/bloc_master.dart';
 import 'core/ui/components/dialogs/dialog_displayer.dart';
 import 'firebase_options.dart';
 import 'repository/scanner/models/hive_scanned_item.dart';
 import 'repository/system/models/hive_system_info.dart';
+import 'screens/home/home_bloc.dart';
+import 'screens/home/home_screen.dart';
 
 Future<SystemInfo> _createSystemInfo() async {
   final packageInfo = await PackageInfo.fromPlatform();
@@ -69,31 +73,105 @@ class GradSprintScannerApp extends StatelessWidget {
       debugShowMaterialGrid: false,
       debugShowCheckedModeBanner: false,
       title: 'QR-Scanner',
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: GSColors.white,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: GSColors.primary,
-          iconTheme: IconThemeData(color: GSColors.white),
-        ),
-        fontFamily: GSFonts.titilliumWeb,
-        radioTheme: RadioThemeData(
-          fillColor: MaterialStateColor.resolveWith(
-            (states) => GSColors.primary,
-          ),
-        ),
-        dialogTheme: const DialogTheme(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(16),
-            ),
-          ),
-        ),
-      ),
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
-      builder: (context, child) => Material(
-        child: DialogDisplayer(child: child!),
+      builder: (context, child) => BlocMaster<HomeBloc, HomeBlocOutput>(
+        create: (_) => HomeBloc(
+          isDarkMode: context.isDarkMode,
+        ),
+        builder: (context, state) => MaterialApp(
+          themeMode: state.state.systemSettings.isDarkMode
+              ? ThemeMode.dark
+              : ThemeMode.light,
+          theme: ThemeData(
+            useMaterial3: true,
+            scaffoldBackgroundColor: GSColors.white,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: GSColors.primary,
+              iconTheme: IconThemeData(color: GSColors.white),
+            ),
+            bottomAppBarTheme: const BottomAppBarTheme(
+              color: GSColors.white,
+            ),
+            fontFamily: GSFonts.titilliumWeb,
+            radioTheme: RadioThemeData(
+              fillColor: MaterialStateColor.resolveWith(
+                (states) => GSColors.primary,
+              ),
+            ),
+            textTheme: Theme.of(context).textTheme.apply(
+                  bodyColor: GSColors.black,
+                  displayColor: GSColors.black,
+                ),
+            listTileTheme: const ListTileThemeData(
+              iconColor: GSColors.black,
+            ),
+            iconButtonTheme: IconButtonThemeData(
+              style: ButtonStyle(
+                iconColor: MaterialStateColor.resolveWith(
+                  (states) => GSColors.black,
+                ),
+              ),
+            ),
+            dialogTheme: const DialogTheme(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
+                ),
+              ),
+            ),
+          ),
+          darkTheme: ThemeData(
+            useMaterial3: true,
+            scaffoldBackgroundColor: GSColors.black,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: GSColors.black,
+              iconTheme: IconThemeData(color: GSColors.white),
+            ),
+            bottomAppBarTheme: const BottomAppBarTheme(
+              color: GSColors.black,
+            ),
+            fontFamily: GSFonts.titilliumWeb,
+            radioTheme: RadioThemeData(
+              fillColor: MaterialStateColor.resolveWith(
+                (states) => GSColors.white,
+              ),
+            ),
+            textTheme: Theme.of(context).textTheme.apply(
+                  bodyColor: GSColors.white,
+                  displayColor: GSColors.white,
+                ),
+            listTileTheme: ListTileThemeData(
+              iconColor: GSColors.white,
+              subtitleTextStyle: TextStyle(
+                color: GSColors.white.withOpacity(0.5),
+              ),
+            ),
+            iconButtonTheme: IconButtonThemeData(
+              style: ButtonStyle(
+                iconColor: MaterialStateColor.resolveWith(
+                  (states) => GSColors.white,
+                ),
+              ),
+            ),
+            chipTheme: const ChipThemeData(
+              labelStyle: TextStyle(
+                color: GSColors.black,
+              ),
+              secondaryLabelStyle: TextStyle(
+                color: GSColors.black,
+              ),
+            ),
+            dialogTheme: const DialogTheme(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
+                ),
+              ),
+            ),
+          ),
+          home: DialogDisplayer(child: child!),
+        ),
       ),
     );
   }
