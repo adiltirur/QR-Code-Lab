@@ -32,9 +32,10 @@ class RadioList<T> extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(RadioListItem<T> item) {
-    return RadioListTile<T>(
+  Widget _buildItem(RadioListItem item) {
+    return RadioListTile.adaptive(
       title: Text(item.text),
+      useCupertinoCheckmarkStyle: true,
       value: item.value,
       groupValue: value,
       onChanged: (value) {

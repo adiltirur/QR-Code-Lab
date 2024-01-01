@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../error/errors.dart';
 
@@ -71,11 +72,15 @@ class ErrorLogger {
     final errorType = _getErrorType(error);
     final errorMessage = _getErrorMessage(error, false);
 
-    _logger.e(errorType, errorMessage, stackTrace);
-    _fileLogger.e(errorType, errorMessage, stackTrace);
+    _logger.e(errorType, error: errorMessage, stackTrace: stackTrace);
+    _fileLogger.e(errorType, error: errorMessage, stackTrace: stackTrace);
   }
 
-  void log(Object error, StackTrace stackTrace) {
+  Future<void> log(Object error, StackTrace stackTrace) async {
+    await Sentry.captureException(
+      error,
+      stackTrace: stackTrace,
+    );
     if (error is GSError && error.canBeIgnored) {
       return;
     }

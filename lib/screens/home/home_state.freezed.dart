@@ -167,6 +167,7 @@ abstract class HomeDeletedEvent implements HomeEvent {
 mixin _$HomeState {
   GSBottomNavigationItem get selectedItem => throw _privateConstructorUsedError;
   SystemSettings get systemSettings => throw _privateConstructorUsedError;
+  bool get isActive => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -179,7 +180,9 @@ abstract class $HomeStateCopyWith<$Res> {
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
   $Res call(
-      {GSBottomNavigationItem selectedItem, SystemSettings systemSettings});
+      {GSBottomNavigationItem selectedItem,
+      SystemSettings systemSettings,
+      bool isActive});
 
   $SystemSettingsCopyWith<$Res> get systemSettings;
 }
@@ -199,6 +202,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   $Res call({
     Object? selectedItem = null,
     Object? systemSettings = null,
+    Object? isActive = null,
   }) {
     return _then(_value.copyWith(
       selectedItem: null == selectedItem
@@ -209,6 +213,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.systemSettings
           : systemSettings // ignore: cast_nullable_to_non_nullable
               as SystemSettings,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -229,7 +237,9 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {GSBottomNavigationItem selectedItem, SystemSettings systemSettings});
+      {GSBottomNavigationItem selectedItem,
+      SystemSettings systemSettings,
+      bool isActive});
 
   @override
   $SystemSettingsCopyWith<$Res> get systemSettings;
@@ -248,6 +258,7 @@ class __$$_HomeStateCopyWithImpl<$Res>
   $Res call({
     Object? selectedItem = null,
     Object? systemSettings = null,
+    Object? isActive = null,
   }) {
     return _then(_$_HomeState(
       selectedItem: null == selectedItem
@@ -258,6 +269,10 @@ class __$$_HomeStateCopyWithImpl<$Res>
           ? _value.systemSettings
           : systemSettings // ignore: cast_nullable_to_non_nullable
               as SystemSettings,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -266,16 +281,20 @@ class __$$_HomeStateCopyWithImpl<$Res>
 
 class _$_HomeState implements _HomeState {
   const _$_HomeState(
-      {required this.selectedItem, required this.systemSettings});
+      {required this.selectedItem,
+      required this.systemSettings,
+      required this.isActive});
 
   @override
   final GSBottomNavigationItem selectedItem;
   @override
   final SystemSettings systemSettings;
+  @override
+  final bool isActive;
 
   @override
   String toString() {
-    return 'HomeState(selectedItem: $selectedItem, systemSettings: $systemSettings)';
+    return 'HomeState(selectedItem: $selectedItem, systemSettings: $systemSettings, isActive: $isActive)';
   }
 
   @override
@@ -286,11 +305,14 @@ class _$_HomeState implements _HomeState {
             (identical(other.selectedItem, selectedItem) ||
                 other.selectedItem == selectedItem) &&
             (identical(other.systemSettings, systemSettings) ||
-                other.systemSettings == systemSettings));
+                other.systemSettings == systemSettings) &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, selectedItem, systemSettings);
+  int get hashCode =>
+      Object.hash(runtimeType, selectedItem, systemSettings, isActive);
 
   @JsonKey(ignore: true)
   @override
@@ -302,12 +324,15 @@ class _$_HomeState implements _HomeState {
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
       {required final GSBottomNavigationItem selectedItem,
-      required final SystemSettings systemSettings}) = _$_HomeState;
+      required final SystemSettings systemSettings,
+      required final bool isActive}) = _$_HomeState;
 
   @override
   GSBottomNavigationItem get selectedItem;
   @override
   SystemSettings get systemSettings;
+  @override
+  bool get isActive;
   @override
   @JsonKey(ignore: true)
   _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>

@@ -11,6 +11,14 @@ class HomeBloc extends GSBloc<HomeState, HomeEvent> {
   final _systemRepository = SystemRepository();
   final _scannerRepository = ScannerRepository();
 
+  void toggleAppStatus(bool isActive) {
+    emitS(
+      state: currentState.copyWith(
+        isActive: isActive,
+      ),
+    );
+  }
+
   Future<void> deleteScanHistory() async {
     emitS(isLoading: true);
     await _scannerRepository.deleteScanHistory();
@@ -82,6 +90,7 @@ class HomeBloc extends GSBloc<HomeState, HomeEvent> {
                   : isDarkMode,
               languageCode: systemSettings?.languageCode,
             ),
+            isActive: true,
           ),
         );
 }

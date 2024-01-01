@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../core/const/colors.dart';
 import '../../core/extensions/build_context.dart';
@@ -15,6 +17,7 @@ import '../scan/scan_screen.dart';
 import '../scan_history/scan_history_screen.dart';
 import '../settings/settings_screen.dart';
 
+import '../splash/splash_screen.dart';
 import 'home_bloc.dart';
 import 'home_state.dart';
 
@@ -59,6 +62,44 @@ extension on GSBottomNavigationItem {
         );
     }
   }
+
+  NavigationRailDestination get navigationRailItem {
+    switch (this) {
+      case GSBottomNavigationItem.create:
+        return _buildNavigationRailItem(
+          Icons.home,
+          tr('bottom_navigation.create'),
+        );
+      case GSBottomNavigationItem.scan:
+        return _buildNavigationRailItem(
+          Icons.car_rental,
+          tr('bottom_navigation.scan'),
+        );
+      case GSBottomNavigationItem.history:
+        return _buildNavigationRailItem(
+          Icons.car_repair_sharp,
+          tr('bottom_navigation.history'),
+        );
+      case GSBottomNavigationItem.settings:
+        return _buildNavigationRailItem(
+          Icons.person,
+          tr('bottom_navigation.settings'),
+        );
+    }
+  }
+}
+
+NavigationRailDestination _buildNavigationRailItem(
+  IconData icon,
+  String label,
+) {
+  return NavigationRailDestination(
+    icon: Icon(
+      icon,
+      size: 34,
+    ),
+    label: Text(label),
+  );
 }
 
 BottomNavigationBarItem _buildBottomNavigationItem(
@@ -72,34 +113,85 @@ BottomNavigationBarItem _buildBottomNavigationItem(
   );
 }
 
-class HomeScreen extends StatelessWidget {
-  Widget _blocBuilder(BuildContext context, HomeBlocOutput output) {
+@RoutePage()
+class HomeScreen extends HookWidget {
+  Widget _blocBuilder(
+    BuildContext context,
+    HomeBlocOutput output,
+    AppLifecycleState? lifecycleState,
+  ) {
     final isDarkMode = output.state.systemSettings.isDarkMode;
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: isDarkMode ? GSColors.black : GSColors.white,
-        selectedFontSize: 12.0,
-        items: GSBottomNavigationItem.values.mapToList(
-          (e) => e.navigationItem,
-        ),
-        selectedIconTheme: const IconThemeData(fill: 1.0),
-        unselectedIconTheme: const IconThemeData(fill: 0.0),
-        currentIndex: output.state.selectedItem.index,
-        selectedItemColor: isDarkMode ? GSColors.white : GSColors.primary,
-        unselectedItemColor:
-            isDarkMode ? GSColors.white.withOpacity(0.5) : GSColors.grey,
-        iconSize: 24,
-        showUnselectedLabels: true,
-        onTap: (value) {
-          context.bloc<HomeBloc>().onTapBottomNavigationBar(
-                GSBottomNavigationItem.values[value],
-              );
-        },
+    switch (lifecycleState) {
+      case AppLifecycleState.inactive:
+        context.bloc<HomeBloc>().toggleAppStatus(false);
+      default:
+        context.bloc<HomeBloc>().toggleAppStatus(true);
+    }
+    final isActive = output.state.isActive;
+    return isActive
+        ? Scaffold(
+            /*       bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: isDarkMode ? GSColors.black : GSColors.white,
+              selectedFontSize: 12.0,
+              items: GSBottomNavigationItem.values.mapToList(
+                (e) => e.navigationItem,
+              ),
+              selectedIconTheme: const IconThemeData(fill: 1.0),
+              unselectedIconTheme: const IconThemeData(fill: 0.0),
+              currentIndex: output.state.selectedItem.index,
+              selectedItemColor: isDarkMode ? GSColors.white : GSColors.primary,
+              unselectedItemColor:
+                  isDarkMode ? GSColors.white.withOpacity(0.5) : GSColors.grey,
+              iconSize: 24,
+              showUnselectedLabels: true,
+              onTap: (value) {
+                context.bloc<HomeBloc>().onTapBottomNavigationBar(
+                      GSBottomNavigationItem.values[value],
+                    );
+              },
+            ), */
+            body: Row(
+              children: [
+                _buildNavigationRail(context, output.state),
+                const VerticalDivider(thickness: 1, width: 1),
+                Expanded(
+                  child: GSBottomNavigationItem.values
+                      .elementAt(output.state.selectedItem.index)
+                      .screen(output.state.systemSettings),
+                ),
+              ],
+            ),
+          )
+        : const SplashScreen(showAnimation: false);
+  }
+
+  NavigationRail _buildNavigationRail(BuildContext context, HomeState state) {
+    return NavigationRail(
+      selectedIndex: state.selectedItem.index,
+      groupAlignment: -1.0,
+      indicatorColor: Colors.transparent,
+      unselectedIconTheme: const IconThemeData(color: Colors.grey),
+      onDestinationSelected: (index) {
+        context
+            .bloc<HomeBloc>()
+            .onTapBottomNavigationBar(GSBottomNavigationItem.values[index]);
+      },
+      labelType: NavigationRailLabelType.all,
+      destinations: GSBottomNavigationItem.values.mapToList(
+        (e) => e.navigationRailItem,
       ),
-      body: GSBottomNavigationItem.values
-          .elementAt(output.state.selectedItem.index)
-          .screen(output.state.systemSettings),
+      trailing: Expanded(
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: IconButton(
+              onPressed: () async {},
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.black,
+              )),
+        ),
+      ),
     );
   }
 
@@ -122,8 +214,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lifecycleState = useAppLifecycleState();
+
     return GSBlocConsumer<HomeBloc, HomeBlocOutput>(
-      builder: _blocBuilder,
+      builder: (context, output) => _blocBuilder(
+        context,
+        output,
+        lifecycleState,
+      ),
       listener: _blocListener,
       useScreenLoader: true,
     );

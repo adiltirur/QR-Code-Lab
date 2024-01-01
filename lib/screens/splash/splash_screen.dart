@@ -13,7 +13,14 @@ import 'splash_state.dart';
 
 typedef _BlocOutput = GSBlocOutput<SplashState, SplashEvent>;
 
+@RoutePage()
 class SplashScreen extends StatelessWidget {
+  final bool showAnimation;
+
+  const SplashScreen({
+    super.key,
+    this.showAnimation = true,
+  });
   Widget _buildAppName() {
     return Text(
       F.title,
@@ -27,6 +34,7 @@ class SplashScreen extends StatelessWidget {
   Widget _buildAnimation(bool isDarkMode) {
     return Lottie.asset(
       'assets/animations/${isDarkMode ? 'loader_dark' : 'loader'}.json',
+      animate: showAnimation,
       width: 84,
       height: 84,
     );

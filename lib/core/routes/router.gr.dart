@@ -1,37 +1,36 @@
-// **************************************************************************
-// AutoRouteGenerator
-// **************************************************************************
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// AutoRouterGenerator
 // **************************************************************************
-//
+
 // ignore_for_file: type=lint
+// coverage:ignore-file
 
 part of 'router.dart';
 
-class _$AppRouter extends RootStackRouter {
-  _$AppRouter([GlobalKey<NavigatorState>? navigatorKey]) : super(navigatorKey);
+abstract class _$AppRouter extends RootStackRouter {
+  // ignore: unused_element
+  _$AppRouter({super.navigatorKey});
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    SplashScreenRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: SplashScreen(),
-      );
-    },
     HomeScreenRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
+      return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: HomeScreen(),
       );
     },
+    LanguageScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<LanguageScreenRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: LanguageScreen(onChangeLanguage: args.onChangeLanguage),
+      );
+    },
     ScanDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<ScanDetailsRouteArgs>();
-      return MaterialPageX<dynamic>(
+      return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: ScanDetails(
           scannedInfo: args.scannedInfo,
@@ -40,58 +39,61 @@ class _$AppRouter extends RootStackRouter {
         ),
       );
     },
-    LanguageScreenRoute.name: (routeData) {
-      final args = routeData.argsAs<LanguageScreenRouteArgs>();
-      return MaterialPageX<dynamic>(
+    SplashScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<SplashScreenRouteArgs>(
+          orElse: () => const SplashScreenRouteArgs());
+      return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: LanguageScreen(onChangeLanguage: args.onChangeLanguage),
+        child: SplashScreen(
+          key: args.key,
+          showAnimation: args.showAnimation,
+        ),
       );
     },
   };
-
-  @override
-  List<RouteConfig> get routes => [
-        RouteConfig(
-          SplashScreenRoute.name,
-          path: '/',
-        ),
-        RouteConfig(
-          HomeScreenRoute.name,
-          path: 'home',
-        ),
-        RouteConfig(
-          ScanDetailsRoute.name,
-          path: 'scanDetails',
-        ),
-        RouteConfig(
-          LanguageScreenRoute.name,
-          path: 'language',
-        ),
-      ];
-}
-
-/// generated route for
-/// [SplashScreen]
-class SplashScreenRoute extends PageRouteInfo<void> {
-  const SplashScreenRoute()
-      : super(
-          SplashScreenRoute.name,
-          path: '/',
-        );
-
-  static const String name = 'SplashScreenRoute';
 }
 
 /// generated route for
 /// [HomeScreen]
 class HomeScreenRoute extends PageRouteInfo<void> {
-  const HomeScreenRoute()
+  const HomeScreenRoute({List<PageRouteInfo>? children})
       : super(
           HomeScreenRoute.name,
-          path: 'home',
+          initialChildren: children,
         );
 
   static const String name = 'HomeScreenRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [LanguageScreen]
+class LanguageScreenRoute extends PageRouteInfo<LanguageScreenRouteArgs> {
+  LanguageScreenRoute({
+    required void Function(Language) onChangeLanguage,
+    List<PageRouteInfo>? children,
+  }) : super(
+          LanguageScreenRoute.name,
+          args: LanguageScreenRouteArgs(onChangeLanguage: onChangeLanguage),
+          initialChildren: children,
+        );
+
+  static const String name = 'LanguageScreenRoute';
+
+  static const PageInfo<LanguageScreenRouteArgs> page =
+      PageInfo<LanguageScreenRouteArgs>(name);
+}
+
+class LanguageScreenRouteArgs {
+  const LanguageScreenRouteArgs({required this.onChangeLanguage});
+
+  final void Function(Language) onChangeLanguage;
+
+  @override
+  String toString() {
+    return 'LanguageScreenRouteArgs{onChangeLanguage: $onChangeLanguage}';
+  }
 }
 
 /// generated route for
@@ -101,17 +103,21 @@ class ScanDetailsRoute extends PageRouteInfo<ScanDetailsRouteArgs> {
     required ScannedInfo scannedInfo,
     required void Function(String) onDelete,
     required void Function() onBack,
+    List<PageRouteInfo>? children,
   }) : super(
           ScanDetailsRoute.name,
-          path: 'scanDetails',
           args: ScanDetailsRouteArgs(
             scannedInfo: scannedInfo,
             onDelete: onDelete,
             onBack: onBack,
           ),
+          initialChildren: children,
         );
 
   static const String name = 'ScanDetailsRoute';
+
+  static const PageInfo<ScanDetailsRouteArgs> page =
+      PageInfo<ScanDetailsRouteArgs>(name);
 }
 
 class ScanDetailsRouteArgs {
@@ -134,25 +140,39 @@ class ScanDetailsRouteArgs {
 }
 
 /// generated route for
-/// [LanguageScreen]
-class LanguageScreenRoute extends PageRouteInfo<LanguageScreenRouteArgs> {
-  LanguageScreenRoute({required void Function(Language) onChangeLanguage})
-      : super(
-          LanguageScreenRoute.name,
-          path: 'language',
-          args: LanguageScreenRouteArgs(onChangeLanguage: onChangeLanguage),
+/// [SplashScreen]
+class SplashScreenRoute extends PageRouteInfo<SplashScreenRouteArgs> {
+  SplashScreenRoute({
+    Key? key,
+    bool showAnimation = true,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SplashScreenRoute.name,
+          args: SplashScreenRouteArgs(
+            key: key,
+            showAnimation: showAnimation,
+          ),
+          initialChildren: children,
         );
 
-  static const String name = 'LanguageScreenRoute';
+  static const String name = 'SplashScreenRoute';
+
+  static const PageInfo<SplashScreenRouteArgs> page =
+      PageInfo<SplashScreenRouteArgs>(name);
 }
 
-class LanguageScreenRouteArgs {
-  const LanguageScreenRouteArgs({required this.onChangeLanguage});
+class SplashScreenRouteArgs {
+  const SplashScreenRouteArgs({
+    this.key,
+    this.showAnimation = true,
+  });
 
-  final void Function(Language) onChangeLanguage;
+  final Key? key;
+
+  final bool showAnimation;
 
   @override
   String toString() {
-    return 'LanguageScreenRouteArgs{onChangeLanguage: $onChangeLanguage}';
+    return 'SplashScreenRouteArgs{key: $key, showAnimation: $showAnimation}';
   }
 }

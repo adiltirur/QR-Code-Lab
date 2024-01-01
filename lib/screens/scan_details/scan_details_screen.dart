@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
@@ -26,7 +26,8 @@ import 'scan_details_state.dart';
 
 typedef _BlocOutput = GSBlocOutput<ScanDetailsState, ScanDetailsEvent>;
 
-class ScanDetails extends HookWidget {
+@RoutePage()
+class ScanDetails extends StatelessWidget {
   final ScannedInfo scannedInfo;
   final void Function(String uuid) onDelete;
   final void Function() onBack;

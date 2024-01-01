@@ -15,5 +15,6 @@ class HomeState with _$HomeState {
   const factory HomeState({
     required GSBottomNavigationItem selectedItem,
     required SystemSettings systemSettings,
+    required bool isActive,
   }) = _HomeState;
 }

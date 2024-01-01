@@ -1,5 +1,11 @@
 import 'dart:io';
 
-enum GSPlatform { android, ios }
+import 'package:flutter/foundation.dart';
 
-final platform = Platform.isAndroid ? GSPlatform.android : GSPlatform.ios;
+enum GSPlatform { android, ios, web }
+
+final platform = kIsWeb
+    ? GSPlatform.web
+    : Platform.isAndroid
+        ? GSPlatform.android
+        : GSPlatform.ios;

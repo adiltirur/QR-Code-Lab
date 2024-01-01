@@ -2,15 +2,15 @@ import 'dart:async';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'core/const/colors.dart';
 import 'core/const/fonts.dart';
+import 'core/env/env.dart';
 import 'core/extensions/build_context.dart';
 import 'core/extensions/list.dart';
 import 'core/globals/platforms.dart';
@@ -20,7 +20,6 @@ import 'core/routes/router.dart';
 import 'core/services/error_logger.dart';
 import 'core/ui/components/bloc_master.dart';
 import 'core/ui/components/dialogs/dialog_displayer.dart';
-import 'firebase_options.dart';
 import 'repository/scanner/models/hive_scanned_item.dart';
 import 'repository/system/models/hive_system_info.dart';
 import 'screens/home/home_bloc.dart';
@@ -48,6 +47,12 @@ Future<SystemInfo> _createSystemInfo() async {
       deviceOSVersion = iosInfo.systemVersion;
       isRealDevice = iosInfo.isPhysicalDevice;
       break;
+    case GSPlatform.web:
+      deviceModel = 'iosInfo.utsname.machine';
+      deviceOSName = '';
+      deviceOSVersion = '';
+      isRealDevice = true;
+      break;
   }
   return SystemInfo(
     appVersion: packageInfo.version,
@@ -61,7 +66,7 @@ Future<SystemInfo> _createSystemInfo() async {
 }
 
 class GradSprintScannerApp extends StatelessWidget {
-  static final _appRouter = AppRouter();
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -187,14 +192,25 @@ Future<void> _appEntry() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(
-    EasyLocalization(
-      supportedLocales: Language.values.mapToList(
-        (e) => e.locale,
+
+  await SentryFlutter.init(
+    (options) {
+      options
+        ..dsn = Env.sentryDSN
+        ..attachScreenshot = true
+        ..tracesSampleRate = 1.0;
+    },
+    appRunner: () => runApp(
+      EasyLocalization(
+        supportedLocales: Language.values.mapToList(
+          (e) => e.locale,
+        ),
+        fallbackLocale: Language.english.locale,
+        path: 'assets/l10n',
+        child: SentryScreenshotWidget(
+          child: GradSprintScannerApp(),
+        ),
       ),
-      fallbackLocale: Language.english.locale,
-      path: 'assets/l10n',
-      child: GradSprintScannerApp(),
     ),
   );
 }
@@ -203,10 +219,10 @@ void appEntry() {
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-      await Firebase.initializeApp(
+/*       await Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform);
       FlutterError.onError =
-          FirebaseCrashlytics.instance.recordFlutterFatalError;
+          FirebaseCrashlytics.instance.recordFlutterFatalError; */
       FlutterError.onError = (error) =>
           ErrorLogger.shared.log(error, error.stack ?? StackTrace.current);
       _appEntry();
